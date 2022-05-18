@@ -1,35 +1,107 @@
 package org.uem.dam.GestorFarmacia.view;
 
-import javax.swing.JFrame;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JPanel;
+import java.awt.Dimension;
 
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.model.ComponentView;
+
+import net.miginfocom.swing.MigLayout;
 
 public class MainView extends JFrame implements ComponentView {
 	
+	private MainController mainController;
+	private JMenuBar menuBar;
+	private JMenu fileMn;
+	private JMenuItem exitMntm;
+	
+	private LoginPanel loginPanel;
+	private TablePanel tablePanel;
+	private DataInsertPanel dataInsertPanel;
+	private JScrollPane rootPane;
+	
 	public MainView() {
 		initComponents();
-	}
+		initAttributes();
+		setSubmenuView(loginPanel); // always want to start on login
+	}		
+	
 	
 	@Override
 	public void initComponents() {
 		getContentPane().setLayout(new MigLayout("", "[grow]", "[grow]"));
 		
-		JPanel contentPane = new JPanel();
-		getContentPane().add(contentPane, "cell 0 0,grow");
+		rootPane = new JScrollPane();
+		getContentPane().add(rootPane, "cell 0 0,grow");
 		
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenu fileMn = new JMenu("File");
+		fileMn = new JMenu("File");
 		menuBar.add(fileMn);
 		
-		JMenuItem exitMntm = new JMenuItem("Exit");
+		exitMntm = new JMenuItem("Exit");
 		fileMn.add(exitMntm);
+		
+		loginPanel = new LoginPanel();
+		rootPane.add(loginPanel);
+		
+		tablePanel = new TablePanel();
+		rootPane.add(tablePanel);
 	}
 
+	
+	@Override
+	public void initAttributes() {
+		this.setVisible(true);
+		this.setTitle("Gestor de Base de Datos");
+		
+		// pack the view and set it as minimum size
+		this.pack();
+		this.setMinimumSize(getSize());
+		this.setSize(new Dimension(300, 300));
+		
+		// set main view content 
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		// update 
+		repaint();
+		
+	}
+	
+
+	public void setController(MainController mainController) {
+		this.mainController = mainController;
+		exitMntm.addActionListener(mainController);
+	}
+	
+	
+	public void setSubmenuView(JPanel submenu) {
+		rootPane.setViewportView(submenu);
+	}
+	
+	
+	public void requestExitAction() {
+		if (
+				JOptionPane.showConfirmDialog(
+	                this,
+	                "Se va a cerrar el programa, ¿confirmar?",
+	                "Confirmar cierre",
+	                JOptionPane.YES_NO_OPTION,
+	                JOptionPane.INFORMATION_MESSAGE
+		        ) == JOptionPane.YES_OPTION
+			) {
+			System.exit(NORMAL);
+		}
+	}
+
+	
+	
 }

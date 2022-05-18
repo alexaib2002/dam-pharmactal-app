@@ -10,6 +10,7 @@ public class TablePanel extends JPanel implements ComponentView {
 	private JTable table;
 	public TablePanel() {
 		initComponents();
+		initAttributes();
 	}
 	
 	@Override
@@ -18,6 +19,12 @@ public class TablePanel extends JPanel implements ComponentView {
 		
 		table = new JTable();
 		add(table, "cell 0 1,grow");
+	}
+
+	@Override
+	public void initAttributes() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

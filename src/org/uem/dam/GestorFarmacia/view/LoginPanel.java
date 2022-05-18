@@ -17,11 +17,12 @@ public class LoginPanel extends JPanel implements ComponentView {
 	
 	public LoginPanel() {
 		initComponents();
+		initAttributes();
 	}
 	
 	@Override
 	public void initComponents() {
-		setLayout(new MigLayout("", "[][grow]", "[][][][]"));
+		setLayout(new MigLayout("", "[][grow]", "[grow,fill][][][]"));
 		
 		JLabel titleLbl = new JLabel("Login");
 		titleLbl.setFont(new Font("Dialog", Font.BOLD, 28));
@@ -44,6 +45,12 @@ public class LoginPanel extends JPanel implements ComponentView {
 		
 		JButton loginBtn = new JButton("Login");
 		add(loginBtn, "cell 0 3 2 1,grow");
+	}
+	
+	@Override
+	public void initAttributes() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

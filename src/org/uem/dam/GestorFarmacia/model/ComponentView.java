@@ -4,4 +4,6 @@ public interface ComponentView {
 		
 	public void initComponents();
 	
+	public void initAttributes();
+	
 }
