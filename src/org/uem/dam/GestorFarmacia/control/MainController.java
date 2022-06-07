@@ -7,6 +7,7 @@ import javax.swing.JComponent;
 
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager.LookAndFeelItem;
+import org.uem.dam.GestorFarmacia.utils.WindowActionUtils;
 import org.uem.dam.GestorFarmacia.view.MainFrame;
 
 public class MainController implements ActionListener {
@@ -44,7 +45,7 @@ public class MainController implements ActionListener {
 	private void parseGenericAction(String action) {
 		switch (action.toLowerCase()) {
 		case "exit": {
-			mainView.requestExitAction();
+			WindowActionUtils.onExitEvent(mainView);
 			break;
 		}
 		default:

@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -105,13 +104,6 @@ public class MainFrame extends JFrame implements ComponentView {
 
 	public void setSubmenuView(JPanel submenu) {
 		rootPane.setViewportView(submenu);
-	}
-
-	public void requestExitAction() {
-		if (JOptionPane.showConfirmDialog(this, "Se va a cerrar el programa, ¿confirmar?", "Confirmar cierre",
-				JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.YES_OPTION) {
-			System.exit(NORMAL);
-		}
 	}
 
 }
