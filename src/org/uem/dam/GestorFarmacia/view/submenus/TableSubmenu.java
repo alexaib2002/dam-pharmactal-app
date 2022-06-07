@@ -2,7 +2,7 @@ package org.uem.dam.GestorFarmacia.view.submenus;
 
 import javax.swing.JTable;
 
-import org.uem.dam.GestorFarmacia.model.ComponentView;
+import org.uem.dam.GestorFarmacia.view.ComponentView;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -16,12 +16,6 @@ public class TableSubmenu extends DefaultSubmenu implements ComponentView {
 
 		table = new JTable();
 		add(table, "cell 0 1,grow");
-	}
-
-	@Override
-	public void initAttributes() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

@@ -1,6 +1,7 @@
 package org.uem.dam.GestorFarmacia.view;
 
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -9,8 +10,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import org.uem.dam.GestorFarmacia.control.MainController;
-import org.uem.dam.GestorFarmacia.model.ComponentView;
 import org.uem.dam.GestorFarmacia.view.submenus.DataInsertSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.LoginSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.TableSubmenu;
@@ -20,14 +19,13 @@ import net.miginfocom.swing.MigLayout;
 public class MainFrame extends JFrame implements ComponentView {
 
 	private static final long serialVersionUID = 1L;
-	private MainController mainController;
 	private JMenuBar menuBar;
 	private JMenu fileMn;
 	private JMenuItem exitMntm;
 
-	private LoginSubmenu loginPanel;
-	private TableSubmenu tablePanel;
-	private DataInsertSubmenu dataInsertPanel;
+	private LoginSubmenu loginSubmn;
+	private TableSubmenu tableSubmn;
+	private DataInsertSubmenu dataInsertSubmn;
 	private JScrollPane rootPane;
 	private JMenu mnView;
 	private JMenu mnTheme;
@@ -37,7 +35,7 @@ public class MainFrame extends JFrame implements ComponentView {
 	public MainFrame() {
 		initComponents();
 		initAttributes();
-		setSubmenuView(loginPanel); // always want to start on login
+		setSubmenuView(loginSubmn); // always want to start on login
 	}
 
 	@Override
@@ -70,11 +68,14 @@ public class MainFrame extends JFrame implements ComponentView {
 		darkMntm.putClientProperty("CallerID", "ThemeMenu");
 		mnTheme.add(darkMntm);
 
-		loginPanel = new LoginSubmenu();
-		rootPane.add(loginPanel);
+		loginSubmn = new LoginSubmenu();
+		rootPane.add(loginSubmn);
 
-		tablePanel = new TableSubmenu();
-		rootPane.add(tablePanel);
+		tableSubmn = new TableSubmenu();
+		rootPane.add(tableSubmn);
+
+		dataInsertSubmn = new DataInsertSubmenu();
+		rootPane.add(dataInsertSubmn);
 	}
 
 	@Override
@@ -95,11 +96,28 @@ public class MainFrame extends JFrame implements ComponentView {
 
 	}
 
-	public void setController(MainController mainController) {
-		this.mainController = mainController;
-		exitMntm.addActionListener(mainController);
-		lightMntm.addActionListener(mainController);
-		darkMntm.addActionListener(mainController);
+	@Override
+	public void updateListeners(ActionListener controller) {
+		// update component listeners
+		exitMntm.addActionListener(controller);
+		lightMntm.addActionListener(controller);
+		darkMntm.addActionListener(controller);
+		// propagate call to child submenus
+		loginSubmn.updateListeners(controller);
+		tableSubmn.updateListeners(controller);
+		dataInsertSubmn.updateListeners(controller);
+	}
+
+	public LoginSubmenu getLoginSubmn() {
+		return loginSubmn;
+	}
+
+	public TableSubmenu getTableSubmn() {
+		return tableSubmn;
+	}
+
+	public DataInsertSubmenu getDataInsertSubmn() {
+		return dataInsertSubmn;
 	}
 
 	public void setSubmenuView(JPanel submenu) {

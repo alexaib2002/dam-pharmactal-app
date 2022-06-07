@@ -7,13 +7,13 @@ import org.uem.dam.GestorFarmacia.view.MainFrame;
 public class GestorFarmaciaMain {
 
 	public static void main(String[] args) {
-		
+
 		SwingThemeManager.onApplicationStart();
-		
+
 		java.awt.EventQueue.invokeLater(() -> {
 			MainFrame mainView = new MainFrame();
 			MainController mainController = new MainController(mainView);
-			mainView.setController(mainController);
+			mainView.updateListeners(mainController);
 		});
 
 	}

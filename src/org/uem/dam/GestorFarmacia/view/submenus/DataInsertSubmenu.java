@@ -3,11 +3,12 @@ package org.uem.dam.GestorFarmacia.view.submenus;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import org.uem.dam.GestorFarmacia.model.ComponentView;
+import org.uem.dam.GestorFarmacia.view.ComponentView;
 
 import net.miginfocom.swing.MigLayout;
 
 public class DataInsertSubmenu extends DefaultSubmenu implements ComponentView {
+
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 
@@ -22,12 +23,6 @@ public class DataInsertSubmenu extends DefaultSubmenu implements ComponentView {
 		textField = new JTextField();
 		add(textField, "cell 1 0,growx");
 		textField.setColumns(10);
-	}
-
-	@Override
-	public void initAttributes() {
-		// TODO Auto-generated method stub
-
 	}
 
 }
