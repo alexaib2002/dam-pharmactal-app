@@ -4,6 +4,7 @@ import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -12,9 +13,10 @@ import org.uem.dam.GestorFarmacia.model.ComponentView;
 import net.miginfocom.swing.MigLayout;
 
 public class LoginSubmenu extends DefaultSubmenu implements ComponentView {
+
 	private static final long serialVersionUID = 1L;
 	private JTextField usrTxt;
-	private JTextField psswdTxt;
+	private JPasswordField psswdFld;
 
 	@Override
 	public void initComponents() {
@@ -30,14 +32,12 @@ public class LoginSubmenu extends DefaultSubmenu implements ComponentView {
 
 		usrTxt = new JTextField();
 		add(usrTxt, "cell 1 1,growx");
-		usrTxt.setColumns(10);
 
 		JLabel psswdLbl = new JLabel("Password");
 		add(psswdLbl, "cell 0 2,alignx trailing");
 
-		psswdTxt = new JTextField();
-		add(psswdTxt, "cell 1 2,growx");
-		psswdTxt.setColumns(10);
+		psswdFld = new JPasswordField();
+		add(psswdFld, "cell 1 2,growx");
 
 		JButton loginBtn = new JButton("Login");
 		add(loginBtn, "cell 0 3 2 1,grow");
@@ -45,8 +45,6 @@ public class LoginSubmenu extends DefaultSubmenu implements ComponentView {
 
 	@Override
 	public void initAttributes() {
-		// TODO Auto-generated method stub
-
 	}
 
 }
