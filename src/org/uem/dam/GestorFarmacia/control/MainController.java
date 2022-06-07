@@ -7,13 +7,13 @@ import javax.swing.JComponent;
 
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager.LookAndFeelItem;
-import org.uem.dam.GestorFarmacia.view.MainView;
+import org.uem.dam.GestorFarmacia.view.MainFrame;
 
 public class MainController implements ActionListener {
 
-	private MainView mainView;
+	private MainFrame mainView;
 
-	public MainController(MainView mainView) {
+	public MainController(MainFrame mainView) {
 		this.mainView = mainView;
 	}
 

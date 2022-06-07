@@ -12,26 +12,30 @@ import javax.swing.JScrollPane;
 
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.model.ComponentView;
+import org.uem.dam.GestorFarmacia.view.submenus.DataInsertSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.LoginSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.TableSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class MainView extends JFrame implements ComponentView {
+public class MainFrame extends JFrame implements ComponentView {
 
+	private static final long serialVersionUID = 1L;
 	private MainController mainController;
 	private JMenuBar menuBar;
 	private JMenu fileMn;
 	private JMenuItem exitMntm;
 
-	private LoginPanel loginPanel;
-	private TablePanel tablePanel;
-	private DataInsertPanel dataInsertPanel;
+	private LoginSubmenu loginPanel;
+	private TableSubmenu tablePanel;
+	private DataInsertSubmenu dataInsertPanel;
 	private JScrollPane rootPane;
 	private JMenu mnView;
 	private JMenu mnTheme;
 	private JMenuItem lightMntm;
 	private JMenuItem darkMntm;
 
-	public MainView() {
+	public MainFrame() {
 		initComponents();
 		initAttributes();
 		setSubmenuView(loginPanel); // always want to start on login
@@ -67,10 +71,10 @@ public class MainView extends JFrame implements ComponentView {
 		darkMntm.putClientProperty("CallerID", "ThemeMenu");
 		mnTheme.add(darkMntm);
 
-		loginPanel = new LoginPanel();
+		loginPanel = new LoginSubmenu();
 		rootPane.add(loginPanel);
 
-		tablePanel = new TablePanel();
+		tablePanel = new TableSubmenu();
 		rootPane.add(tablePanel);
 	}
 

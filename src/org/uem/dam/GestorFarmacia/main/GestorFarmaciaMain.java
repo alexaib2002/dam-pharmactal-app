@@ -2,7 +2,7 @@ package org.uem.dam.GestorFarmacia.main;
 
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
-import org.uem.dam.GestorFarmacia.view.MainView;
+import org.uem.dam.GestorFarmacia.view.MainFrame;
 
 public class GestorFarmaciaMain {
 
@@ -11,7 +11,7 @@ public class GestorFarmaciaMain {
 		SwingThemeManager.onApplicationStart();
 		
 		java.awt.EventQueue.invokeLater(() -> {
-			MainView mainView = new MainView();
+			MainFrame mainView = new MainFrame();
 			MainController mainController = new MainController(mainView);
 			mainView.setController(mainController);
 		});
