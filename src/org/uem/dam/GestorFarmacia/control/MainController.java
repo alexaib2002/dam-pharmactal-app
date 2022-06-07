@@ -23,7 +23,9 @@ public class MainController implements ActionListener {
 
 	public MainController(MainFrame mainView) {
 		this.mainView = mainView;
-		this.loginControl = new LoginSubmnControl(mainView.getLoginSubmn());
+		this.loginControl = new LoginSubmnControl(this, mainView.getLoginSubmn());
+		this.tableControl = new TableSubmnControl(this, mainView.getTableSubmn());
+		this.dataInsertControl = new DataInsertSubmnControl(this, mainView.getDataInsertSubmn());
 	}
 
 	@Override
@@ -35,6 +37,10 @@ public class MainController implements ActionListener {
 		} else { // recognized as generic source, as it wasn't named on its constructor
 			parseGenericAction(action);
 		}
+	}
+
+	public MainFrame getMainView() {
+		return mainView;
 	}
 
 	private void parseCallerIDAction(String callerID, String action) {
