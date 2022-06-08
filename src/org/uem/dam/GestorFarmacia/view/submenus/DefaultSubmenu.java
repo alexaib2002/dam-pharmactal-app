@@ -24,9 +24,6 @@ public abstract class DefaultSubmenu extends JPanel implements ComponentView {
 	}
 
 	@Override
-	public void updateListeners(ActionListener controller) {
-		System.err.println(String.format("%s is not implementing updateListeners() method", 
-				this.getClass().toString()));
-	}
+	public abstract void updateListeners(ActionListener controller);
 
 }

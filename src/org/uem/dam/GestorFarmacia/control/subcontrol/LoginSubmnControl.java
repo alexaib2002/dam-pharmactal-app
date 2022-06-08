@@ -39,6 +39,7 @@ public class LoginSubmnControl extends DefaultSubcontrol {
 				false);
 		System.out.println(query);
 		String[] dbFieldResult = new String[] { "asdf", "asdf" }; // FIXME placeholder
+		// end draft
 		if (fieldsData[0].equals(dbFieldResult[0])) {
 			System.out.println("Username check");
 			if (fieldsData[1].equals(dbFieldResult[1])) {

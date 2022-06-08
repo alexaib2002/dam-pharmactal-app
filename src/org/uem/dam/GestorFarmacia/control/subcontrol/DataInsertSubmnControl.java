@@ -12,4 +12,10 @@ public class DataInsertSubmnControl extends DefaultSubcontrol {
 		this.dataInsertSubmn = dataInsertSubmn;
 	}
 
+	@Override
+	public void parseAction(String action) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

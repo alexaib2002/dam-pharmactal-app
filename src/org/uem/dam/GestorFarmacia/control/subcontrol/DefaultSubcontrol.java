@@ -13,8 +13,6 @@ public abstract class DefaultSubcontrol {
 		this.mainFrame = mainController.getMainView();
 	}
 
-	public void parseAction(String action) {
-		System.err.println(String.format("%s does not implement method parseAction", this.getClass().getSimpleName()));
-	}
+	public abstract void parseAction(String action);
 
 }

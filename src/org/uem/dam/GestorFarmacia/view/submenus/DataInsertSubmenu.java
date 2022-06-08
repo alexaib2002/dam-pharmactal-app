@@ -1,5 +1,7 @@
 package org.uem.dam.GestorFarmacia.view.submenus;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
@@ -23,6 +25,12 @@ public class DataInsertSubmenu extends DefaultSubmenu implements ComponentView {
 		textField = new JTextField();
 		add(textField, "cell 1 0,growx");
 		textField.setColumns(10);
+	}
+
+	@Override
+	public void updateListeners(ActionListener controller) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

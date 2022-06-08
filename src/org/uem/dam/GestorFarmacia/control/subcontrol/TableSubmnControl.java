@@ -12,4 +12,10 @@ public class TableSubmnControl extends DefaultSubcontrol {
 		this.tableSubmn = tableSubmn;
 	}
 
+	@Override
+	public void parseAction(String action) {
+		// TODO Auto-generated method stub
+
+	}
+
 }
