@@ -36,12 +36,12 @@ public class LoginSubmnControl extends DefaultSubcontrol {
 		SystemUser insertedUser = loginSubmn.getFieldsData();
 		// draft, implement on persistence class methods
 		String query = SQLQueryBuilder.buildSelectQuery(TableContract.USERS.toString(), UsersContract.getAuthCols(),
-				new String[] { String.format("%s LIKE '%s'", UsersContract.USER.toString(), insertedUser.name()) },
+				new String[] { String.format("%s LIKE '%s'", UsersContract.USER.toString(), insertedUser.userName()) },
 				null, false);
 		System.out.println(query);
 		SystemUser registeredUser = new SystemUser(0, "asdf", "asdf", false); // FIXME placeholder
 		// end draft
-		if (!insertedUser.name().equals(registeredUser.name())) {
+		if (!insertedUser.userName().equals(registeredUser.userName())) {
 			System.err.println("Username not recognized");
 			return false;
 		}
