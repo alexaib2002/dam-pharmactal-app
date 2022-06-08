@@ -10,7 +10,7 @@ public abstract class DefaultSubcontrol {
 
 	public DefaultSubcontrol(MainController mainController) {
 		this.mainController = mainController;
-		this.mainFrame = mainController.getMainView();
+		this.mainFrame = mainController.getMainFrame();
 	}
 
 	public abstract void parseAction(String action);

@@ -9,6 +9,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.view.submenus.DataInsertSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.LoginSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.TableSubmenu;
@@ -82,7 +83,7 @@ public class MainFrame extends JFrame implements ComponentView {
 		this.setSize(new Dimension(300, 300));
 
 		// set main view content
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 	}
 
 	@Override
@@ -95,6 +96,8 @@ public class MainFrame extends JFrame implements ComponentView {
 		loginSubmn.updateListeners(controller);
 		tableSubmn.updateListeners(controller);
 		dataInsertSubmn.updateListeners(controller);
+		// window adapter
+		this.addWindowListener(((MainController) controller).getWinAdapter());
 	}
 
 	public LoginSubmenu getLoginSubmn() {

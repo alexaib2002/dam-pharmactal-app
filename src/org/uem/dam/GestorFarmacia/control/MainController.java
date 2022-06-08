@@ -2,6 +2,8 @@ package org.uem.dam.GestorFarmacia.control;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JComponent;
 
@@ -19,13 +21,20 @@ public class MainController implements ActionListener {
 	private TableSubmnControl tableControl;
 	private DataInsertSubmnControl dataInsertControl;
 
-	private MainFrame mainView;
+	private MainFrame mainFrame;
+	private WindowAdapter winAdapter;
 
-	public MainController(MainFrame mainView) {
-		this.mainView = mainView;
-		this.loginControl = new LoginSubmnControl(this, mainView.getLoginSubmn());
-		this.tableControl = new TableSubmnControl(this, mainView.getTableSubmn());
-		this.dataInsertControl = new DataInsertSubmnControl(this, mainView.getDataInsertSubmn());
+	public MainController(MainFrame mainFrame) {
+		this.mainFrame = mainFrame;
+		this.loginControl = new LoginSubmnControl(this, mainFrame.getLoginSubmn());
+		this.tableControl = new TableSubmnControl(this, mainFrame.getTableSubmn());
+		this.dataInsertControl = new DataInsertSubmnControl(this, mainFrame.getDataInsertSubmn());
+		this.winAdapter = new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) { // custom event on window closing
+				WindowActionUtils.onExitEvent(mainFrame);
+			}
+		};
 	}
 
 	@Override
@@ -39,8 +48,12 @@ public class MainController implements ActionListener {
 		}
 	}
 
-	public MainFrame getMainView() {
-		return mainView;
+	public MainFrame getMainFrame() {
+		return mainFrame;
+	}
+
+	public WindowAdapter getWinAdapter() {
+		return winAdapter;
 	}
 
 	private void parseCallerIDAction(String callerID, String action) {
@@ -71,7 +84,7 @@ public class MainController implements ActionListener {
 	private void parseGenericAction(String action) {
 		switch (action.toLowerCase()) {
 		case "exit": {
-			WindowActionUtils.onExitEvent(mainView);
+			WindowActionUtils.onExitEvent(mainFrame);
 			break;
 		}
 		default:
@@ -92,7 +105,7 @@ public class MainController implements ActionListener {
 			break;
 		}
 		}
-		SwingThemeManager.updateChildWindowLAF(mainView);
+		SwingThemeManager.updateChildWindowLAF(mainFrame);
 		System.out.println(String.format("Updating theme to %s based on user request", action.toLowerCase()));
 	}
 }

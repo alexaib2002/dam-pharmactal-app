@@ -11,9 +11,9 @@ public class GestorFarmaciaMain {
 		SwingThemeManager.onApplicationStart();
 
 		java.awt.EventQueue.invokeLater(() -> {
-			MainFrame mainView = new MainFrame();
-			MainController mainController = new MainController(mainView);
-			mainView.updateListeners(mainController);
+			MainFrame mainFrame = new MainFrame();
+			MainController mainController = new MainController(mainFrame);
+			mainFrame.updateListeners(mainController);
 		});
 
 	}
