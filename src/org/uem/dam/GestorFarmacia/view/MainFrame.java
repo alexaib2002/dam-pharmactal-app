@@ -8,7 +8,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import org.uem.dam.GestorFarmacia.view.submenus.DataInsertSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.LoginSubmenu;
@@ -26,7 +25,6 @@ public class MainFrame extends JFrame implements ComponentView {
 	private LoginSubmenu loginSubmn;
 	private TableSubmenu tableSubmn;
 	private DataInsertSubmenu dataInsertSubmn;
-	private JScrollPane rootPane;
 	private JMenu mnView;
 	private JMenu mnTheme;
 	private JMenuItem lightMntm;
@@ -41,9 +39,6 @@ public class MainFrame extends JFrame implements ComponentView {
 	@Override
 	public void initComponents() {
 		getContentPane().setLayout(new MigLayout("", "[grow]", "[grow]"));
-
-		rootPane = new JScrollPane();
-		getContentPane().add(rootPane, "cell 0 0,grow");
 
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -69,13 +64,11 @@ public class MainFrame extends JFrame implements ComponentView {
 		mnTheme.add(darkMntm);
 
 		loginSubmn = new LoginSubmenu();
-		rootPane.add(loginSubmn);
 
 		tableSubmn = new TableSubmenu();
-		rootPane.add(tableSubmn);
 
 		dataInsertSubmn = new DataInsertSubmenu();
-		rootPane.add(dataInsertSubmn);
+
 	}
 
 	@Override
@@ -90,10 +83,6 @@ public class MainFrame extends JFrame implements ComponentView {
 
 		// set main view content
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
-		// update
-		repaint();
-
 	}
 
 	@Override
@@ -121,7 +110,15 @@ public class MainFrame extends JFrame implements ComponentView {
 	}
 
 	public void setSubmenuView(JPanel submenu) {
-		rootPane.setViewportView(submenu);
+		getContentPane().removeAll();
+		getContentPane().add(submenu, "grow");
+		// redraw the frame after change
+		onSubmenuUpdate();
+	}
+
+	private void onSubmenuUpdate() {
+		repaint();
+		revalidate();
 	}
 
 }
