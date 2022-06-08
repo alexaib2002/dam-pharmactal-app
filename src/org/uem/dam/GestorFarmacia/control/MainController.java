@@ -9,7 +9,7 @@ import javax.swing.JComponent;
 
 import org.uem.dam.GestorFarmacia.control.subcontrol.DataInsertSubmnControl;
 import org.uem.dam.GestorFarmacia.control.subcontrol.LoginSubmnControl;
-import org.uem.dam.GestorFarmacia.control.subcontrol.TableSubmnControl;
+import org.uem.dam.GestorFarmacia.control.subcontrol.TabbedSubmnControl;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager.LookAndFeelItem;
 import org.uem.dam.GestorFarmacia.utils.WindowActionUtils;
@@ -18,7 +18,7 @@ import org.uem.dam.GestorFarmacia.view.MainFrame;
 public class MainController implements ActionListener {
 
 	private LoginSubmnControl loginControl;
-	private TableSubmnControl tableControl;
+	private TabbedSubmnControl tabbedControl;
 	private DataInsertSubmnControl dataInsertControl;
 
 	private MainFrame mainFrame;
@@ -27,7 +27,7 @@ public class MainController implements ActionListener {
 	public MainController(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
 		this.loginControl = new LoginSubmnControl(this, mainFrame.getLoginSubmn());
-		this.tableControl = new TableSubmnControl(this, mainFrame.getTableSubmn());
+		this.tabbedControl = new TabbedSubmnControl(this, mainFrame.getTabbedSubmn());
 		this.dataInsertControl = new DataInsertSubmnControl(this, mainFrame.getDataInsertSubmn());
 		this.winAdapter = new WindowAdapter() {
 			@Override
@@ -66,8 +66,8 @@ public class MainController implements ActionListener {
 			loginControl.parseAction(action);
 			break;
 		}
-		case "TableSubmenu": {
-			tableControl.parseAction(action);
+		case "TabbedSubmenu": {
+			tabbedControl.parseAction(action);
 			break;
 		}
 		case "DataInsertSubmenu": {

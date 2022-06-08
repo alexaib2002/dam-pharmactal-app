@@ -1,7 +1,7 @@
 package org.uem.dam.GestorFarmacia.contract;
 
 public enum UsersContract {
-	UID, USER, PSSWD;
+	UID, USER, PSSWD, PERMISSION;
 
 	public static String[] getAllCols() {
 		UsersContract[] resultContractVals = UsersContract.values();

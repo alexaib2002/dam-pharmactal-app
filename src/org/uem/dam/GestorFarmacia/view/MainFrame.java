@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.view.submenus.DataInsertSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.LoginSubmenu;
-import org.uem.dam.GestorFarmacia.view.submenus.TableSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.TabbedSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -24,7 +24,7 @@ public class MainFrame extends JFrame implements ComponentView {
 	private JMenuItem exitMntm;
 
 	private LoginSubmenu loginSubmn;
-	private TableSubmenu tableSubmn;
+	private TabbedSubmenu tabbedSubmn;
 	private DataInsertSubmenu dataInsertSubmn;
 	private JMenu mnView;
 	private JMenu mnTheme;
@@ -66,7 +66,7 @@ public class MainFrame extends JFrame implements ComponentView {
 
 		loginSubmn = new LoginSubmenu();
 
-		tableSubmn = new TableSubmenu();
+		tabbedSubmn = new TabbedSubmenu();
 
 		dataInsertSubmn = new DataInsertSubmenu();
 
@@ -94,7 +94,7 @@ public class MainFrame extends JFrame implements ComponentView {
 		darkMntm.addActionListener(controller);
 		// propagate call to child submenus
 		loginSubmn.updateListeners(controller);
-		tableSubmn.updateListeners(controller);
+		tabbedSubmn.updateListeners(controller);
 		dataInsertSubmn.updateListeners(controller);
 		// window adapter
 		this.addWindowListener(((MainController) controller).getWinAdapter());
@@ -104,8 +104,8 @@ public class MainFrame extends JFrame implements ComponentView {
 		return loginSubmn;
 	}
 
-	public TableSubmenu getTableSubmn() {
-		return tableSubmn;
+	public TabbedSubmenu getTabbedSubmn() {
+		return tabbedSubmn;
 	}
 
 	public DataInsertSubmenu getDataInsertSubmn() {

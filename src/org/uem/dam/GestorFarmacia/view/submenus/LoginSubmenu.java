@@ -9,6 +9,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import org.uem.dam.GestorFarmacia.model.SystemUser;
 import org.uem.dam.GestorFarmacia.view.ComponentView;
 
 import net.miginfocom.swing.MigLayout;
@@ -52,11 +53,10 @@ public class LoginSubmenu extends DefaultSubmenu implements ComponentView {
 	}
 
 	@SuppressWarnings("deprecation")
-	public String[] getFieldsData() {
-		String[] fieldsData = new String[2];
-		fieldsData[0] = usrTxt.getText();
-		fieldsData[1] = psswdFld.getText(); // FIXME unsafe method, used only for keeping the project simple
-		return fieldsData;
+	public SystemUser getFieldsData() {
+		// both UID and admin are not going to be checked
+		SystemUser introducedUser = new SystemUser(-1, usrTxt.getText(), psswdFld.getText(), false);
+		return introducedUser;
 	}
 
 }
