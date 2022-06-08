@@ -10,6 +10,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import org.uem.dam.GestorFarmacia.control.MainController;
+import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
 import org.uem.dam.GestorFarmacia.view.submenus.DataInsertSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.LoginSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.TabbedSubmenu;
@@ -122,6 +123,8 @@ public class MainFrame extends JFrame implements ComponentView {
 	private void onSubmenuUpdate() {
 		repaint();
 		revalidate();
+		// not-so-clean hack for ensuring theme gets applied to every component
+		SwingThemeManager.updateChildWindowLAF(this);
 	}
 
 }
