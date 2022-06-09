@@ -10,6 +10,7 @@ import javax.swing.JComponent;
 import org.uem.dam.GestorFarmacia.control.subcontrol.DataInsertSubmnControl;
 import org.uem.dam.GestorFarmacia.control.subcontrol.LoginSubmnControl;
 import org.uem.dam.GestorFarmacia.control.subcontrol.TabbedSubmnControl;
+import org.uem.dam.GestorFarmacia.persist.DBPersistence;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager.LookAndFeelItem;
 import org.uem.dam.GestorFarmacia.utils.WindowActionUtils;
@@ -22,6 +23,7 @@ public class MainController implements ActionListener {
 	private DataInsertSubmnControl dataInsertControl;
 
 	private MainFrame mainFrame;
+	private DBPersistence dbPersistence;
 	private WindowAdapter winAdapter;
 
 	public MainController(MainFrame mainFrame) {
@@ -29,6 +31,7 @@ public class MainController implements ActionListener {
 		this.loginControl = new LoginSubmnControl(this, mainFrame.getLoginSubmn());
 		this.tabbedControl = new TabbedSubmnControl(this, mainFrame.getTabbedSubmn());
 		this.dataInsertControl = new DataInsertSubmnControl(this, mainFrame.getDataInsertSubmn());
+		this.dbPersistence = new DBPersistence();
 		this.winAdapter = new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) { // custom event on window closing
@@ -54,6 +57,10 @@ public class MainController implements ActionListener {
 
 	public WindowAdapter getWinAdapter() {
 		return winAdapter;
+	}
+
+	public DBPersistence getDbPersistence() {
+		return dbPersistence;
 	}
 
 	private void parseCallerIDAction(String callerID, String action) {

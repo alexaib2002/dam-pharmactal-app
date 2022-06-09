@@ -1,9 +1,12 @@
 package org.uem.dam.GestorFarmacia.control.subcontrol;
 
+import java.util.ArrayList;
+
 import org.uem.dam.GestorFarmacia.contract.TableContract;
 import org.uem.dam.GestorFarmacia.contract.UsersContract;
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.model.SystemUser;
+import org.uem.dam.GestorFarmacia.persist.DBPersistence;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
 import org.uem.dam.GestorFarmacia.view.submenus.LoginSubmenu;
 
@@ -34,17 +37,30 @@ public class LoginSubmnControl extends DefaultSubcontrol {
 	private boolean validateLogin() {
 		System.out.println("Authenticating user against DDBB");
 		SystemUser insertedUser = loginSubmn.getFieldsData();
-		// draft, implement on persistence class methods
-		String query = SQLQueryBuilder.buildSelectQuery(TableContract.USERS.toString(), UsersContract.getAuthCols(),
-				new String[] { String.format("%s LIKE '%s'", UsersContract.USER.toString(), insertedUser.userName()) },
-				null, false);
-		System.out.println(query);
-		SystemUser registeredUser = new SystemUser(0, "asdf", "asdf", false); // FIXME placeholder
-		// end draft
-		if (!insertedUser.userName().equals(registeredUser.userName())) {
+		DBPersistence persist = mainController.getDbPersistence();
+		
+		ArrayList<SystemUser> systemUserList = persist.executeSelectUser((con, pstmt) -> {
+			String[] cols = UsersContract.getAllCols();
+			String query = SQLQueryBuilder.buildSelectQuery(
+					TableContract.USERS.toString(), cols,
+					new String[] { String.format(
+							"USERNAME LIKE ?",
+							UsersContract.USERNAME.toString()) 
+					},
+					null, false);
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, insertedUser.userName());
+			
+			return pstmt;
+		});
+		if (systemUserList.size() > 1) {
+			System.err.println("Cannot authenticate user, more than one user with the same name detected");
+			return false;
+		} else if (systemUserList.size() == 0) {
 			System.err.println("Username not recognized");
 			return false;
 		}
+		SystemUser registeredUser = systemUserList.get(0);
 		if (!insertedUser.psswd().equals(registeredUser.psswd())) {
 			System.err.println("Invalid password");
 			return false;

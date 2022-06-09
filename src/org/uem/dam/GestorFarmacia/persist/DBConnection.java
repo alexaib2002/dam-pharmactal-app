@@ -8,7 +8,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import org.uem.gestor_resultados_eurovision.utils.ErrorUtils;
+import org.uem.dam.GestorFarmacia.utils.ErrorUtils;
+
+
 
 public class DBConnection {
 
