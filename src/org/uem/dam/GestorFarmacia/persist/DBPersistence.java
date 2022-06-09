@@ -80,9 +80,9 @@ public class DBPersistence {
 		return users;
 	}
 	
-	public ArrayList<SystemUser> executeSelectUser(SelectExpression expr) {
+	public ArrayList<SystemUser> executeSelectUser(SelectExpression expr, int colCount) {
 		ArrayList<SystemUser> result = new ArrayList<>();
-		for (Object[] columnValues : executeSelect(expr)) {
+		for (Object[] columnValues : executeSelect(expr, colCount)) {
 			result.add(new SystemUser(
 					(int) columnValues[0], 
 					(String) columnValues[1], 
@@ -93,20 +93,18 @@ public class DBPersistence {
 		return result;
 	}
 	
-	private ArrayList<Object[]> executeSelect(SelectExpression expr) {
+	private ArrayList<Object[]> executeSelect(SelectExpression expr, int colCount) {
 		ArrayList<Object[]> result = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		int columnCount = 4; // FIXME hardcoded
 		try {
+			Object[] colValue = new Object[colCount];
 			con = dbConnection.getConnection();
 			pstmt = expr.executeSelectSQL(con, pstmt);
 			rset = pstmt.executeQuery();
-			Object[] colValue;
 			while (rset.next()) {
-				colValue = new Object[columnCount];
-				for (int i = 0; i < columnCount; i++) {
+				for (int i = 0; i < colValue.length; i++) {
 					colValue[i] = rset.getObject(i + 1);
 				}
 				result.add(colValue);

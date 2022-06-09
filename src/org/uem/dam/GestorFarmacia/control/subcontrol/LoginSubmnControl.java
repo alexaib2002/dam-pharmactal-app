@@ -39,8 +39,8 @@ public class LoginSubmnControl extends DefaultSubcontrol {
 		SystemUser insertedUser = loginSubmn.getFieldsData();
 		DBPersistence persist = mainController.getDbPersistence();
 		
+		String[] cols = UsersContract.getAllCols();
 		ArrayList<SystemUser> systemUserList = persist.executeSelectUser((con, pstmt) -> {
-			String[] cols = UsersContract.getAllCols();
 			String query = SQLQueryBuilder.buildSelectQuery(
 					TableContract.USERS.toString(), cols,
 					new String[] { String.format(
@@ -50,9 +50,8 @@ public class LoginSubmnControl extends DefaultSubcontrol {
 					null, false);
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, insertedUser.userName());
-			
 			return pstmt;
-		});
+		}, cols.length);
 		if (systemUserList.size() > 1) {
 			System.err.println("Cannot authenticate user, more than one user with the same name detected");
 			return false;
