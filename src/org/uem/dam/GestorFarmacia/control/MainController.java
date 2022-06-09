@@ -9,7 +9,6 @@ import javax.swing.JComponent;
 
 import org.uem.dam.GestorFarmacia.control.subcontrol.DataInsertSubmnControl;
 import org.uem.dam.GestorFarmacia.control.subcontrol.LoginSubmnControl;
-import org.uem.dam.GestorFarmacia.control.subcontrol.TabbedSubmnControl;
 import org.uem.dam.GestorFarmacia.persist.DBPersistence;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager.LookAndFeelItem;
@@ -19,7 +18,6 @@ import org.uem.dam.GestorFarmacia.view.MainFrame;
 public class MainController implements ActionListener {
 
 	private LoginSubmnControl loginControl;
-	private TabbedSubmnControl tabbedControl;
 	private DataInsertSubmnControl dataInsertControl;
 
 	private MainFrame mainFrame;
@@ -30,7 +28,6 @@ public class MainController implements ActionListener {
 		this.mainFrame = mainFrame;
 		this.dbPersistence = new DBPersistence();
 		this.loginControl = new LoginSubmnControl(this, mainFrame.getLoginSubmn());
-		this.tabbedControl = new TabbedSubmnControl(this, mainFrame.getTabbedSubmn());
 		this.dataInsertControl = new DataInsertSubmnControl(this, mainFrame.getDataInsertSubmn());
 		this.winAdapter = new WindowAdapter() {
 			@Override
@@ -61,10 +58,6 @@ public class MainController implements ActionListener {
 
 	public DBPersistence getDbPersistence() {
 		return dbPersistence;
-	}
-	
-	public TabbedSubmnControl getTabbedControl() {
-		return tabbedControl;
 	}
 
 	private void parseCallerIDAction(String callerID, String action) {
