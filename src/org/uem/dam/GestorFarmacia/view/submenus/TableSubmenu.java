@@ -1,6 +1,7 @@
 package org.uem.dam.GestorFarmacia.view.submenus;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -42,7 +43,7 @@ public class TableSubmenu extends DefaultSubmenu implements ComponentView {
 
 	}
 	
-	public void updateTable(DBItem[] dbItemArray) {
+	public void updateTable(ArrayList<DBItem> dbItemArray) {
 		tableModel.setRowCount(0);
 		for (DBItem dbItem : dbItemArray) {
 			tableModel.addRow(dbItem.getAttributes());

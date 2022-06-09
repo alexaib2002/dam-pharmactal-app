@@ -1,6 +1,7 @@
 package org.uem.dam.GestorFarmacia.view.submenus;
 
 import java.awt.event.ActionListener;
+import java.util.EventListener;
 
 import javax.swing.JPanel;
 

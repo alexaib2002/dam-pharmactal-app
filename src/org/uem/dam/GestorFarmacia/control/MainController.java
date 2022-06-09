@@ -28,10 +28,10 @@ public class MainController implements ActionListener {
 
 	public MainController(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
+		this.dbPersistence = new DBPersistence();
 		this.loginControl = new LoginSubmnControl(this, mainFrame.getLoginSubmn());
 		this.tabbedControl = new TabbedSubmnControl(this, mainFrame.getTabbedSubmn());
 		this.dataInsertControl = new DataInsertSubmnControl(this, mainFrame.getDataInsertSubmn());
-		this.dbPersistence = new DBPersistence();
 		this.winAdapter = new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) { // custom event on window closing
@@ -62,6 +62,10 @@ public class MainController implements ActionListener {
 	public DBPersistence getDbPersistence() {
 		return dbPersistence;
 	}
+	
+	public TabbedSubmnControl getTabbedControl() {
+		return tabbedControl;
+	}
 
 	private void parseCallerIDAction(String callerID, String action) {
 		switch (callerID) {
@@ -71,10 +75,6 @@ public class MainController implements ActionListener {
 		}
 		case "LoginSubmenu": {
 			loginControl.parseAction(action);
-			break;
-		}
-		case "TabbedSubmenu": {
-			tabbedControl.parseAction(action);
 			break;
 		}
 		case "DataInsertSubmenu": {

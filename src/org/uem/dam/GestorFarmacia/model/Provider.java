@@ -3,7 +3,7 @@ package org.uem.dam.GestorFarmacia.model;
 public record Provider(
 		int providerId,
 		String name,
-		String tel,
+		String phone,
 		String address
 		) implements DBItem {
 	
@@ -12,7 +12,7 @@ public record Provider(
 		return new String[] { 
 				Integer.toString(providerId),
 				name,
-				tel,
+				phone,
 				address,
 		};
 	}

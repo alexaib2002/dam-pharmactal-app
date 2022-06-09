@@ -9,7 +9,10 @@ import java.util.ArrayList;
 
 import org.uem.dam.GestorFarmacia.contract.TableContract;
 import org.uem.dam.GestorFarmacia.contract.UsersContract;
+import org.uem.dam.GestorFarmacia.model.Article;
 import org.uem.dam.GestorFarmacia.model.DBItem;
+import org.uem.dam.GestorFarmacia.model.Medicine;
+import org.uem.dam.GestorFarmacia.model.Provider;
 import org.uem.dam.GestorFarmacia.model.SystemUser;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
 
@@ -39,6 +42,8 @@ public class DBPersistence {
 		return result;
 	}
 	
+	/* Method deprecated  */
+	@Deprecated
 	public ArrayList<SystemUser> getUsersList() {
 		ArrayList<SystemUser> users = new ArrayList<>();
 		
@@ -80,6 +85,47 @@ public class DBPersistence {
 		return users;
 	}
 	
+	public ArrayList<DBItem> executeSelectArticles(SelectExpression expr, int colCount) {
+		ArrayList<DBItem> result = new ArrayList<>();
+		for (Object[] columnValues : executeSelect(expr, colCount)) {
+			result.add(new Article(
+					(int) columnValues[0], 
+					(int) columnValues[1], 
+					(String) columnValues[2], 
+					(double) columnValues[3], 
+					(int) columnValues[4]
+			));
+		}
+		return result;
+	}
+	
+	public ArrayList<DBItem> executeSelectMeds(SelectExpression expr, int colCount) {
+		ArrayList<DBItem> result = new ArrayList<>();
+		for (Object[] columnValues : executeSelect(expr, colCount)) {
+			result.add(new Medicine(
+					(int) columnValues[0], 
+					(int) columnValues[1], 
+					(int) columnValues[2], 
+					(String) columnValues[3], 
+					(int) columnValues[4] == 1 
+			));
+		}
+		return result;
+	}
+	
+	public ArrayList<DBItem> executeSelectProviders(SelectExpression expr, int colCount) {
+		ArrayList<DBItem> result = new ArrayList<>();
+		for (Object[] columnValues : executeSelect(expr, colCount)) {
+			result.add(new Provider(
+					(int) columnValues[0],
+					(String) columnValues[1],
+					(String) columnValues[2],
+					(String) columnValues[3]
+			));
+		}
+		return result;
+	}
+	
 	public ArrayList<SystemUser> executeSelectUser(SelectExpression expr, int colCount) {
 		ArrayList<SystemUser> result = new ArrayList<>();
 		for (Object[] columnValues : executeSelect(expr, colCount)) {
@@ -99,11 +145,12 @@ public class DBPersistence {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
-			Object[] colValue = new Object[colCount];
 			con = dbConnection.getConnection();
 			pstmt = expr.executeSelectSQL(con, pstmt);
 			rset = pstmt.executeQuery();
+			Object[] colValue;
 			while (rset.next()) {
+				colValue = new Object[colCount];
 				for (int i = 0; i < colValue.length; i++) {
 					colValue[i] = rset.getObject(i + 1);
 				}

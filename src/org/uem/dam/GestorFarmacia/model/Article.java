@@ -4,7 +4,7 @@ public record Article(
 		int articleId, 
 		int providerId, 
 		String name, 
-		float price, 
+		double price, 
 		int stock
 		) implements DBItem {
 
@@ -14,7 +14,7 @@ public record Article(
 				Integer.toString(articleId), 
 				Integer.toString(providerId),
 				name,
-				Float.toString(price),
+				Double.toString(price),
 				Integer.toString(stock)
 		};
 	}
