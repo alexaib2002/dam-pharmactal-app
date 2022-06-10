@@ -11,6 +11,7 @@ import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.model.Medicine;
 import org.uem.dam.GestorFarmacia.model.Provider;
 import org.uem.dam.GestorFarmacia.model.SystemUser;
+import org.uem.dam.GestorFarmacia.utils.ErrorUtils;
 
 public class DBPersistence {
 
@@ -36,61 +37,30 @@ public class DBPersistence {
 		return result;
 	}
 
-	public ArrayList<DBItem> executeSelectArticles(SelectExpression expr, int colCount) {
+	public ArrayList<DBItem> executeSelect(SelectExpression expr, Class<? extends DBItem> itemClass, int colCount) {
 		ArrayList<DBItem> result = new ArrayList<>();
-		for (Object[] columnValues : executeSelect(expr, colCount)) {
-			result.add(new Article(
-					(int) columnValues[0],
-					(int) columnValues[1],
-					(String) columnValues[2],
-					(double) columnValues[3],
-					(int) columnValues[4]
-					));
+		for (Object[] columnValues : fetchColumns(expr, colCount)) {
+			if (itemClass.equals(Article.class)) {
+				result.add(new Article((int) columnValues[0], (int) columnValues[1], (String) columnValues[2],
+						(double) columnValues[3], (int) columnValues[4]));
+			} else if (itemClass.equals(Medicine.class)) {
+				result.add(new Medicine((int) columnValues[0], (int) columnValues[1], (int) columnValues[2],
+						(String) columnValues[3], (int) columnValues[4] == 1));
+			} else if (itemClass.equals(Provider.class)) {
+				result.add(new Provider((int) columnValues[0], (String) columnValues[1], (String) columnValues[2],
+						(String) columnValues[3]));
+			} else if (itemClass.equals(SystemUser.class)) {
+				result.add(new SystemUser((int) columnValues[0], (String) columnValues[1], (String) columnValues[2],
+						(int) columnValues[3] == 1 // translate Integer from DDBB to Java Boolean
+				));
+			} else {
+				ErrorUtils.onFatalErrorException(String.format("Couln't match %s passed to Select method", itemClass));
+			}
 		}
 		return result;
 	}
 
-	public ArrayList<DBItem> executeSelectMeds(SelectExpression expr, int colCount) {
-		ArrayList<DBItem> result = new ArrayList<>();
-		for (Object[] columnValues : executeSelect(expr, colCount)) {
-			result.add(new Medicine(
-					(int) columnValues[0],
-					(int) columnValues[1],
-					(int) columnValues[2],
-					(String) columnValues[3],
-					(int) columnValues[4] == 1
-					));
-		}
-		return result;
-	}
-
-	public ArrayList<DBItem> executeSelectProviders(SelectExpression expr, int colCount) {
-		ArrayList<DBItem> result = new ArrayList<>();
-		for (Object[] columnValues : executeSelect(expr, colCount)) {
-			result.add(new Provider(
-					(int) columnValues[0],
-					(String) columnValues[1],
-					(String) columnValues[2],
-					(String) columnValues[3]
-					));
-		}
-		return result;
-	}
-
-	public ArrayList<SystemUser> executeSelectUser(SelectExpression expr, int colCount) {
-		ArrayList<SystemUser> result = new ArrayList<>();
-		for (Object[] columnValues : executeSelect(expr, colCount)) {
-			result.add(new SystemUser(
-					(int) columnValues[0],
-					(String) columnValues[1],
-					(String) columnValues[2],
-					(int) columnValues[3] == 1 // translate Integer from DDBB to Java Boolean
-					));
-		}
-		return result;
-	}
-
-	private ArrayList<Object[]> executeSelect(SelectExpression expr, int colCount) {
+	private ArrayList<Object[]> fetchColumns(SelectExpression expr, int colCount) {
 		ArrayList<Object[]> result = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;

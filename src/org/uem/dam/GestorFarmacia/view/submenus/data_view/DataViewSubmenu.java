@@ -14,7 +14,10 @@ import org.uem.dam.GestorFarmacia.contract.MedContract;
 import org.uem.dam.GestorFarmacia.contract.ProviderContract;
 import org.uem.dam.GestorFarmacia.contract.TableContract;
 import org.uem.dam.GestorFarmacia.control.MainController;
+import org.uem.dam.GestorFarmacia.model.Article;
 import org.uem.dam.GestorFarmacia.model.DBItem;
+import org.uem.dam.GestorFarmacia.model.Medicine;
+import org.uem.dam.GestorFarmacia.model.Provider;
 import org.uem.dam.GestorFarmacia.persist.DBPersistence;
 import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
@@ -82,29 +85,29 @@ public class DataViewSubmenu extends DefaultSubmenu {
 				switch (selectedTable.toUpperCase()) {
 				case "ARTICLES": {
 					cols = ContractUtils.getAllCols(ArticleContract.class);
-					queryResult = persistence.executeSelectArticles((con, pstmt) -> {
+					queryResult = persistence.executeSelect((con, pstmt) -> {
 						String query = SQLQueryBuilder.buildSelectQuery(selectedTable, cols, null, null, true);
 						pstmt = con.prepareStatement(query);
 						return pstmt;
-					}, cols.length);
+					}, Article.class, cols.length);
 					break;
 				}
 				case "MEDS": {
 					cols = ContractUtils.getAllCols(MedContract.class);
-					queryResult = persistence.executeSelectMeds((con, pstmt) -> {
+					queryResult = persistence.executeSelect((con, pstmt) -> {
 						String query = SQLQueryBuilder.buildSelectQuery(selectedTable, cols, null, null, true);
 						pstmt = con.prepareStatement(query);
 						return pstmt;
-					}, cols.length);
+					}, Medicine.class, cols.length);
 					break;
 				}
 				case "PROVIDERS": {
 					cols = ContractUtils.getAllCols(ProviderContract.class);
-					queryResult = persistence.executeSelectProviders((con, pstmt) -> {
+					queryResult = persistence.executeSelect((con, pstmt) -> {
 						String query = SQLQueryBuilder.buildSelectQuery(selectedTable, cols, null, null, true);
 						pstmt = con.prepareStatement(query);
 						return pstmt;
-					}, cols.length);
+					}, Provider.class, cols.length);
 					break;
 				}
 				}
