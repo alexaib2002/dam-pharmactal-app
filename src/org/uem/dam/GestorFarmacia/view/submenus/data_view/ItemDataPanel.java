@@ -1,4 +1,4 @@
-package org.uem.dam.GestorFarmacia.view.submenus;
+package org.uem.dam.GestorFarmacia.view.submenus.data_view;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ItemDataPanelSubmenu extends JPanel {
+public class ItemDataPanel extends JPanel {
 
 	private JTextField aidTxt;
 	private JTextField textField;
@@ -16,7 +16,8 @@ public class ItemDataPanelSubmenu extends JPanel {
 	private JLabel lblStock;
 	private JSpinner stockSpn;
 
-	public ItemDataPanelSubmenu() {
+	// FIXME placeholder
+	public ItemDataPanel() {
 		setLayout(new MigLayout("", "[right][grow]", "[][][][]"));
 
 		JLabel aidLbl = new JLabel("Article ID");

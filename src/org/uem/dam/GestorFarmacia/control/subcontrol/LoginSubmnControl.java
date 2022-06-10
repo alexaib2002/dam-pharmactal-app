@@ -8,7 +8,7 @@ import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.model.SystemUser;
 import org.uem.dam.GestorFarmacia.persist.DBPersistence;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
-import org.uem.dam.GestorFarmacia.view.submenus.LoginSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.login.LoginSubmenu;
 
 public class LoginSubmnControl extends DefaultSubcontrol {
 

@@ -12,8 +12,8 @@ import javax.swing.JPanel;
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
 import org.uem.dam.GestorFarmacia.view.submenus.DataInsertSubmenu;
-import org.uem.dam.GestorFarmacia.view.submenus.LoginSubmenu;
-import org.uem.dam.GestorFarmacia.view.submenus.TabbedSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.data_view.TabbedSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.login.LoginSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 

@@ -1,4 +1,4 @@
-package org.uem.dam.GestorFarmacia.view.submenus;
+package org.uem.dam.GestorFarmacia.view.submenus.login;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -11,6 +11,7 @@ import javax.swing.SwingConstants;
 
 import org.uem.dam.GestorFarmacia.model.SystemUser;
 import org.uem.dam.GestorFarmacia.view.ComponentView;
+import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 

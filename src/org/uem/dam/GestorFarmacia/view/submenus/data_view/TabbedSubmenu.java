@@ -1,5 +1,6 @@
-package org.uem.dam.GestorFarmacia.view.submenus;
+package org.uem.dam.GestorFarmacia.view.submenus.data_view;
 
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -16,6 +17,7 @@ import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.persist.DBPersistence;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
+import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -36,15 +38,16 @@ public class TabbedSubmenu extends DefaultSubmenu {
 	public void initComponents() {
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		//		add(tabbedPane, "cell 1 0");
+		// add(tabbedPane, "cell 1 0");
 
-		ItemViewSubmenu itemView = new ItemViewSubmenu();
-		//		add(itemView, "cell 2 0");
+		ItemViewContainer itemView = new ItemViewContainer();
+		// add(itemView, "cell 2 0");
 
-		itemView.setMinimumSize(getMinimumSize());
+		tabbedPane.setMinimumSize(new Dimension(200, 0));
+		itemView.setMinimumSize(new Dimension(200, 0));
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tabbedPane, itemView);
 		splitPane.setOneTouchExpandable(true);
-		splitPane.setResizeWeight(.75f);
+		splitPane.setResizeWeight(1.0);
 		add(splitPane, "growx");
 	}
 
