@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeListener;
 
@@ -23,6 +24,7 @@ public class TabbedSubmenu extends DefaultSubmenu {
 	private static final long serialVersionUID = 1L;
 	private LinkedHashMap<String, TableSubmenu> tabContainerPointer;
 	private JTabbedPane tabbedPane;
+	JSplitPane splitPane;
 
 	private ChangeListener updateManager;
 
@@ -32,8 +34,18 @@ public class TabbedSubmenu extends DefaultSubmenu {
 
 	@Override
 	public void initComponents() {
+
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		add(tabbedPane, "cell 0 0,grow");
+		//		add(tabbedPane, "cell 1 0");
+
+		ItemViewSubmenu itemView = new ItemViewSubmenu();
+		//		add(itemView, "cell 2 0");
+
+		itemView.setMinimumSize(getMinimumSize());
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tabbedPane, itemView);
+		splitPane.setOneTouchExpandable(true);
+		splitPane.setResizeWeight(.75f);
+		add(splitPane, "growx");
 	}
 
 	@Override
