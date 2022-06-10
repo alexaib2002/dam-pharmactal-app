@@ -37,12 +37,8 @@ public class TabbedSubmenu extends DefaultSubmenu {
 
 	@Override
 	public void initComponents() {
-
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		// add(tabbedPane, "cell 1 0");
-
 		ItemViewContainer itemView = new ItemViewContainer();
-		// add(itemView, "cell 2 0");
 
 		tabbedPane.setMinimumSize(new Dimension(200, 0));
 		itemView.setMinimumSize(new Dimension(200, 0));
