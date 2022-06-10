@@ -57,40 +57,13 @@ public class DataViewSubmenu extends DefaultSubmenu {
 			if (tableName.equals(TableContract.USERS.toString())) {
 				continue;
 			}
-			cols = getTableColumns(tableName);
+			cols = ContractUtils.getAllCols(TableContract.getTableFromString(tableName));
 			tableSubmn = new TableSubmenu(cols);
 			tableSubmn.setName(tableName);
 			tabbedPane.add(tableSubmn);
 			tabContainerPointer.put(tableName, tableSubmn);
 		}
 
-	}
-
-	private String[] getTableColumns(String tableName) {
-		String[] cols;
-
-		Object[] columnEnumValue = null;
-		switch (tableName.toUpperCase()) {
-		case "ARTICLES": {
-			columnEnumValue = ArticleContract.values();
-			break;
-		}
-		case "MEDS": {
-			columnEnumValue = MedContract.values();
-			break;
-		}
-		case "PROVIDERS": {
-			columnEnumValue = ProviderContract.values();
-			break;
-		}
-		}
-		cols = new String[columnEnumValue.length];
-		int i = 0;
-		for (Object columnValue : columnEnumValue) {
-			cols[i++] = columnValue.toString();
-		}
-
-		return cols;
 	}
 
 	public JTabbedPane getTabbedPane() {
