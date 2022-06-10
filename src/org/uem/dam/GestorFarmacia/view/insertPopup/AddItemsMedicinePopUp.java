@@ -29,12 +29,13 @@ public class AddItemsMedicinePopUp extends DefaultSubmenu implements ComponentVi
 	private JSpinner spnSupplierID;
 	private JRadioButton rdbtnYes;
 	private JRadioButton rdbtnNo;
+	private JButton btnClearData;
+	private JButton btnAddItem;
 	
 	public AddItemsMedicinePopUp() {
 		initComponents();
 		
 	}
-
 
 	public void initComponents() {
 		setLayout(new MigLayout("", "[][grow,center][grow,center][grow][]", "[][][][][][][][grow]"));
@@ -106,18 +107,21 @@ public class AddItemsMedicinePopUp extends DefaultSubmenu implements ComponentVi
 		cmbxUnits.setModel(new DefaultComboBoxModel<String>(new String[] {"mg", "g", "ml", "l"}));
 		add(cmbxUnits, "cell 3 6,growx");
 		
-		JButton btnClearData = new JButton("Clear Data");
+		btnClearData = new JButton("Clear Data");
 		add(btnClearData, "cell 1 7");
 		
-		JButton btnNewButton_1 = new JButton("Add Item");
-		add(btnNewButton_1, "cell 2 7");
+		btnAddItem = new JButton("Add Item");
+		add(btnAddItem, "cell 2 7");
 		
 	}
 	
 
 	@Override
 	public void updateListeners(ActionListener controller) {
-		
+		btnAddItem.addActionListener(controller);
+		btnClearData.addActionListener(controller);
+		rdbtnNo.addActionListener(controller);
+		rdbtnYes.addActionListener(controller);
 	}
 
 }
