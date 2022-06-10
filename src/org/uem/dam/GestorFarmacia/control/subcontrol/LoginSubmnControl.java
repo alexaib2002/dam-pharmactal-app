@@ -7,12 +7,13 @@ import org.uem.dam.GestorFarmacia.contract.UsersContract;
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.model.SystemUser;
 import org.uem.dam.GestorFarmacia.persist.DBPersistence;
+import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
 import org.uem.dam.GestorFarmacia.view.submenus.login.LoginSubmenu;
 
 public class LoginSubmnControl extends DefaultSubcontrol {
 
-	static final String[] USER_COLS = UsersContract.getAllCols();
+	static final String[] USER_COLS = ContractUtils.getAllCols(UsersContract.class);
 	private LoginSubmenu loginSubmn;
 
 	public LoginSubmnControl(MainController mainController, LoginSubmenu submenu) {
@@ -39,15 +40,10 @@ public class LoginSubmnControl extends DefaultSubcontrol {
 		System.out.println("Authenticating user against DDBB");
 		SystemUser insertedUser = loginSubmn.getFieldsData();
 		DBPersistence persist = mainController.getDbPersistence();
-		
+
 		ArrayList<SystemUser> systemUserList = persist.executeSelectUser((con, pstmt) -> {
-			String query = SQLQueryBuilder.buildSelectQuery(
-					TableContract.USERS.toString(), USER_COLS,
-					new String[] { String.format(
-							"USERNAME LIKE ?",
-							UsersContract.USERNAME.toString())
-					},
-					null, false);
+			String query = SQLQueryBuilder.buildSelectQuery(TableContract.USERS.toString(), USER_COLS,
+					new String[] { String.format("USERNAME LIKE ?", UsersContract.USERNAME.toString()) }, null, false);
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, insertedUser.userName());
 			return pstmt;

@@ -16,6 +16,7 @@ import org.uem.dam.GestorFarmacia.contract.TableContract;
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.persist.DBPersistence;
+import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
 import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 
@@ -56,7 +57,10 @@ public class TabbedSubmenu extends DefaultSubmenu {
 		tabContainerPointer = new LinkedHashMap<>();
 		String[] cols;
 		TableSubmenu tableSubmn;
-		for (String tableName : TableContract.getUITables()) {
+		for (String tableName : ContractUtils.getAllCols(TableContract.class)) {
+			if (tableName.equals(TableContract.USERS.toString())) {
+				continue;
+			}
 			cols = getTableColumns(tableName);
 			tableSubmn = new TableSubmenu(cols);
 			tableSubmn.setName(tableName);
@@ -108,10 +112,11 @@ public class TabbedSubmenu extends DefaultSubmenu {
 			try {
 				String selectedTable = tabbedPane.getSelectedComponent().getName();
 				ArrayList<DBItem> queryResult = null;
+				String[] cols;
 				// FIXME check if code can be optimized
 				switch (selectedTable.toUpperCase()) {
 				case "ARTICLES": {
-					String[] cols = ArticleContract.getAllCols();
+					cols = ContractUtils.getAllCols(ArticleContract.class);
 					queryResult = persistence.executeSelectArticles((con, pstmt) -> {
 						String query = SQLQueryBuilder.buildSelectQuery(selectedTable, cols, null, null, true);
 						pstmt = con.prepareStatement(query);
@@ -120,7 +125,7 @@ public class TabbedSubmenu extends DefaultSubmenu {
 					break;
 				}
 				case "MEDS": {
-					String[] cols = MedContract.getAllCols();
+					cols = ContractUtils.getAllCols(MedContract.class);
 					queryResult = persistence.executeSelectMeds((con, pstmt) -> {
 						String query = SQLQueryBuilder.buildSelectQuery(selectedTable, cols, null, null, true);
 						pstmt = con.prepareStatement(query);
@@ -129,7 +134,7 @@ public class TabbedSubmenu extends DefaultSubmenu {
 					break;
 				}
 				case "PROVIDERS": {
-					String[] cols = ProviderContract.getAllCols();
+					cols = ContractUtils.getAllCols(ProviderContract.class);
 					queryResult = persistence.executeSelectProviders((con, pstmt) -> {
 						String query = SQLQueryBuilder.buildSelectQuery(selectedTable, cols, null, null, true);
 						pstmt = con.prepareStatement(query);
