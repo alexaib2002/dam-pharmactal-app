@@ -22,7 +22,7 @@ import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class TabbedSubmenu extends DefaultSubmenu {
+public class DataViewSubmenu extends DefaultSubmenu {
 
 	private static final long serialVersionUID = 1L;
 	private LinkedHashMap<String, TableSubmenu> tabContainerPointer;
@@ -31,7 +31,7 @@ public class TabbedSubmenu extends DefaultSubmenu {
 
 	private ChangeListener updateManager;
 
-	public TabbedSubmenu() {
+	public DataViewSubmenu() {
 		setLayout(new MigLayout("", "[grow,fill]", "[grow,fill]"));
 	}
 
@@ -64,10 +64,6 @@ public class TabbedSubmenu extends DefaultSubmenu {
 			tabContainerPointer.put(tableName, tableSubmn);
 		}
 
-	}
-
-	public LinkedHashMap<String, TableSubmenu> getTabContainerPointer() {
-		return tabContainerPointer;
 	}
 
 	private String[] getTableColumns(String tableName) {

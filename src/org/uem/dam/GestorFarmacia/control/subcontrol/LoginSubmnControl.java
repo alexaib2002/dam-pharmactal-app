@@ -27,7 +27,7 @@ public class LoginSubmnControl extends DefaultSubcontrol {
 		case "login": {
 			if (validateLogin()) {
 				System.out.println("User authenticated");
-				mainFrame.setSubmenuView(mainFrame.getTabbedSubmn());
+				mainFrame.setSubmenuView(mainFrame.getDataViewSubmn());
 			} else {
 				System.err.println("Access denied");
 			}

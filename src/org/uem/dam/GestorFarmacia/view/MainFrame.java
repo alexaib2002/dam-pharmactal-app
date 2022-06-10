@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
 import org.uem.dam.GestorFarmacia.view.submenus.DataInsertSubmenu;
-import org.uem.dam.GestorFarmacia.view.submenus.data_view.TabbedSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.data_view.DataViewSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.login.LoginSubmenu;
 
 import net.miginfocom.swing.MigLayout;
@@ -25,7 +25,7 @@ public class MainFrame extends JFrame implements InteractableView<ActionListener
 	private JMenuItem exitMntm;
 
 	private LoginSubmenu loginSubmn;
-	private TabbedSubmenu tabbedSubmn;
+	private DataViewSubmenu dataViewSubmenu;
 	private DataInsertSubmenu dataInsertSubmn;
 	private JMenu mnView;
 	private JMenu mnTheme;
@@ -67,7 +67,7 @@ public class MainFrame extends JFrame implements InteractableView<ActionListener
 
 		loginSubmn = new LoginSubmenu();
 
-		tabbedSubmn = new TabbedSubmenu();
+		dataViewSubmenu = new DataViewSubmenu();
 
 		dataInsertSubmn = new DataInsertSubmenu();
 
@@ -95,7 +95,7 @@ public class MainFrame extends JFrame implements InteractableView<ActionListener
 		darkMntm.addActionListener(controller);
 		// propagate call to child submenus
 		loginSubmn.updateListeners(controller);
-		tabbedSubmn.updateListeners(controller);
+		dataViewSubmenu.updateListeners(controller);
 		dataInsertSubmn.updateListeners(controller);
 		// window adapter
 		this.addWindowListener(((MainController) controller).getWinAdapter());
@@ -105,8 +105,8 @@ public class MainFrame extends JFrame implements InteractableView<ActionListener
 		return loginSubmn;
 	}
 
-	public TabbedSubmenu getTabbedSubmn() {
-		return tabbedSubmn;
+	public DataViewSubmenu getDataViewSubmn() {
+		return dataViewSubmenu;
 	}
 
 	public DataInsertSubmenu getDataInsertSubmn() {
