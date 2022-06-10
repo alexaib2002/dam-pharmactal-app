@@ -10,12 +10,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import org.uem.dam.GestorFarmacia.model.SystemUser;
-import org.uem.dam.GestorFarmacia.view.ComponentView;
 import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class LoginSubmenu extends DefaultSubmenu implements ComponentView {
+public class LoginSubmenu extends DefaultSubmenu {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField usrTxt;

@@ -8,12 +8,11 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import org.uem.dam.GestorFarmacia.model.DBItem;
-import org.uem.dam.GestorFarmacia.view.ComponentView;
 import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class TableSubmenu extends DefaultSubmenu implements ComponentView {
+public class TableSubmenu extends DefaultSubmenu {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,7 +42,7 @@ public class TableSubmenu extends DefaultSubmenu implements ComponentView {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public void updateTable(ArrayList<DBItem> dbItemArray) {
 		tableModel.setRowCount(0);
 		for (DBItem dbItem : dbItemArray) {

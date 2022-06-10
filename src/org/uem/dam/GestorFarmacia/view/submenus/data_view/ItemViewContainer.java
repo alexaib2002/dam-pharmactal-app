@@ -2,12 +2,11 @@ package org.uem.dam.GestorFarmacia.view.submenus.data_view;
 
 import java.awt.event.ActionListener;
 
-import org.uem.dam.GestorFarmacia.view.ComponentView;
 import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ItemViewContainer extends DefaultSubmenu implements ComponentView {
+public class ItemViewContainer extends DefaultSubmenu {
 
 	public ItemViewContainer() {
 		setLayout(new MigLayout("", "[grow]", "[grow,center]"));

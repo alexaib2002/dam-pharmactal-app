@@ -1,13 +1,12 @@
 package org.uem.dam.GestorFarmacia.view.submenus;
 
 import java.awt.event.ActionListener;
-import java.util.EventListener;
 
 import javax.swing.JPanel;
 
-import org.uem.dam.GestorFarmacia.view.ComponentView;
+import org.uem.dam.GestorFarmacia.view.InteractableView;
 
-public abstract class DefaultSubmenu extends JPanel implements ComponentView {
+public abstract class DefaultSubmenu extends JPanel implements InteractableView<ActionListener> {
 
 	private static final long serialVersionUID = 1L;
 

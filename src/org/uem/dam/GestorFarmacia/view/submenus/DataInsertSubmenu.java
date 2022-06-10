@@ -5,11 +5,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import org.uem.dam.GestorFarmacia.view.ComponentView;
-
 import net.miginfocom.swing.MigLayout;
 
-public class DataInsertSubmenu extends DefaultSubmenu implements ComponentView {
+public class DataInsertSubmenu extends DefaultSubmenu {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;

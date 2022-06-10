@@ -17,7 +17,7 @@ import org.uem.dam.GestorFarmacia.view.submenus.login.LoginSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class MainFrame extends JFrame implements ComponentView {
+public class MainFrame extends JFrame implements InteractableView<ActionListener> {
 
 	private static final long serialVersionUID = 1L;
 	private JMenuBar menuBar;
