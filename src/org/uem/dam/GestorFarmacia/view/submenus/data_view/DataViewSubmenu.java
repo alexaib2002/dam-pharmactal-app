@@ -28,7 +28,7 @@ import net.miginfocom.swing.MigLayout;
 public class DataViewSubmenu extends DefaultSubmenu {
 
 	private static final long serialVersionUID = 1L;
-	private LinkedHashMap<String, TableSubmenu> tabContainerPointer;
+	private LinkedHashMap<String, TableTabContainer> tabContainerPointer;
 	private JTabbedPane tabbedPane;
 	JSplitPane splitPane;
 
@@ -41,11 +41,11 @@ public class DataViewSubmenu extends DefaultSubmenu {
 	@Override
 	public void initComponents() {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		ItemViewContainer itemView = new ItemViewContainer();
+		ItemInspectorContainer itemInspectorContainer = new ItemInspectorContainer();
 
 		tabbedPane.setMinimumSize(new Dimension(200, 0));
-		itemView.setMinimumSize(new Dimension(200, 0));
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tabbedPane, itemView);
+		itemInspectorContainer.setMinimumSize(itemInspectorContainer.getMinimumSize());
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tabbedPane, itemInspectorContainer);
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setResizeWeight(1.0);
 		add(splitPane, "growx");
@@ -55,13 +55,13 @@ public class DataViewSubmenu extends DefaultSubmenu {
 	public void initAttributes() {
 		tabContainerPointer = new LinkedHashMap<>();
 		String[] cols;
-		TableSubmenu tableSubmn;
+		TableTabContainer tableSubmn;
 		for (String tableName : ContractUtils.getAllCols(TableContract.class)) {
 			if (tableName.equals(TableContract.USERS.toString())) {
 				continue;
 			}
 			cols = ContractUtils.getAllCols(TableContract.getTableFromString(tableName));
-			tableSubmn = new TableSubmenu(cols);
+			tableSubmn = new TableTabContainer(cols);
 			tableSubmn.setName(tableName);
 			tabbedPane.add(tableSubmn);
 			tabContainerPointer.put(tableName, tableSubmn);

@@ -12,13 +12,13 @@ import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class TableSubmenu extends DefaultSubmenu {
+public class TableTabContainer extends DefaultSubmenu {
 
 	private static final long serialVersionUID = 1L;
 
 	private DefaultTableModel tableModel;
 
-	public TableSubmenu(String[] cols) {
+	public TableTabContainer(String[] cols) {
 		for (String col : cols) {
 			tableModel.addColumn(col);
 		}
