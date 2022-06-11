@@ -10,13 +10,11 @@ import java.util.Properties;
 
 import org.uem.dam.GestorFarmacia.utils.ErrorUtils;
 
-
-
 public class DBConnection {
 
 	private String driver;
 	private String url;
-	
+
 	public DBConnection() {
 		FileInputStream fileInputStream;
 		try {
@@ -26,13 +24,14 @@ public class DBConnection {
 			driver = dbProperties.getProperty("driver");
 			url = dbProperties.getProperty("url");
 		} catch (FileNotFoundException e) {
-			ErrorUtils.onFatalErrorException("El fichero de configuración de la BBDD (dbconfig.properties)" 
-					+ "no ha sido encontrado en la ruta del ejecutable.");
+			ErrorUtils.onFatalErrorException(
+					"El fichero de configuración de la BBDD (dbconfig.properties)"
+							+ "no ha sido encontrado en la ruta del ejecutable.");
 		} catch (IOException e) {
 			ErrorUtils.onFatalErrorException("Se ha producido un fallo en la Entrada/Salida de la aplicación");
 		}
 	}
-	
+
 	public Connection getConnection() {
 		try {
 			Class.forName(driver);
@@ -44,5 +43,5 @@ public class DBConnection {
 		}
 		return null;
 	}
-	
+
 }
