@@ -7,7 +7,6 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JComponent;
 
-import org.uem.dam.GestorFarmacia.control.subcontrol.LoginSubmnControl;
 import org.uem.dam.GestorFarmacia.persist.DBItemMap;
 import org.uem.dam.GestorFarmacia.persist.DBPersistence;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
@@ -19,8 +18,6 @@ public class MainController implements ActionListener {
 
 	private DBItemMap dbItemMap;
 
-	private LoginSubmnControl loginControl;
-
 	private MainFrame mainFrame;
 	private DBPersistence dbPersistence;
 	private WindowAdapter winAdapter;
@@ -29,7 +26,6 @@ public class MainController implements ActionListener {
 		this.mainFrame = mainFrame;
 		this.dbPersistence = new DBPersistence();
 		this.dbItemMap = new DBItemMap();
-		initSubcontrols();
 		this.winAdapter = new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) { // custom event on window closing
@@ -71,18 +67,10 @@ public class MainController implements ActionListener {
 			parseThemeMenuAction(action);
 			break;
 		}
-		case "LoginSubmenu": {
-			loginControl.parseAction(action);
-			break;
-		}
 		default:
 			throw new IllegalArgumentException("Unnasinged ID action: " + action);
 		}
 
-	}
-
-	private void initSubcontrols() {
-		this.loginControl = new LoginSubmnControl(this, mainFrame.getLoginSubmn());
 	}
 
 	/* General action parsers */

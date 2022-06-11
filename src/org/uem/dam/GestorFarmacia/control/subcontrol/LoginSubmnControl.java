@@ -1,5 +1,7 @@
 package org.uem.dam.GestorFarmacia.control.subcontrol;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import org.uem.dam.GestorFarmacia.contract.TableContract;
@@ -12,41 +14,44 @@ import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
 import org.uem.dam.GestorFarmacia.view.submenus.login.LoginSubmenu;
 
-public class LoginSubmnControl extends DefaultSubcontrol {
+public class LoginSubmnControl extends DefaultSubcontrol implements ActionListener {
 
-	static final String[] USER_COLS = ContractUtils.getAllCols(UsersContract.class);
-	private LoginSubmenu loginSubmn;
+	private static final String[] USER_COLS = ContractUtils.getAllCols(UsersContract.class);
+
+	private final LoginSubmenu loginSubmn;
 
 	public LoginSubmnControl(MainController mainController,
 			LoginSubmenu submenu) {
-		super(
-				mainController);
+		super(mainController);
 		this.loginSubmn = submenu;
 	}
 
 	@Override
-	public void parseAction(String action) {
-		switch (action) {
-		case "login": {
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().toLowerCase().equals("login")) {
 			if (validateLogin()) {
 				System.out.println("User authenticated");
 				mainFrame.setSubmenuView(mainFrame.getDataViewSubmn());
+				// TODO log user who has entered the system
 			} else {
 				System.err.println("Access denied");
 			}
-			break;
 		}
-		}
+
 	}
 
 	private boolean validateLogin() {
-		System.out.println("Authenticating user against DDBB");
 		SystemUser insertedUser = loginSubmn.getFieldsData();
 		DBPersistence persist = mainController.getDbPersistence();
 
 		ArrayList<DBItem> systemUserList = persist.executeSelect((con, pstmt) -> {
-			String query = SQLQueryBuilder.buildSelectQuery(TableContract.USERS.toString(), USER_COLS,
-					new String[] { String.format("USERNAME LIKE ?", UsersContract.USERNAME.toString()) }, null, false);
+			String query = SQLQueryBuilder.buildSelectQuery(
+					TableContract.USERS.toString(),
+					USER_COLS,
+					new String[] {
+							String.format("USERNAME LIKE ?", UsersContract.USERNAME.toString()) },
+					null,
+					false);
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, insertedUser.name());
 			return pstmt;

@@ -9,6 +9,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import org.uem.dam.GestorFarmacia.control.MainController;
+import org.uem.dam.GestorFarmacia.control.subcontrol.LoginSubmnControl;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
 import org.uem.dam.GestorFarmacia.view.submenus.DataInsertSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.DataViewSubmenu;
@@ -93,7 +94,7 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		lightMntm.addActionListener(controller);
 		darkMntm.addActionListener(controller);
 		// propagate call to child submenus
-		loginSubmn.updateListeners(controller);
+		loginSubmn.updateListeners(new LoginSubmnControl(controller, loginSubmn));
 		dataViewSubmenu.updateListeners(controller);
 		dataInsertSubmn.updateListeners(controller);
 		// window adapter

@@ -14,7 +14,7 @@ import org.uem.dam.GestorFarmacia.contract.MedContract;
 import org.uem.dam.GestorFarmacia.contract.ProviderContract;
 import org.uem.dam.GestorFarmacia.contract.TableContract;
 import org.uem.dam.GestorFarmacia.control.MainController;
-import org.uem.dam.GestorFarmacia.control.subcontrol.ItemListContnControl;
+import org.uem.dam.GestorFarmacia.control.listener.ItemListContnListener;
 import org.uem.dam.GestorFarmacia.model.Article;
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.model.Medicine;
@@ -129,7 +129,7 @@ public class DataViewSubmenu extends DefaultSubmenu<MainController> {
 				String tableName = pointerEntry.getKey();
 				itmListContainer.updateListeners(
 						// TODO get proper submenu for passing to listener
-						new ItemListContnControl(tableName, controller.getDbItemMap(), itmListContainer.getList(),
+						new ItemListContnListener(tableName, controller.getDbItemMap(), itmListContainer.getList(),
 								itemInspectorContainer.getDataPanel(tableName)));
 			}
 		}

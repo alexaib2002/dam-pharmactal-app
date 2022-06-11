@@ -24,13 +24,13 @@ public class DBPersistence {
 		dbConnection = new DBConnection();
 	}
 
-	public int executeUpdate(UpdateExpression expr) {
+	public int executeUpdate(ExecutableExpression expr) {
 		int result = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = dbConnection.getConnection();
-			pstmt = expr.executeUpdateSQL(con, pstmt);
+			pstmt = expr.executeSQL(con, pstmt);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("Error en codigo SQL");
@@ -40,7 +40,7 @@ public class DBPersistence {
 		return result;
 	}
 
-	public ArrayList<DBItem> executeSelect(SelectExpression expr, Class<? extends DBItem> itemClass, int colCount) {
+	public ArrayList<DBItem> executeSelect(ExecutableExpression expr, Class<? extends DBItem> itemClass, int colCount) {
 		ArrayList<DBItem> result = new ArrayList<>();
 		for (Object[] columnValues : fetchColumns(expr, colCount)) {
 			if (itemClass.equals(Article.class)) {
@@ -81,14 +81,14 @@ public class DBPersistence {
 		return result;
 	}
 
-	private ArrayList<Object[]> fetchColumns(SelectExpression expr, int colCount) {
+	private ArrayList<Object[]> fetchColumns(ExecutableExpression expr, int colCount) {
 		ArrayList<Object[]> result = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		try {
 			con = dbConnection.getConnection();
-			pstmt = expr.executeSelectSQL(con, pstmt);
+			pstmt = expr.executeSQL(con, pstmt);
 			rset = pstmt.executeQuery();
 			Object[] colValue;
 			while (rset.next()) {

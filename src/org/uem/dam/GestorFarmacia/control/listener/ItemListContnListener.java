@@ -1,4 +1,4 @@
-package org.uem.dam.GestorFarmacia.control.subcontrol;
+package org.uem.dam.GestorFarmacia.control.listener;
 
 import javax.swing.JList;
 import javax.swing.event.ListSelectionEvent;
@@ -8,7 +8,7 @@ import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.persist.DBItemMap;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel.InspectorDataPanel;
 
-public class ItemListContnControl<T extends InspectorDataPanel<DBItem>> implements ListSelectionListener {
+public class ItemListContnListener<T extends InspectorDataPanel<DBItem>> implements ListSelectionListener {
 
 	private final String tableName;
 	private final JList<String> list;
@@ -16,8 +16,7 @@ public class ItemListContnControl<T extends InspectorDataPanel<DBItem>> implemen
 
 	private final DBItemMap itemMap;
 
-	// TODO implement default on class to extend this structure
-	public ItemListContnControl(String tableName,
+	public ItemListContnListener(String tableName,
 			DBItemMap itemMap,
 			JList<String> list,
 			T panel) {

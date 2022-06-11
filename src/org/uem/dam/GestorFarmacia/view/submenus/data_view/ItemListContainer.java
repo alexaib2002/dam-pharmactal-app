@@ -7,14 +7,14 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-import org.uem.dam.GestorFarmacia.control.subcontrol.ItemListContnControl;
+import org.uem.dam.GestorFarmacia.control.listener.ItemListContnListener;
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.model.RootItem;
 import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ItemListContainer extends DefaultSubmenu<ItemListContnControl> implements DataContainer {
+public class ItemListContainer extends DefaultSubmenu<ItemListContnListener> implements DataContainer {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,7 +36,7 @@ public class ItemListContainer extends DefaultSubmenu<ItemListContnControl> impl
 	}
 
 	@Override
-	public void updateListeners(ItemListContnControl controller) {
+	public void updateListeners(ItemListContnListener controller) {
 		list.addListSelectionListener(controller);
 	}
 

@@ -5,14 +5,12 @@ import org.uem.dam.GestorFarmacia.view.MainFrame;
 
 public abstract class DefaultSubcontrol {
 
-	protected MainController mainController;
-	protected MainFrame mainFrame;
+	protected final MainController mainController;
+	protected final MainFrame mainFrame;
 
 	public DefaultSubcontrol(MainController mainController) {
 		this.mainController = mainController;
 		this.mainFrame = mainController.getMainFrame();
 	}
-
-	public abstract void parseAction(String action);
 
 }
