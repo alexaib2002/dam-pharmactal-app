@@ -28,7 +28,6 @@ public class LoginSubmenu extends DefaultInteractableSubmenu<LoginSubmnControl> 
 	@Override
 	public void initComponents() {
 		setLayout(new MigLayout("", "[][grow,center][]", "[][][grow,fill][][][30.00,center]"));
-
 		JLabel titleLbl = new JLabel("Welcome!");
 		titleLbl.setFont(new Font("Dialog", Font.BOLD, 28));
 		titleLbl.setHorizontalAlignment(SwingConstants.CENTER);
