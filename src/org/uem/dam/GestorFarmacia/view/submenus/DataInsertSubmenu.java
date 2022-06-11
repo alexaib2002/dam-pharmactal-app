@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 
 import net.miginfocom.swing.MigLayout;
 
-public class DataInsertSubmenu extends DefaultSubmenu {
+public class DataInsertSubmenu extends DefaultSubmenu<ActionListener> {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;

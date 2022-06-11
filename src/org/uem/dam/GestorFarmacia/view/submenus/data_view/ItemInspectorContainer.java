@@ -11,17 +11,30 @@ import org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel.ProvidersDa
 
 import net.miginfocom.swing.MigLayout;
 
-public class ItemInspectorContainer extends DefaultSubmenu {
+public class ItemInspectorContainer extends DefaultSubmenu<ActionListener> {
 
 	private static final long serialVersionUID = 1L;
-	private JLabel lblInspector;
 
-	public ItemInspectorContainer() {
-		setLayout(new MigLayout("", "[grow]", "[][grow,center][grow,center][grow,center]"));
-		add(getLblInspector(), "cell 0 0,alignx center");
-		this.add(new ArticleDataPanel(), "cell 0 1,growx,aligny center"); // FIXME placeholder
-		this.add(new MedDataPanel(), "cell 0 2,growx,aligny center"); // FIXME placeholder
-		this.add(new ProvidersDataPanel(), "cell 0 3,growx,aligny center"); // FIXME placeholder
+	private ArticleDataPanel articleDataPanel;
+	private MedDataPanel medDataPanel;
+	private ProvidersDataPanel providersDataPanel;
+
+	@Override
+	public void initComponents() {
+		setLayout(new MigLayout("hidemode 3", "[grow]", "[][top][top][top]"));
+		JLabel titleLbl = new JLabel("Inspector");
+		add(titleLbl, "cell 0 0,alignx center");
+		this.articleDataPanel = new ArticleDataPanel();
+		this.add(this.articleDataPanel, "cell 0 1,growx,aligny center");
+		this.medDataPanel = new MedDataPanel();
+		this.add(this.medDataPanel, "cell 0 2,growx,aligny center");
+		this.providersDataPanel = new ProvidersDataPanel();
+		this.add(this.providersDataPanel, "cell 0 3,growx,aligny center");
+	}
+
+	@Override
+	public void initAttributes() {
+
 	}
 
 	@Override
@@ -29,10 +42,41 @@ public class ItemInspectorContainer extends DefaultSubmenu {
 
 	}
 
-	private JLabel getLblInspector() {
-		if (lblInspector == null) {
-			lblInspector = new JLabel("Inspector");
+	public void updateInspectorData() {
+		// TODO implement functionality
+	}
+
+	public void changeOverlay(String tableName) {
+		onOverlayUpdate();
+		switch (tableName) {
+		case "ARTICLES": {
+			articleDataPanel.setVisible(true);
+			break;
 		}
-		return lblInspector;
+		case "MEDS": {
+			articleDataPanel.setVisible(true);
+			medDataPanel.setVisible(true);
+			break;
+		}
+		case "PROVIDERS": {
+			providersDataPanel.setVisible(true);
+			break;
+		}
+		default: {
+			System.err.println(String.format("Couldn't match table passed to ItemInspector %s", tableName));
+		}
+		}
+		refreshLayout();
+	}
+
+	private void onOverlayUpdate() {
+		articleDataPanel.setVisible(false);
+		medDataPanel.setVisible(false);
+		providersDataPanel.setVisible(false);
+	}
+
+	private void refreshLayout() {
+		this.repaint();
+		this.revalidate();
 	}
 }

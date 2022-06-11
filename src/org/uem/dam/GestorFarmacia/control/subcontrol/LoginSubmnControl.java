@@ -48,7 +48,7 @@ public class LoginSubmnControl extends DefaultSubcontrol {
 			String query = SQLQueryBuilder.buildSelectQuery(TableContract.USERS.toString(), USER_COLS,
 					new String[] { String.format("USERNAME LIKE ?", UsersContract.USERNAME.toString()) }, null, false);
 			pstmt = con.prepareStatement(query);
-			pstmt.setString(1, insertedUser.userName());
+			pstmt.setString(1, insertedUser.name());
 			return pstmt;
 		}, SystemUser.class, USER_COLS.length);
 		if (systemUserList.size() > 1) {

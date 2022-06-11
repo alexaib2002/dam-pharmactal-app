@@ -1,7 +1,6 @@
 package org.uem.dam.GestorFarmacia.view;
 
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -17,7 +16,7 @@ import org.uem.dam.GestorFarmacia.view.submenus.login.LoginSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class MainFrame extends JFrame implements InteractableView<ActionListener> {
+public class MainFrame extends JFrame implements InteractableView<MainController> {
 
 	private static final long serialVersionUID = 1L;
 	private JMenuBar menuBar;
@@ -81,14 +80,14 @@ public class MainFrame extends JFrame implements InteractableView<ActionListener
 		// pack the view and set it as minimum size
 		this.pack();
 		this.setMinimumSize(getSize());
-		this.setSize(new Dimension(300, 300));
+		this.setSize(new Dimension(700, 500)); // FIXME hardcode
 
 		// set main view content
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 	}
 
 	@Override
-	public void updateListeners(ActionListener controller) {
+	public void updateListeners(MainController controller) {
 		// update component listeners
 		exitMntm.addActionListener(controller);
 		lightMntm.addActionListener(controller);

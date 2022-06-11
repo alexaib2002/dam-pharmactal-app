@@ -4,17 +4,15 @@ public record Provider(
 		int providerId,
 		String name,
 		String phone,
-		String address
-		) implements DBItem {
-	
+		String address) implements DBItem, NonForeignItem {
+
 	@Override
 	public String[] getAttributes() {
-		return new String[] { 
+		return new String[] {
 				Integer.toString(providerId),
 				name,
 				phone,
-				address,
-		};
+				address, };
 	}
 
 }

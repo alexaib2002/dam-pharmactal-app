@@ -12,7 +12,7 @@ import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class TableTabContainer extends DefaultSubmenu {
+public class TableTabContainer extends DefaultSubmenu<ActionListener> implements DataContainer {
 
 	private static final long serialVersionUID = 1L;
 
@@ -43,9 +43,10 @@ public class TableTabContainer extends DefaultSubmenu {
 
 	}
 
-	public void updateTable(ArrayList<DBItem> dbItemArray) {
+	@Override
+	public void updateContent(ArrayList<DBItem> data) {
 		tableModel.setRowCount(0);
-		for (DBItem dbItem : dbItemArray) {
+		for (DBItem dbItem : data) {
 			tableModel.addRow(dbItem.getAttributes());
 		}
 	}

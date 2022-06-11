@@ -1,9 +1,9 @@
 package org.uem.dam.GestorFarmacia.view.submenus.data_view;
 
 import java.awt.Dimension;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
@@ -14,10 +14,12 @@ import org.uem.dam.GestorFarmacia.contract.MedContract;
 import org.uem.dam.GestorFarmacia.contract.ProviderContract;
 import org.uem.dam.GestorFarmacia.contract.TableContract;
 import org.uem.dam.GestorFarmacia.control.MainController;
+import org.uem.dam.GestorFarmacia.control.subcontrol.ItemListContnControl;
 import org.uem.dam.GestorFarmacia.model.Article;
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.model.Medicine;
 import org.uem.dam.GestorFarmacia.model.Provider;
+import org.uem.dam.GestorFarmacia.persist.DBItemMap;
 import org.uem.dam.GestorFarmacia.persist.DBPersistence;
 import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
@@ -25,12 +27,13 @@ import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class DataViewSubmenu extends DefaultSubmenu {
+public class DataViewSubmenu extends DefaultSubmenu<MainController> {
 
 	private static final long serialVersionUID = 1L;
-	private LinkedHashMap<String, TableTabContainer> tabContainerPointer;
+	private LinkedHashMap<String, DataContainer> tabContainerPointer;
 	private JTabbedPane tabbedPane;
-	JSplitPane splitPane;
+	private ItemInspectorContainer itemInspectorContainer;
+	private JSplitPane splitPane;
 
 	private ChangeListener updateManager;
 
@@ -41,10 +44,11 @@ public class DataViewSubmenu extends DefaultSubmenu {
 	@Override
 	public void initComponents() {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		ItemInspectorContainer itemInspectorContainer = new ItemInspectorContainer();
-
 		tabbedPane.setMinimumSize(new Dimension(200, 0));
-		itemInspectorContainer.setMinimumSize(itemInspectorContainer.getMinimumSize());
+
+		itemInspectorContainer = new ItemInspectorContainer();
+//		itemInspectorContainer.setMinimumSize(itemInspectorContainer.getMinimumSize());
+
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tabbedPane, itemInspectorContainer);
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setResizeWeight(1.0);
@@ -54,34 +58,28 @@ public class DataViewSubmenu extends DefaultSubmenu {
 	@Override
 	public void initAttributes() {
 		tabContainerPointer = new LinkedHashMap<>();
-		String[] cols;
-		TableTabContainer tableSubmn;
 		for (String tableName : ContractUtils.getAllCols(TableContract.class)) {
 			if (tableName.equals(TableContract.USERS.toString())) {
 				continue;
 			}
-			cols = ContractUtils.getAllCols(TableContract.getTableFromString(tableName));
-			tableSubmn = new TableTabContainer(cols);
-			tableSubmn.setName(tableName);
-			tabbedPane.add(tableSubmn);
-			tabContainerPointer.put(tableName, tableSubmn);
+			ItemListContainer itemListContainer = new ItemListContainer();
+			itemListContainer.setName(tableName);
+			tabbedPane.add(itemListContainer);
+			tabContainerPointer.put(tableName, itemListContainer);
 		}
 
 	}
 
-	public JTabbedPane getTabbedPane() {
-		return tabbedPane;
-	}
-
 	@Override
-	public void updateListeners(ActionListener controller) {
-		DBPersistence persistence = ((MainController) controller).getDbPersistence();
+	public void updateListeners(MainController controller) {
+		DBPersistence persistence = controller.getDbPersistence();
 		this.updateManager = (event) -> {
 			try {
 				String selectedTable = tabbedPane.getSelectedComponent().getName();
 				ArrayList<DBItem> queryResult = null;
 				String[] cols;
-				// FIXME check if code can be optimized
+				// FIXME make method on ContractUtils to get class for table, so code can be
+				// optimized
 				switch (selectedTable.toUpperCase()) {
 				case "ARTICLES": {
 					cols = ContractUtils.getAllCols(ArticleContract.class);
@@ -111,14 +109,35 @@ public class DataViewSubmenu extends DefaultSubmenu {
 					break;
 				}
 				}
-				tabContainerPointer.get(selectedTable).updateTable(queryResult);
+				tabContainerPointer.get(selectedTable).updateContent(queryResult);
+				itemInspectorContainer.changeOverlay(selectedTable.toUpperCase());
+
+				// FIXME this should be separated to the controller class
+				DBItemMap dbItemMap = controller.getDbItemMap();
+				dbItemMap.put(selectedTable, queryResult);
+
 			} catch (NullPointerException npe) {
 				System.err.println("Fatal error, cannot fetch data from DDBB");
 				npe.printStackTrace();
 			}
 		};
+
 		tabbedPane.addChangeListener(updateManager);
-		updateManager.stateChanged(null); // fire first run
+		updateManager.stateChanged(null); // fire first run so dbItemMap is loaded with data
+
+		for (Entry<String, DataContainer> pointerEntry : tabContainerPointer.entrySet()) {
+			if (pointerEntry.getValue() instanceof ItemListContainer) {
+				ItemListContainer itmListContainer = (ItemListContainer) pointerEntry.getValue();
+				itmListContainer.updateListeners(
+						new ItemListContnControl(pointerEntry.getKey(), controller.getDbItemMap(), itmListContainer,
+								itemInspectorContainer));
+			}
+		}
+		updateManager.stateChanged(null); // fire another time so listeners can retrieve data
+	}
+
+	public JTabbedPane getTabbedPane() {
+		return tabbedPane;
 	}
 
 }

@@ -14,7 +14,7 @@ import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class LoginSubmenu extends DefaultSubmenu {
+public class LoginSubmenu extends DefaultSubmenu<ActionListener> {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField usrTxt;

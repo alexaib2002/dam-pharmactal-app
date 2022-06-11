@@ -7,8 +7,8 @@ import java.awt.event.WindowEvent;
 
 import javax.swing.JComponent;
 
-import org.uem.dam.GestorFarmacia.control.subcontrol.DataInsertSubmnControl;
 import org.uem.dam.GestorFarmacia.control.subcontrol.LoginSubmnControl;
+import org.uem.dam.GestorFarmacia.persist.DBItemMap;
 import org.uem.dam.GestorFarmacia.persist.DBPersistence;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager.LookAndFeelItem;
@@ -17,8 +17,9 @@ import org.uem.dam.GestorFarmacia.view.MainFrame;
 
 public class MainController implements ActionListener {
 
+	private DBItemMap dbItemMap;
+
 	private LoginSubmnControl loginControl;
-	private DataInsertSubmnControl dataInsertControl;
 
 	private MainFrame mainFrame;
 	private DBPersistence dbPersistence;
@@ -27,8 +28,8 @@ public class MainController implements ActionListener {
 	public MainController(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
 		this.dbPersistence = new DBPersistence();
-		this.loginControl = new LoginSubmnControl(this, mainFrame.getLoginSubmn());
-		this.dataInsertControl = new DataInsertSubmnControl(this, mainFrame.getDataInsertSubmn());
+		this.dbItemMap = new DBItemMap();
+		initSubcontrols();
 		this.winAdapter = new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) { // custom event on window closing
@@ -60,6 +61,10 @@ public class MainController implements ActionListener {
 		return dbPersistence;
 	}
 
+	public DBItemMap getDbItemMap() {
+		return dbItemMap;
+	}
+
 	private void parseCallerIDAction(String callerID, String action) {
 		switch (callerID) {
 		case "ThemeMenu": {
@@ -70,13 +75,14 @@ public class MainController implements ActionListener {
 			loginControl.parseAction(action);
 			break;
 		}
-		case "DataInsertSubmenu": {
-			dataInsertControl.parseAction(action);
-			break;
-		}
 		default:
 			throw new IllegalArgumentException("Unnasinged ID action: " + action);
 		}
+
+	}
+
+	private void initSubcontrols() {
+		this.loginControl = new LoginSubmnControl(this, mainFrame.getLoginSubmn());
 	}
 
 	/* General action parsers */
