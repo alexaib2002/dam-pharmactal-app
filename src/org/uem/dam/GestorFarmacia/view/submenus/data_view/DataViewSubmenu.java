@@ -73,6 +73,7 @@ public class DataViewSubmenu extends DefaultSubmenu<MainController> {
 	@Override
 	public void updateListeners(MainController controller) {
 		DBPersistence persistence = controller.getDbPersistence();
+		DBItemMap dbItemMap = controller.getDbItemMap();
 		this.updateManager = (event) -> {
 			try {
 				String selectedTable = tabbedPane.getSelectedComponent().getName();
@@ -109,12 +110,9 @@ public class DataViewSubmenu extends DefaultSubmenu<MainController> {
 					break;
 				}
 				}
+				dbItemMap.put(selectedTable, queryResult);
 				tabContainerPointer.get(selectedTable).updateContent(queryResult);
 				itemInspectorContainer.changeOverlay(selectedTable.toUpperCase());
-
-				// FIXME this should be separated to the controller class
-				DBItemMap dbItemMap = controller.getDbItemMap();
-				dbItemMap.put(selectedTable, queryResult);
 
 			} catch (NullPointerException npe) {
 				System.err.println("Fatal error, cannot fetch data from DDBB");
@@ -128,9 +126,11 @@ public class DataViewSubmenu extends DefaultSubmenu<MainController> {
 		for (Entry<String, DataContainer> pointerEntry : tabContainerPointer.entrySet()) {
 			if (pointerEntry.getValue() instanceof ItemListContainer) {
 				ItemListContainer itmListContainer = (ItemListContainer) pointerEntry.getValue();
+				String tableName = pointerEntry.getKey();
 				itmListContainer.updateListeners(
-						new ItemListContnControl(pointerEntry.getKey(), controller.getDbItemMap(), itmListContainer,
-								itemInspectorContainer));
+						// TODO get proper submenu for passing to listener
+						new ItemListContnControl(tableName, controller.getDbItemMap(), itmListContainer.getList(),
+								itemInspectorContainer.getDataPanel(tableName)));
 			}
 		}
 		updateManager.stateChanged(null); // fire another time so listeners can retrieve data

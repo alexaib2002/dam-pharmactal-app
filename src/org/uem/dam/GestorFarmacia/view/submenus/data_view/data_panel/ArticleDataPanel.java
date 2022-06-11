@@ -5,17 +5,14 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import org.uem.dam.GestorFarmacia.model.Article;
 import org.uem.dam.GestorFarmacia.view.DefaultComponent;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ArticleDataPanel extends DefaultComponent {
+public class ArticleDataPanel extends DefaultComponent implements InspectorDataPanel<Article> {
 
 	private static final long serialVersionUID = 1L;
-
-	public ArticleDataPanel() { // FIXME placeholder for editing
-		initComponents();
-	}
 
 	private JTextField aidTxt;
 	private JTextField nameTxt;
@@ -56,7 +53,10 @@ public class ArticleDataPanel extends DefaultComponent {
 		add(stockSpn, "cell 1 3");
 	}
 
-	public void refreshData() {
+	@Override
+	public void refreshData(Article article) {
+		// TODO
+		aidTxt.setText(Integer.toString(article.articleId()));
 
 	}
 

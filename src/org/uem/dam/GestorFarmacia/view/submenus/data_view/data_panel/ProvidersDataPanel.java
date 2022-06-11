@@ -8,17 +8,14 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
+import org.uem.dam.GestorFarmacia.model.Provider;
 import org.uem.dam.GestorFarmacia.view.DefaultComponent;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ProvidersDataPanel extends DefaultComponent {
+public class ProvidersDataPanel extends DefaultComponent implements InspectorDataPanel<Provider> {
 
 	private static final long serialVersionUID = 1L;
-
-	public ProvidersDataPanel() { // FIXME placeholder for editing
-		initComponents();
-	}
 
 	private JTextField nameTxt;
 	private JLabel priceLbl;
@@ -29,8 +26,9 @@ public class ProvidersDataPanel extends DefaultComponent {
 
 	@Override
 	public void initComponents() {
-		setBorder(new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Providers", TitledBorder.LEADING,
-				TitledBorder.TOP, null, new Color(51, 51, 51)));
+		setBorder(
+				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Providers", TitledBorder.LEADING,
+						TitledBorder.TOP, null, new Color(51, 51, 51)));
 		setLayout(new MigLayout("", "[right][grow]", "[][][][]"));
 
 		JLabel pidLbl = new JLabel("Provider ID");
@@ -61,8 +59,10 @@ public class ProvidersDataPanel extends DefaultComponent {
 		addrTxt.setColumns(10);
 	}
 
-	public void refreshData() {
-
+	@Override
+	public void refreshData(Provider dataItem) {
+		// TODO
+		nameTxt.setText(dataItem.name());
 	}
 
 }

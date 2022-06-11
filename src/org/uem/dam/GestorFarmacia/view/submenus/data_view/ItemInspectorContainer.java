@@ -1,11 +1,13 @@
 package org.uem.dam.GestorFarmacia.view.submenus.data_view;
 
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import javax.swing.JLabel;
 
 import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel.ArticleDataPanel;
+import org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel.InspectorDataPanel;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel.MedDataPanel;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel.ProvidersDataPanel;
 
@@ -18,6 +20,8 @@ public class ItemInspectorContainer extends DefaultSubmenu<ActionListener> {
 	private ArticleDataPanel articleDataPanel;
 	private MedDataPanel medDataPanel;
 	private ProvidersDataPanel providersDataPanel;
+
+	private HashMap<String, InspectorDataPanel<?>> panelReference;
 
 	@Override
 	public void initComponents() {
@@ -34,16 +38,23 @@ public class ItemInspectorContainer extends DefaultSubmenu<ActionListener> {
 
 	@Override
 	public void initAttributes() {
-
+		panelReference = new HashMap<>();
+		panelReference.put("ARTICLES", articleDataPanel);
+		panelReference.put("MEDS", medDataPanel);
+		panelReference.put("PROVIDERS", providersDataPanel);
 	}
 
 	@Override
 	public void updateListeners(ActionListener controller) {
-
+		// TODO
 	}
 
 	public void updateInspectorData() {
 		// TODO implement functionality
+	}
+
+	public InspectorDataPanel<?> getDataPanel(String table) {
+		return panelReference.get(table);
 	}
 
 	public void changeOverlay(String tableName) {
