@@ -15,28 +15,21 @@ import org.uem.dam.GestorFarmacia.model.Article;
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.model.Medicine;
 import org.uem.dam.GestorFarmacia.model.Provider;
-import org.uem.dam.GestorFarmacia.persist.DBItemMap;
 import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.UpdatableDataContainer;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.DataViewSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.ItemInspectorContainer;
 
-public class DataViewContnListener extends DefaultSubcontrol implements ChangeListener {
+public class DataViewContnListener extends InteractableControl implements ChangeListener {
 
-	// FIXME maybe this class could be abstracted to InteractableControl, or
-	// someting like that
-
-	private DBItemMap dbItemMap;
-
-	private LinkedHashMap<String, UpdatableDataContainer> tabContainerPointer;
-	private JTabbedPane tabbedPane;
-	private ItemInspectorContainer itemInspectorContainer;
+	private final LinkedHashMap<String, UpdatableDataContainer> tabContainerPointer;
+	private final JTabbedPane tabbedPane;
+	private final ItemInspectorContainer itemInspectorContainer;
 
 	public DataViewContnListener(MainController mainController,
 			DataViewSubmenu dataViewSubmn) {
 		super(mainController);
-		this.dbItemMap = mainController.getDbItemMap();
 		this.tabbedPane = dataViewSubmn.getTabbedPane();
 		this.itemInspectorContainer = dataViewSubmn.getItemInspectorContainer();
 		this.tabContainerPointer = dataViewSubmn.getTabContainerPointer();

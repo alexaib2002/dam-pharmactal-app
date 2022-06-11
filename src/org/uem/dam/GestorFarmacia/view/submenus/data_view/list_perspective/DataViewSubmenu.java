@@ -10,8 +10,8 @@ import javax.swing.event.ChangeListener;
 
 import org.uem.dam.GestorFarmacia.contract.TableContract;
 import org.uem.dam.GestorFarmacia.control.MainController;
-import org.uem.dam.GestorFarmacia.control.listener.ItemListContnListener;
 import org.uem.dam.GestorFarmacia.control.subcontrol.DataViewContnListener;
+import org.uem.dam.GestorFarmacia.control.subcontrol.ItemListContnListener;
 import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.view.submenus.DefaultInteractableSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.UpdatableDataContainer;
@@ -71,8 +71,8 @@ public class DataViewSubmenu extends DefaultInteractableSubmenu<MainController> 
 				ItemListContainer itmListContainer = (ItemListContainer) pointerEntry.getValue();
 				String tableName = pointerEntry.getKey();
 				itmListContainer.updateListeners(
-						new ItemListContnListener(tableName, controller.getDbItemMap(), itmListContainer.getList(),
-								itemInspectorContainer.getDataPanel(tableName)));
+						new ItemListContnListener(controller, tableName, controller.getDbItemMap(),
+								itmListContainer.getList(), itemInspectorContainer.getDataPanel(tableName)));
 			}
 		}
 		updateManager.stateChanged(null); // fire another time so listeners can retrieve data

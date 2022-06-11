@@ -7,7 +7,7 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-import org.uem.dam.GestorFarmacia.control.listener.ItemListContnListener;
+import org.uem.dam.GestorFarmacia.control.subcontrol.ItemListContnListener;
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.model.RootItem;
 import org.uem.dam.GestorFarmacia.view.submenus.DefaultInteractableSubmenu;
