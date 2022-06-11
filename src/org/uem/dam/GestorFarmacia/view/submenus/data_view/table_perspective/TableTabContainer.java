@@ -8,12 +8,12 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import org.uem.dam.GestorFarmacia.model.DBItem;
-import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.DefaultInteractableSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.UpdatableDataContainer;
 
 import net.miginfocom.swing.MigLayout;
 
-public class TableTabContainer extends DefaultSubmenu<ActionListener> implements UpdatableDataContainer {
+public class TableTabContainer extends DefaultInteractableSubmenu<ActionListener> implements UpdatableDataContainer {
 
 	private static final long serialVersionUID = 1L;
 

@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 import javax.swing.JLabel;
 
-import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.DefaultInteractableSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel.ArticleDataPanel;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel.RefreshableDataPanel;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel.MedDataPanel;
@@ -13,7 +13,7 @@ import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_
 
 import net.miginfocom.swing.MigLayout;
 
-public class ItemInspectorContainer extends DefaultSubmenu<ActionListener> {
+public class ItemInspectorContainer extends DefaultInteractableSubmenu<ActionListener> {
 
 	private static final long serialVersionUID = 1L;
 

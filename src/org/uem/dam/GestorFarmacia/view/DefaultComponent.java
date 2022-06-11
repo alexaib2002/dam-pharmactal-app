@@ -2,7 +2,7 @@ package org.uem.dam.GestorFarmacia.view;
 
 import javax.swing.JPanel;
 
-public abstract class DefaultComponent extends JPanel implements ComponentView {
+public abstract class DefaultComponent extends JPanel implements BuildableView {
 
 	private static final long serialVersionUID = 1L;
 

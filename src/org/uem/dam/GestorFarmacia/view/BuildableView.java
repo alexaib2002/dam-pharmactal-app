@@ -1,6 +1,6 @@
 package org.uem.dam.GestorFarmacia.view;
 
-public interface ComponentView {
+public interface BuildableView {
 
 	public void initComponents();
 

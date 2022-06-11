@@ -6,11 +6,12 @@ import javax.swing.JPanel;
 
 import org.uem.dam.GestorFarmacia.view.InteractableView;
 
-public abstract class DefaultSubmenu<T extends EventListener> extends JPanel implements InteractableView<T> {
+public abstract class DefaultInteractableSubmenu<T extends EventListener> extends JPanel
+		implements InteractableView<T> {
 
 	private static final long serialVersionUID = 1L;
 
-	public DefaultSubmenu() {
+	public DefaultInteractableSubmenu() {
 		initComponents();
 		initAttributes();
 	}

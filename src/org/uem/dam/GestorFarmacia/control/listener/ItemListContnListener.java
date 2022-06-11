@@ -10,11 +10,12 @@ import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_
 
 public class ItemListContnListener<T extends RefreshableDataPanel<DBItem>> implements ListSelectionListener {
 
+	// FIXME could be merged onto InteractableControl
+	private final DBItemMap itemMap;
+
 	private final String tableName;
 	private final JList<String> list;
 	private final T inspectorPanel;
-
-	private final DBItemMap itemMap;
 
 	public ItemListContnListener(String tableName,
 			DBItemMap itemMap,

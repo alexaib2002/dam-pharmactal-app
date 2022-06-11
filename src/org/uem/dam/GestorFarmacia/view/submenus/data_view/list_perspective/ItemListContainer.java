@@ -10,12 +10,12 @@ import javax.swing.ListSelectionModel;
 import org.uem.dam.GestorFarmacia.control.listener.ItemListContnListener;
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.model.RootItem;
-import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.DefaultInteractableSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.UpdatableDataContainer;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ItemListContainer extends DefaultSubmenu<ItemListContnListener> implements UpdatableDataContainer {
+public class ItemListContainer extends DefaultInteractableSubmenu<ItemListContnListener> implements UpdatableDataContainer {
 
 	private static final long serialVersionUID = 1L;
 

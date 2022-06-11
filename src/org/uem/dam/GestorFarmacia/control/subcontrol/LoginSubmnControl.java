@@ -9,7 +9,6 @@ import org.uem.dam.GestorFarmacia.contract.UsersContract;
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.model.SystemUser;
-import org.uem.dam.GestorFarmacia.persist.DBPersistence;
 import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
 import org.uem.dam.GestorFarmacia.view.submenus.login.LoginSubmenu;
@@ -37,14 +36,12 @@ public class LoginSubmnControl extends DefaultSubcontrol implements ActionListen
 				System.err.println("Access denied");
 			}
 		}
-
 	}
 
 	private boolean validateLogin() {
 		SystemUser insertedUser = loginSubmn.getFieldsData();
-		DBPersistence persist = mainController.getDbPersistence();
 
-		ArrayList<DBItem> systemUserList = persist.executeSelect((con, pstmt) -> {
+		ArrayList<DBItem> systemUserList = persistence.executeSelect((con, pstmt) -> {
 			String query = SQLQueryBuilder.buildSelectQuery(
 					TableContract.USERS.toString(),
 					USER_COLS,
