@@ -65,7 +65,6 @@ public class ItemInspectorContainer extends DefaultSubmenu<ActionListener> {
 			break;
 		}
 		case "MEDS": {
-			articleDataPanel.setVisible(true);
 			medDataPanel.setVisible(true);
 			break;
 		}

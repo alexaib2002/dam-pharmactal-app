@@ -1,13 +1,10 @@
 package org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel;
 
-import java.awt.Color;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
-import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import org.uem.dam.GestorFarmacia.model.Medicine;
@@ -19,26 +16,30 @@ public class MedDataPanel extends DefaultComponent implements InspectorDataPanel
 
 	private static final long serialVersionUID = 1L;
 
+	private JSpinner midSpn;
+	private JSpinner massSpn;
+	private JCheckBox chckbxNewCheckBox;
+	private JComboBox<String> unitCmbx;
+	private ArticleDataPanel articlePanel;
+
 	@Override
 	public void initComponents() {
-		setBorder(
-				new TitledBorder(new LineBorder(new Color(184, 207, 229)), "Medicine", TitledBorder.LEADING,
-						TitledBorder.TOP, null, new Color(51, 51, 51)));
-		setLayout(new MigLayout("", "[right][grow,fill][]", "[][][]"));
+		setBorder(new TitledBorder(null, "Medicine", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		setLayout(new MigLayout("", "[right][grow,fill][]", "[][][][]"));
 
 		JLabel aidLbl = new JLabel("Medicine ID");
 		this.add(aidLbl, "flowy,cell 0 0,alignx right,aligny center");
 
-		JSpinner midSpn = new JSpinner();
+		midSpn = new JSpinner();
 		add(midSpn, "cell 1 0");
 
 		JLabel nameLbl = new JLabel("Mass");
 		this.add(nameLbl, "cell 0 1,alignx trailing");
 
-		JSpinner massSpn = new JSpinner();
+		massSpn = new JSpinner();
 		add(massSpn, "flowx,cell 1 1,alignx center");
 
-		JComboBox<String> unitCmbx = new JComboBox<String>();
+		unitCmbx = new JComboBox<String>();
 		unitCmbx.setModel(
 				new DefaultComboBoxModel<String>(new String[] {
 						"g",
@@ -47,13 +48,20 @@ public class MedDataPanel extends DefaultComponent implements InspectorDataPanel
 						"ml" }));
 		add(unitCmbx, "cell 2 1,growx");
 
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Requires prescription");
+		chckbxNewCheckBox = new JCheckBox("Requires prescription");
 		add(chckbxNewCheckBox, "cell 0 2 3 1,alignx center");
+
+		articlePanel = new ArticleDataPanel();
+		add(articlePanel, "cell 0 3 3 1,grow");
 	}
 
 	@Override
 	public void refreshData(Medicine medicine) {
-		System.out.println(medicine);
+		// FIXME reimplement inspector works by moving the Article panel inside this one
+		midSpn.setValue(medicine.medId());
+		massSpn.setValue(medicine.mass());
+		chckbxNewCheckBox.setSelected(medicine.requiresPresc());
+		unitCmbx.setSelectedItem(medicine.unit());
 
 	}
 
