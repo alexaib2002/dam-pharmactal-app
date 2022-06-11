@@ -31,8 +31,6 @@ CREATE TABLE USERS(
 -- INSERTING DATA FROM SUPPLIERS
 
 BEGIN
--- INSERT INTO SUPPLIERS VALUES (1, 'ALLIANCE HEALTHCARE ESPAÑA, S.A.', '900533721', 'Avda de la Industria, 29 - Polígono Industrial La Cantueña');
--- INSERT INTO SUPPLIERS VALUES (2, 'EUROLAB FARMA S.A.L.', '916775025', 'Av. Sistema Solar 26, CP. 28830 Madrid.');
 INSERT INTO SUPPLIERS VALUES (1, 'TEVA S.A.', '915359180', 'Calle Anabel Segura, nº 11 Edificio Albatros B, 1ª planta 28108 - Alcobendas - Madrid');
 INSERT INTO SUPPLIERS VALUES (2, 'LABORATORIOS COMBIX S.L.U', '914904253', 'Calle Badajoz 2, 28223 Pozuelo de Alarcón, Madrid');
 END;
