@@ -55,9 +55,9 @@ public class ArticleDataPanel extends DefaultComponent implements InspectorDataP
 
 	@Override
 	public void refreshData(Article article) {
-		// TODO
 		aidTxt.setText(Integer.toString(article.articleId()));
-
+		nameTxt.setText(article.name());
+		priceSpn.setValue(article.price());
+		stockSpn.setValue(article.stock());
 	}
-
 }

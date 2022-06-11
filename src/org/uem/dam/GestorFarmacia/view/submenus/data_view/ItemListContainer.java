@@ -9,7 +9,7 @@ import javax.swing.ListSelectionModel;
 
 import org.uem.dam.GestorFarmacia.control.subcontrol.ItemListContnControl;
 import org.uem.dam.GestorFarmacia.model.DBItem;
-import org.uem.dam.GestorFarmacia.model.NonForeignItem;
+import org.uem.dam.GestorFarmacia.model.RootItem;
 import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
 
 import net.miginfocom.swing.MigLayout;
@@ -45,11 +45,8 @@ public class ItemListContainer extends DefaultSubmenu<ItemListContnControl> impl
 		list.clearSelection();
 		listModel.setSize(0);
 		for (DBItem dbItem : data) {
-			if (dbItem instanceof NonForeignItem) {
-				listModel.addElement(((NonForeignItem) dbItem).name());
-			} else {
-				System.err.println("Foreign key retrival not implemented yet, srry");
-				break;
+			if (dbItem instanceof RootItem) {
+				listModel.addElement(((RootItem) dbItem).name());
 			}
 		}
 		if (data.size() > 0) {

@@ -53,7 +53,7 @@ public class MedDataPanel extends DefaultComponent implements InspectorDataPanel
 
 	@Override
 	public void refreshData(Medicine medicine) {
-		// TODO Auto-generated method stub
+		System.out.println(medicine);
 
 	}
 

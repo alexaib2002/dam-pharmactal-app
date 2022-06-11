@@ -4,7 +4,7 @@ public record Provider(
 		int providerId,
 		String name,
 		String phone,
-		String address) implements DBItem, NonForeignItem {
+		String address) implements DBItem, RootItem {
 
 	@Override
 	public String[] getAttributes() {

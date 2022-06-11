@@ -5,7 +5,7 @@ public record Article(
 		int providerId,
 		String name,
 		double price,
-		int stock) implements DBItem, NonForeignItem {
+		int stock) implements DBItem, RootItem {
 
 	@Override
 	public String[] getAttributes() {

@@ -4,7 +4,7 @@ public record SystemUser(
 		int userId,
 		String name,
 		String psswd,
-		boolean admin) implements DBItem, NonForeignItem {
+		boolean admin) implements DBItem, RootItem {
 
 	@Override
 	public String[] getAttributes() {

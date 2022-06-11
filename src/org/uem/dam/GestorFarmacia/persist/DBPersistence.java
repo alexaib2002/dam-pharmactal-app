@@ -6,12 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.uem.dam.GestorFarmacia.contract.ArticleContract;
 import org.uem.dam.GestorFarmacia.model.Article;
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.model.Medicine;
 import org.uem.dam.GestorFarmacia.model.Provider;
 import org.uem.dam.GestorFarmacia.model.SystemUser;
+import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.utils.ErrorUtils;
+import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
 
 public class DBPersistence {
 
@@ -41,18 +44,36 @@ public class DBPersistence {
 		ArrayList<DBItem> result = new ArrayList<>();
 		for (Object[] columnValues : fetchColumns(expr, colCount)) {
 			if (itemClass.equals(Article.class)) {
-				result.add(new Article((int) columnValues[0], (int) columnValues[1], (String) columnValues[2],
-						(double) columnValues[3], (int) columnValues[4]));
+				result.add(
+						new Article((int) columnValues[0], (int) columnValues[1], (String) columnValues[2],
+								(double) columnValues[3], (int) columnValues[4]));
 			} else if (itemClass.equals(Medicine.class)) {
-				result.add(new Medicine((int) columnValues[0], (int) columnValues[1], (int) columnValues[2],
-						(String) columnValues[3], (int) columnValues[4] == 1));
+				String[] cols = ContractUtils.getAllCols(ArticleContract.class);
+				Article foreignArticle = (Article) executeSelect((con, pstmt) -> {
+					int articleId = (int) columnValues[0];
+					String query = SQLQueryBuilder.buildSelectQuery(
+							"ARTICLES",
+							cols,
+							new String[] {
+									"AID = ?" },
+							null,
+							true);
+					pstmt = con.prepareStatement(query);
+					pstmt.setInt(1, articleId);
+					return pstmt;
+				}, Article.class, cols.length).get(0);
+				result.add(
+						new Medicine(foreignArticle, (int) columnValues[1], (int) columnValues[2],
+								(String) columnValues[3], (int) columnValues[4] == 1));
 			} else if (itemClass.equals(Provider.class)) {
-				result.add(new Provider((int) columnValues[0], (String) columnValues[1], (String) columnValues[2],
-						(String) columnValues[3]));
+				result.add(
+						new Provider((int) columnValues[0], (String) columnValues[1], (String) columnValues[2],
+								(String) columnValues[3]));
 			} else if (itemClass.equals(SystemUser.class)) {
-				result.add(new SystemUser((int) columnValues[0], (String) columnValues[1], (String) columnValues[2],
-						(int) columnValues[3] == 1 // translate Integer from DDBB to Java Boolean
-				));
+				result.add(
+						new SystemUser((int) columnValues[0], (String) columnValues[1], (String) columnValues[2],
+								(int) columnValues[3] == 1 // translate Integer from DDBB to Java Boolean
+						));
 			} else {
 				ErrorUtils.onFatalErrorException(String.format("Couln't match %s passed to Select method", itemClass));
 			}

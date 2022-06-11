@@ -1,20 +1,25 @@
 package org.uem.dam.GestorFarmacia.model;
 
 public record Medicine(
-		int articleId,
+		Article article,
 		int medId,
 		int mass,
 		String unit,
-		boolean requiresPresc) implements DBItem {
+		boolean requiresPresc) implements DBItem, RootItem {
 
 	@Override
 	public String[] getAttributes() {
 		return new String[] {
-				Integer.toString(articleId),
+				Integer.toString(article.articleId()),
 				Integer.toString(medId),
 				Integer.toString(mass),
 				unit,
 				Boolean.toString(requiresPresc) };
+	}
+
+	@Override
+	public String name() {
+		return article.name();
 	}
 
 }

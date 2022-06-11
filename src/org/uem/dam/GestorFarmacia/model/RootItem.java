@@ -1,6 +1,6 @@
 package org.uem.dam.GestorFarmacia.model;
 
-public interface NonForeignItem {
+public interface RootItem {
 
 	public String name();
 

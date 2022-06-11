@@ -14,12 +14,12 @@ import org.uem.dam.GestorFarmacia.view.DefaultComponent;
 import net.miginfocom.swing.MigLayout;
 
 public class ProvidersDataPanel extends DefaultComponent implements InspectorDataPanel<Provider> {
+	public ProvidersDataPanel() {
+	}
 
 	private static final long serialVersionUID = 1L;
 
 	private JTextField nameTxt;
-	private JLabel priceLbl;
-	private JLabel stockLbl;
 	private JSpinner pidSpn;
 	private JTextField phoneTxt;
 	private JTextField addrTxt;
@@ -44,14 +44,14 @@ public class ProvidersDataPanel extends DefaultComponent implements InspectorDat
 		this.add(nameTxt, "cell 1 1,growx");
 		nameTxt.setColumns(10);
 
-		priceLbl = new JLabel("Phone");
+		JLabel priceLbl = new JLabel("Phone");
 		add(priceLbl, "cell 0 2,alignx trailing");
 
 		phoneTxt = new JTextField();
 		add(phoneTxt, "cell 1 2,growx");
 		phoneTxt.setColumns(10);
 
-		stockLbl = new JLabel("Address");
+		JLabel stockLbl = new JLabel("Address");
 		add(stockLbl, "cell 0 3,alignx trailing");
 
 		addrTxt = new JTextField();
@@ -60,9 +60,11 @@ public class ProvidersDataPanel extends DefaultComponent implements InspectorDat
 	}
 
 	@Override
-	public void refreshData(Provider dataItem) {
-		// TODO
-		nameTxt.setText(dataItem.name());
+	public void refreshData(Provider provider) {
+		nameTxt.setText(provider.name());
+		pidSpn.setValue(provider.providerId());
+		phoneTxt.setText(provider.phone());
+		addrTxt.setText(provider.address());
 	}
 
 }
