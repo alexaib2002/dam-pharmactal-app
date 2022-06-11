@@ -11,7 +11,6 @@ import javax.swing.JPanel;
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.control.subcontrol.LoginSubmnControl;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
-import org.uem.dam.GestorFarmacia.view.submenus.DataInsertSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.DataViewSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.login.LoginSubmenu;
 
@@ -26,7 +25,6 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 
 	private LoginSubmenu loginSubmn;
 	private DataViewSubmenu dataViewSubmenu;
-	private DataInsertSubmenu dataInsertSubmn;
 	private JMenu mnView;
 	private JMenu mnTheme;
 	private JMenuItem lightMntm;
@@ -69,8 +67,6 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 
 		dataViewSubmenu = new DataViewSubmenu();
 
-		dataInsertSubmn = new DataInsertSubmenu();
-
 	}
 
 	@Override
@@ -96,7 +92,6 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		// propagate call to child submenus
 		loginSubmn.updateListeners(new LoginSubmnControl(controller, loginSubmn));
 		dataViewSubmenu.updateListeners(controller);
-		dataInsertSubmn.updateListeners(controller);
 		// window adapter
 		this.addWindowListener(((MainController) controller).getWinAdapter());
 	}
@@ -107,10 +102,6 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 
 	public DataViewSubmenu getDataViewSubmn() {
 		return dataViewSubmenu;
-	}
-
-	public DataInsertSubmenu getDataInsertSubmn() {
-		return dataInsertSubmn;
 	}
 
 	public void setSubmenuView(JPanel submenu) {

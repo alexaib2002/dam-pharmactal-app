@@ -1,19 +1,18 @@
 package org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective;
 
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 import javax.swing.JLabel;
 
-import org.uem.dam.GestorFarmacia.view.submenus.DefaultInteractableSubmenu;
+import org.uem.dam.GestorFarmacia.view.DefaultComponent;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel.ArticleDataPanel;
-import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel.RefreshableDataPanel;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel.MedDataPanel;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel.ProvidersDataPanel;
+import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel.RefreshableDataPanel;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ItemInspectorContainer extends DefaultInteractableSubmenu<ActionListener> {
+public class ItemInspectorContainer extends DefaultComponent {
 
 	private static final long serialVersionUID = 1L;
 
@@ -42,15 +41,6 @@ public class ItemInspectorContainer extends DefaultInteractableSubmenu<ActionLis
 		panelReference.put("ARTICLES", articleDataPanel);
 		panelReference.put("MEDS", medDataPanel);
 		panelReference.put("PROVIDERS", providersDataPanel);
-	}
-
-	@Override
-	public void updateListeners(ActionListener controller) {
-		// TODO
-	}
-
-	public void updateInspectorData() {
-		// TODO implement functionality
 	}
 
 	public RefreshableDataPanel<?> getDataPanel(String table) {
