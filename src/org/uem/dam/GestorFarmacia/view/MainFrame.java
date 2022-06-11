@@ -12,7 +12,7 @@ import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.control.subcontrol.LoginSubmnControl;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
 import org.uem.dam.GestorFarmacia.view.submenus.DataInsertSubmenu;
-import org.uem.dam.GestorFarmacia.view.submenus.data_view.DataViewSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.DataViewSubmenu;
 import org.uem.dam.GestorFarmacia.view.submenus.login.LoginSubmenu;
 
 import net.miginfocom.swing.MigLayout;

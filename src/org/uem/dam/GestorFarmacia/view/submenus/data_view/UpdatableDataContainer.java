@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.uem.dam.GestorFarmacia.model.DBItem;
 
-public interface DataContainer {
+public interface UpdatableDataContainer {
 
 	public void updateContent(ArrayList<DBItem> data);
 

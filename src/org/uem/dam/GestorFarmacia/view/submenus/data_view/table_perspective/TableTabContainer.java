@@ -1,4 +1,4 @@
-package org.uem.dam.GestorFarmacia.view.submenus.data_view;
+package org.uem.dam.GestorFarmacia.view.submenus.data_view.table_perspective;
 
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -9,10 +9,11 @@ import javax.swing.table.DefaultTableModel;
 
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.data_view.UpdatableDataContainer;
 
 import net.miginfocom.swing.MigLayout;
 
-public class TableTabContainer extends DefaultSubmenu<ActionListener> implements DataContainer {
+public class TableTabContainer extends DefaultSubmenu<ActionListener> implements UpdatableDataContainer {
 
 	private static final long serialVersionUID = 1L;
 

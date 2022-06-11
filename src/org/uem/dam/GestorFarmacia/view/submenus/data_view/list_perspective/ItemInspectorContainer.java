@@ -1,4 +1,4 @@
-package org.uem.dam.GestorFarmacia.view.submenus.data_view;
+package org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective;
 
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -6,10 +6,10 @@ import java.util.HashMap;
 import javax.swing.JLabel;
 
 import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
-import org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel.ArticleDataPanel;
-import org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel.InspectorDataPanel;
-import org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel.MedDataPanel;
-import org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel.ProvidersDataPanel;
+import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel.ArticleDataPanel;
+import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel.RefreshableDataPanel;
+import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel.MedDataPanel;
+import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel.ProvidersDataPanel;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -21,7 +21,7 @@ public class ItemInspectorContainer extends DefaultSubmenu<ActionListener> {
 	private MedDataPanel medDataPanel;
 	private ProvidersDataPanel providersDataPanel;
 
-	private HashMap<String, InspectorDataPanel<?>> panelReference;
+	private HashMap<String, RefreshableDataPanel<?>> panelReference;
 
 	@Override
 	public void initComponents() {
@@ -53,7 +53,7 @@ public class ItemInspectorContainer extends DefaultSubmenu<ActionListener> {
 		// TODO implement functionality
 	}
 
-	public InspectorDataPanel<?> getDataPanel(String table) {
+	public RefreshableDataPanel<?> getDataPanel(String table) {
 		return panelReference.get(table);
 	}
 

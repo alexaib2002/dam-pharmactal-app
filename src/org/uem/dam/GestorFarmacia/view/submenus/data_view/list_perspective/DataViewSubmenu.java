@@ -1,4 +1,4 @@
-package org.uem.dam.GestorFarmacia.view.submenus.data_view;
+package org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
@@ -24,13 +24,14 @@ import org.uem.dam.GestorFarmacia.persist.DBPersistence;
 import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
 import org.uem.dam.GestorFarmacia.view.submenus.DefaultSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.data_view.UpdatableDataContainer;
 
 import net.miginfocom.swing.MigLayout;
 
 public class DataViewSubmenu extends DefaultSubmenu<MainController> {
 
 	private static final long serialVersionUID = 1L;
-	private LinkedHashMap<String, DataContainer> tabContainerPointer;
+	private LinkedHashMap<String, UpdatableDataContainer> tabContainerPointer;
 	private JTabbedPane tabbedPane;
 	private ItemInspectorContainer itemInspectorContainer;
 	private JSplitPane splitPane;
@@ -123,7 +124,7 @@ public class DataViewSubmenu extends DefaultSubmenu<MainController> {
 		tabbedPane.addChangeListener(updateManager);
 		updateManager.stateChanged(null); // fire first run so dbItemMap is loaded with data
 
-		for (Entry<String, DataContainer> pointerEntry : tabContainerPointer.entrySet()) {
+		for (Entry<String, UpdatableDataContainer> pointerEntry : tabContainerPointer.entrySet()) {
 			if (pointerEntry.getValue() instanceof ItemListContainer) {
 				ItemListContainer itmListContainer = (ItemListContainer) pointerEntry.getValue();
 				String tableName = pointerEntry.getKey();

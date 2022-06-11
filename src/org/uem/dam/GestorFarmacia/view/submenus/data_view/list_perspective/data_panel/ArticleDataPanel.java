@@ -1,4 +1,4 @@
-package org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel;
+package org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel;
 
 import javax.swing.JLabel;
 import javax.swing.JSpinner;
@@ -10,7 +10,7 @@ import org.uem.dam.GestorFarmacia.view.DefaultComponent;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ArticleDataPanel extends DefaultComponent implements InspectorDataPanel<Article> {
+public class ArticleDataPanel extends DefaultComponent implements RefreshableDataPanel<Article> {
 
 	private static final long serialVersionUID = 1L;
 

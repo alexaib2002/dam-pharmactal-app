@@ -1,4 +1,4 @@
-package org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel;
+package org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JCheckBox;
@@ -12,7 +12,7 @@ import org.uem.dam.GestorFarmacia.view.DefaultComponent;
 
 import net.miginfocom.swing.MigLayout;
 
-public class MedDataPanel extends DefaultComponent implements InspectorDataPanel<Medicine> {
+public class MedDataPanel extends DefaultComponent implements RefreshableDataPanel<Medicine> {
 
 	private static final long serialVersionUID = 1L;
 

@@ -6,9 +6,9 @@ import javax.swing.event.ListSelectionListener;
 
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.persist.DBItemMap;
-import org.uem.dam.GestorFarmacia.view.submenus.data_view.data_panel.InspectorDataPanel;
+import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.data_panel.RefreshableDataPanel;
 
-public class ItemListContnListener<T extends InspectorDataPanel<DBItem>> implements ListSelectionListener {
+public class ItemListContnListener<T extends RefreshableDataPanel<DBItem>> implements ListSelectionListener {
 
 	private final String tableName;
 	private final JList<String> list;
