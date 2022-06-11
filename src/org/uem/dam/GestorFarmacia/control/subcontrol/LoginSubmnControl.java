@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import org.uem.dam.GestorFarmacia.contract.TableContract;
 import org.uem.dam.GestorFarmacia.contract.UsersContract;
 import org.uem.dam.GestorFarmacia.control.MainController;
@@ -11,6 +13,7 @@ import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.model.SystemUser;
 import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
+import org.uem.dam.GestorFarmacia.utils.WindowActionUtils;
 import org.uem.dam.GestorFarmacia.view.submenus.login.LoginSubmenu;
 
 public class LoginSubmnControl extends DefaultSubcontrol implements ActionListener {
@@ -33,7 +36,11 @@ public class LoginSubmnControl extends DefaultSubcontrol implements ActionListen
 				mainFrame.setSubmenuView(mainFrame.getDataViewSubmn());
 				// TODO log user who has entered the system
 			} else {
-				System.err.println("Access denied");
+				WindowActionUtils.promptInfoDialog(
+						mainFrame,
+						"Invalid username or password",
+						"Access denied",
+						JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

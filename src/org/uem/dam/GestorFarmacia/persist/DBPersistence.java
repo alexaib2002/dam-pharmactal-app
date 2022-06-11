@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+import javax.swing.JWindow;
+
 import org.uem.dam.GestorFarmacia.contract.ArticleContract;
 import org.uem.dam.GestorFarmacia.model.Article;
 import org.uem.dam.GestorFarmacia.model.DBItem;
@@ -15,6 +18,7 @@ import org.uem.dam.GestorFarmacia.model.SystemUser;
 import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.utils.ErrorUtils;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
+import org.uem.dam.GestorFarmacia.utils.WindowActionUtils;
 
 public class DBPersistence {
 
@@ -49,19 +53,28 @@ public class DBPersistence {
 								(double) columnValues[3], (int) columnValues[4]));
 			} else if (itemClass.equals(Medicine.class)) {
 				String[] cols = ContractUtils.getAllCols(ArticleContract.class);
-				Article foreignArticle = (Article) executeSelect((con, pstmt) -> {
-					int articleId = (int) columnValues[0];
-					String query = SQLQueryBuilder.buildSelectQuery(
-							"ARTICLES",
-							cols,
-							new String[] {
-									"AID = ?" },
-							null,
-							true);
-					pstmt = con.prepareStatement(query);
-					pstmt.setInt(1, articleId);
-					return pstmt;
-				}, Article.class, cols.length).get(0);
+				Article foreignArticle = null;
+				try {
+					foreignArticle = (Article) executeSelect((con, pstmt) -> {
+						int articleId = (int) columnValues[0];
+						String query = SQLQueryBuilder.buildSelectQuery(
+								"ARTICLES",
+								cols,
+								new String[] {
+										"AID = ?" },
+								null,
+								true);
+						pstmt = con.prepareStatement(query);
+						pstmt.setInt(1, articleId);
+						return pstmt;
+					}, Article.class, cols.length).get(0);
+				} catch (IndexOutOfBoundsException e) {
+					WindowActionUtils.promptInfoDialog(
+							new JWindow(),
+							String.format("Couldn't match Medicine with MedicineID %s", columnValues[1]),
+							JOptionPane.ERROR_MESSAGE);
+					continue;
+				}
 				result.add(
 						new Medicine(foreignArticle, (int) columnValues[1], (int) columnValues[2],
 								(String) columnValues[3], (int) columnValues[4] == 1));

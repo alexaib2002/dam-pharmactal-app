@@ -5,6 +5,7 @@ import java.awt.Window;
 import javax.swing.JOptionPane;
 
 public abstract class WindowActionUtils {
+
 	public static boolean promptWindowExit(Window window) {
 		return (JOptionPane.showConfirmDialog(
 				window,
@@ -20,7 +21,12 @@ public abstract class WindowActionUtils {
 		}
 	}
 
+	public static void promptInfoDialog(Window window, String mssg, String title, int icon) {
+		JOptionPane.showMessageDialog(window, mssg, title, icon);
+	}
+
 	public static void promptInfoDialog(Window window, String mssg, int icon) {
 		JOptionPane.showMessageDialog(window, mssg, "System info", icon);
 	}
+
 }
