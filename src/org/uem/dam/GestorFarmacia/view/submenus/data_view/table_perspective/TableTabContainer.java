@@ -1,6 +1,5 @@
 package org.uem.dam.GestorFarmacia.view.submenus.data_view.table_perspective;
 
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JScrollPane;
@@ -8,12 +7,12 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import org.uem.dam.GestorFarmacia.model.DBItem;
-import org.uem.dam.GestorFarmacia.view.submenus.DefaultInteractableSubmenu;
+import org.uem.dam.GestorFarmacia.view.DefaultComponent;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.UpdatableDataContainer;
 
 import net.miginfocom.swing.MigLayout;
 
-public class TableTabContainer extends DefaultInteractableSubmenu<ActionListener> implements UpdatableDataContainer {
+public class TableTabContainer extends DefaultComponent implements UpdatableDataContainer {
 
 	private static final long serialVersionUID = 1L;
 
@@ -36,12 +35,6 @@ public class TableTabContainer extends DefaultInteractableSubmenu<ActionListener
 		tableModel = new DefaultTableModel();
 		table.setModel(tableModel);
 		scrollPane.setViewportView(table);
-	}
-
-	@Override
-	public void updateListeners(ActionListener controller) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

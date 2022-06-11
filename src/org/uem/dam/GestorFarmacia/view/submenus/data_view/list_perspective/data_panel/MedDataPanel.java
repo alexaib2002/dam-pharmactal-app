@@ -57,7 +57,6 @@ public class MedDataPanel extends DefaultComponent implements RefreshableDataPan
 
 	@Override
 	public void refreshData(Medicine medicine) {
-		// FIXME reimplement inspector works by moving the Article panel inside this one
 		midSpn.setValue(medicine.medId());
 		massSpn.setValue(medicine.mass());
 		chckbxNewCheckBox.setSelected(medicine.requiresPresc());
