@@ -40,7 +40,6 @@ public class WelcomePage extends DefaultSubmenu<ActionListener> implements Compo
 		btnContinue = new JButton("Continue");
 		add(btnContinue, "cell 0 3,alignx center");
 		
-		
 	}
 
 	@Override
