@@ -35,7 +35,7 @@ public class LoginSubmenu extends DefaultInteractableSubmenu<LoginSubmnControl> 
 		add(titleLbl, "cell 1 0,grow");
 
 		lblLogo = new JLabel("");
-		Image logo = new ImageIcon(this.getClass().getResource("/pharmactal.png")).getImage();
+		Image logo = new ImageIcon(this.getClass().getResource("/farmacia.png")).getImage();
 
 		lblsubtitle = new JLabel("Please Log In using your credentials");
 		lblsubtitle.setFont(new Font("Tahoma", Font.PLAIN, 14));

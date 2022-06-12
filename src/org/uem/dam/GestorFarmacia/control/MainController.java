@@ -61,9 +61,7 @@ public class MainController implements ActionListener {
 			break;
 		}
 		case MainFrame.ACTION_RETURN_TO_HOME: {
-			// TODO implement set submenu to view, will need to wait until welcome branch is
-			// merged
-			System.out.println("Home not implemented yet");
+			mainFrame.setSubmenuView(mainFrame.getGreetSubmn());
 			break;
 		}
 		// FIXME this could be refactored into their own controller
