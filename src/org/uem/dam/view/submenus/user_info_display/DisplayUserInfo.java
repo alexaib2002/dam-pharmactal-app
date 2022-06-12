@@ -42,7 +42,9 @@ public class DisplayUserInfo extends DefaultInteractableSubmenu<ActionListener> 
 		lblCurrentUser.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(lblCurrentUser, "cell 0 2,alignx center");
 		
-		JLabel lblUserName = new JLabel("User/Admin");
+		
+		String userName = getUser();
+		JLabel lblUserName = new JLabel(userName);
 		lblUserName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		add(lblUserName, "cell 0 3,alignx center");
 		
@@ -57,6 +59,13 @@ public class DisplayUserInfo extends DefaultInteractableSubmenu<ActionListener> 
 		Image button = new ImageIcon(this.getClass().getResource("/check-mark.png")).getImage();
 		btnOk.setIcon(new ImageIcon(button));
 		add(btnOk, "cell 0 6,alignx center");
+	}
+
+
+	private String getUser() {
+		String user = null;
+		// TODO get user
+		return user;
 	}
 
 
