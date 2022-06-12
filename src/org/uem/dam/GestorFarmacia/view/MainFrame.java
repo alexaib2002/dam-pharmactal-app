@@ -9,6 +9,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import org.uem.dam.GestorFarmacia.control.MainController;
+import org.uem.dam.GestorFarmacia.control.SystemState;
 import org.uem.dam.GestorFarmacia.control.subcontrol.LoginSubmnControl;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.DataViewSubmenu;
@@ -93,7 +94,7 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		loginSubmn.updateListeners(new LoginSubmnControl(controller, loginSubmn));
 		dataViewSubmenu.updateListeners(controller);
 		// window adapter
-		this.addWindowListener(((MainController) controller).getWinAdapter());
+		this.addWindowListener(controller.getWinAdapter());
 	}
 
 	public LoginSubmenu getLoginSubmn() {
@@ -109,6 +110,23 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		getContentPane().add(submenu, "grow");
 		// redraw the frame after change
 		onSubmenuUpdate();
+	}
+
+	public void onSystemStateChanged(SystemState state) {
+		switch (state) {
+		case NOUSER: {
+
+			break;
+		}
+		case VIEWER: {
+
+			break;
+		}
+		case ADMIN: {
+
+			break;
+		}
+		}
 	}
 
 	private void onSubmenuUpdate() {

@@ -16,11 +16,13 @@ import org.uem.dam.GestorFarmacia.view.MainFrame;
 
 public class MainController implements ActionListener {
 
-	private DBItemMap dbItemMap;
+	private final DBItemMap dbItemMap;
 
-	private MainFrame mainFrame;
-	private DBPersistence dbPersistence;
-	private WindowAdapter winAdapter;
+	private SystemState systemState;
+
+	private final MainFrame mainFrame;
+	private final DBPersistence dbPersistence;
+	private final WindowAdapter winAdapter;
 
 	public MainController(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
@@ -32,6 +34,7 @@ public class MainController implements ActionListener {
 				WindowActionUtils.onExitEvent(mainFrame);
 			}
 		};
+		setSystemState(SystemState.NOUSER);
 	}
 
 	@Override
@@ -59,6 +62,14 @@ public class MainController implements ActionListener {
 
 	public DBItemMap getDbItemMap() {
 		return dbItemMap;
+	}
+
+	public void setSystemState(SystemState systemState) {
+		this.systemState = systemState;
+	}
+
+	public SystemState getSystemState() {
+		return systemState;
 	}
 
 	private void parseCallerIDAction(String callerID, String action) {
