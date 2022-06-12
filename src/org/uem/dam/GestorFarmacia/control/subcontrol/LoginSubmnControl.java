@@ -34,14 +34,14 @@ public class LoginSubmnControl extends DefaultSubcontrol implements ActionListen
 		if (e.getActionCommand().toLowerCase().equals("login")) {
 			if (validateLogin()) {
 				System.out.println("User authenticated");
-				mainFrame.setSubmenuView(mainFrame.getDataViewSubmn());
+				mainFrame.setSubmenuView(mainFrame.getGreetSubmn());
 			} else {
 				WindowActionUtils.promptInfoDialog(
 						mainFrame,
 						"Invalid username or password",
 						"Access denied",
 						JOptionPane.ERROR_MESSAGE
-				);
+						);
 			}
 		}
 	}
@@ -57,7 +57,7 @@ public class LoginSubmnControl extends DefaultSubcontrol implements ActionListen
 							String.format("USERNAME LIKE ?", UsersContract.USERNAME.toString()) },
 					null,
 					false
-			);
+					);
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, insertedUser.name());
 			return pstmt;

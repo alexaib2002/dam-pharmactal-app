@@ -13,10 +13,9 @@ import org.uem.dam.GestorFarmacia.view.submenus.DefaultInteractableSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class WelcomePage extends DefaultInteractableSubmenu<ActionListener> implements BuildableView {
-	public WelcomePage() {
-		initComponents();
-	}
+public class GreetSubmenu extends DefaultInteractableSubmenu<ActionListener> implements BuildableView {
+
+	public static final String ACTION_CONTINUE = "Continue";
 
 	private static final long serialVersionUID = 1L;
 	private JButton btnContinue;
@@ -38,7 +37,7 @@ public class WelcomePage extends DefaultInteractableSubmenu<ActionListener> impl
 
 		add(lblLogo, "cell 0 2,alignx center,aligny center");
 
-		btnContinue = new JButton("Continue");
+		btnContinue = new JButton(ACTION_CONTINUE);
 		add(btnContinue, "cell 0 3,alignx center");
 
 	}

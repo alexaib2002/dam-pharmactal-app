@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.control.SystemState;
+import org.uem.dam.GestorFarmacia.control.subcontrol.GreetSubcontrol;
 import org.uem.dam.GestorFarmacia.control.subcontrol.InsertArticleControl;
 import org.uem.dam.GestorFarmacia.control.subcontrol.InsertProviderControl;
 import org.uem.dam.GestorFarmacia.control.subcontrol.LoginSubmnControl;
@@ -19,6 +20,7 @@ import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.DataV
 import org.uem.dam.GestorFarmacia.view.submenus.insertion.InsertArticlePanel;
 import org.uem.dam.GestorFarmacia.view.submenus.insertion.InsertProviderPanel;
 import org.uem.dam.GestorFarmacia.view.submenus.login.LoginSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.welcome.GreetSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -42,7 +44,8 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 	private JMenuItem exitMntm;
 
 	private LoginSubmenu loginSubmn;
-	private DataViewSubmenu dataViewSubmenu;
+	private DataViewSubmenu dataViewSubmn;
+	private GreetSubmenu greetSubmn;
 
 	private JFrame insertFrame;
 	private InsertArticlePanel insertArticlePanel;
@@ -107,7 +110,8 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 
 		// submenus
 		loginSubmn = new LoginSubmenu();
-		dataViewSubmenu = new DataViewSubmenu();
+		dataViewSubmn = new DataViewSubmenu();
+		greetSubmn = new GreetSubmenu();
 
 		// popups
 		insertFrame = new JFrame();
@@ -149,7 +153,8 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		homeMntm.addActionListener(controller);
 		// propagate call to child submenus
 		loginSubmn.updateListeners(new LoginSubmnControl(controller, loginSubmn));
-		dataViewSubmenu.updateListeners(controller);
+		dataViewSubmn.updateListeners(controller);
+		greetSubmn.updateListeners(new GreetSubcontrol(controller));
 		insertArticlePanel.updateListeners(new InsertArticleControl(controller, insertArticlePanel));
 		insertProviderPanel.updateListeners(new InsertProviderControl(controller, insertProviderPanel));
 		// window adapter
@@ -192,8 +197,12 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		return loginSubmn;
 	}
 
+	public GreetSubmenu getGreetSubmn() {
+		return greetSubmn;
+	}
+
 	public DataViewSubmenu getDataViewSubmn() {
-		return dataViewSubmenu;
+		return dataViewSubmn;
 	}
 
 	public void setSubmenuView(JPanel submenu) {
