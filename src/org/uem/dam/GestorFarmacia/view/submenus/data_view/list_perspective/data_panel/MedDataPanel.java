@@ -45,7 +45,7 @@ public class MedDataPanel extends DefaultComponent implements RefreshableDataPan
 						"g",
 						"mg",
 						"l",
-						"ml" }));
+				"ml" }));
 		add(unitCmbx, "cell 2 1,growx");
 
 		chckbxNewCheckBox = new JCheckBox("Requires prescription");
@@ -61,6 +61,7 @@ public class MedDataPanel extends DefaultComponent implements RefreshableDataPan
 		massSpn.setValue(medicine.mass());
 		chckbxNewCheckBox.setSelected(medicine.requiresPresc());
 		unitCmbx.setSelectedItem(medicine.unit());
+		articlePanel.refreshData(medicine.article());
 
 	}
 
