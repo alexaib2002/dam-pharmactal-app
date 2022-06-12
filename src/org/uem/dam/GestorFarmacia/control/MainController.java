@@ -41,7 +41,9 @@ public class MainController implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 		switch (event.getActionCommand()) {
 		case MainFrame.ACTION_LOG_OUT: {
-			System.out.println("Log out not implemented yet");
+			mainFrame.setSubmenuView(mainFrame.getLoginSubmn());
+			setSystemState(SystemState.NOUSER);
+			setSystemUser(null);
 			break;
 		}
 		case MainFrame.ACTION_CLOSE_APP: {
@@ -59,6 +61,7 @@ public class MainController implements ActionListener {
 			break;
 		}
 		case MainFrame.ACTION_RETURN_TO_HOME: {
+			// TODO implement set submenu to view, will need to wait until welcome branch is merged
 			System.out.println("Home not implemented yet");
 			break;
 		}
