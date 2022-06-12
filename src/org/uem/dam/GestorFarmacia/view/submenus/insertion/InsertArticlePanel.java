@@ -1,7 +1,6 @@
 package org.uem.dam.GestorFarmacia.view.submenus.insertion;
 
 import java.awt.Font;
-import java.awt.event.ActionListener;
 
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
@@ -17,6 +16,7 @@ import javax.swing.JWindow;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 
+import org.uem.dam.GestorFarmacia.control.subcontrol.InsertArticleControl;
 import org.uem.dam.GestorFarmacia.model.Article;
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.model.Medicine;
@@ -25,9 +25,7 @@ import org.uem.dam.GestorFarmacia.view.submenus.DefaultInteractableSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ArticleInsertPanel extends DefaultInteractableSubmenu<ActionListener> implements FetchableSubmenu<DBItem> {
-	public ArticleInsertPanel() {
-	}
+public class InsertArticlePanel extends DefaultInteractableSubmenu<InsertArticleControl> implements FetchableSubmenu<DBItem> {
 
 	public static final String ACTION_ADD = "Add Item";
 	public static final String ACTION_CLEAR = "Clear Data";
@@ -36,7 +34,7 @@ public class ArticleInsertPanel extends DefaultInteractableSubmenu<ActionListene
 
 	private JTextField txtName;
 	private JTextField txtPrice;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
+	private ButtonGroup buttonGroup;
 	private JTextField txtMedicineID;
 	private JTextField txtMass;
 	private JSpinner spnStock;
@@ -90,6 +88,8 @@ public class ArticleInsertPanel extends DefaultInteractableSubmenu<ActionListene
 		lblMedicine.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		add(lblMedicine, "cell 1 4 5 1,alignx center");
 
+		buttonGroup = new ButtonGroup();
+
 		rdbtnYes = new JRadioButton("Yes");
 		buttonGroup.add(rdbtnYes);
 		add(rdbtnYes, "cell 2 5");
@@ -120,9 +120,9 @@ public class ArticleInsertPanel extends DefaultInteractableSubmenu<ActionListene
 								"mg",
 								"g",
 								"ml",
-								"l" }
-				)
-		);
+						"l" }
+						)
+				);
 		add(cmbxUnits, "cell 4 7 2 1,growx");
 
 		chkbxPresc = new JCheckBox("This medicine should require prescription");
@@ -141,7 +141,7 @@ public class ArticleInsertPanel extends DefaultInteractableSubmenu<ActionListene
 	}
 
 	@Override
-	public void updateListeners(ActionListener controller) {
+	public void updateListeners(InsertArticleControl controller) {
 		btnAddItem.addActionListener(controller);
 		btnClearData.addActionListener(controller);
 		rdbtnNo.addActionListener(controller);
@@ -158,7 +158,7 @@ public class ArticleInsertPanel extends DefaultInteractableSubmenu<ActionListene
 					txtName.getText(),
 					Double.parseDouble(txtPrice.getText()),
 					(int) spnStock.getValue()
-			);
+					);
 			if (rdbtnYes.isSelected()) {
 				return new Medicine(
 						item,
@@ -166,7 +166,7 @@ public class ArticleInsertPanel extends DefaultInteractableSubmenu<ActionListene
 						Integer.parseInt(txtMass.getText()),
 						(String) cmbxUnits.getSelectedItem(),
 						chkbxPresc.isSelected()
-				);
+						);
 			}
 		} catch (NullPointerException npe) {
 			WindowActionUtils.promptInfoDialog(new JWindow(), "Please fill every field", JOptionPane.ERROR_MESSAGE);
@@ -175,7 +175,7 @@ public class ArticleInsertPanel extends DefaultInteractableSubmenu<ActionListene
 					new JWindow(),
 					"The %s field should be a number without any letter",
 					JOptionPane.ERROR_MESSAGE
-			);
+					);
 		}
 		return item;
 	}

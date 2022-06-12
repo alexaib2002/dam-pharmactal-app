@@ -11,9 +11,13 @@ import javax.swing.JPanel;
 
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.control.SystemState;
+import org.uem.dam.GestorFarmacia.control.subcontrol.InsertArticleControl;
+import org.uem.dam.GestorFarmacia.control.subcontrol.InsertProviderControl;
 import org.uem.dam.GestorFarmacia.control.subcontrol.LoginSubmnControl;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
 import org.uem.dam.GestorFarmacia.view.submenus.data_view.list_perspective.DataViewSubmenu;
+import org.uem.dam.GestorFarmacia.view.submenus.insertion.InsertArticlePanel;
+import org.uem.dam.GestorFarmacia.view.submenus.insertion.InsertProviderPanel;
 import org.uem.dam.GestorFarmacia.view.submenus.login.LoginSubmenu;
 
 import net.miginfocom.swing.MigLayout;
@@ -28,6 +32,9 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 	public static final String ACTION_DARK = "Dark";
 	public static final String ACTION_RETURN_TO_HOME = "Return to home";
 
+	public static final String POPUP_INSERT_ARTICLE = "InsertArticlePanel";
+	public static final String POPUP_INSERT_PROVIDER = "InsertProviderPanel";
+
 	private static final long serialVersionUID = 1L;
 
 	private JMenuBar menuBar;
@@ -36,6 +43,11 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 
 	private LoginSubmenu loginSubmn;
 	private DataViewSubmenu dataViewSubmenu;
+
+	private JFrame insertFrame;
+	private InsertArticlePanel insertArticlePanel;
+	private InsertProviderPanel insertProviderPanel;
+
 	private JMenu mnView;
 	private JMenu mnTheme;
 	private JMenuItem lightMntm;
@@ -93,24 +105,37 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		homeMntm = new JMenuItem(ACTION_RETURN_TO_HOME);
 		mnView.add(homeMntm);
 
+		// submenus
 		loginSubmn = new LoginSubmenu();
-
 		dataViewSubmenu = new DataViewSubmenu();
+
+		// popups
+		insertFrame = new JFrame();
+		insertArticlePanel = new InsertArticlePanel();
+		insertArticlePanel.setName(POPUP_INSERT_ARTICLE);
+		insertFrame.add(insertArticlePanel);
+		insertProviderPanel = new InsertProviderPanel();
+		insertProviderPanel.setName(POPUP_INSERT_PROVIDER);
+		insertFrame.add(insertProviderPanel);
 
 	}
 
 	@Override
 	public void initAttributes() {
+
+		// start with mainFrame initialization
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 		this.setTitle("Gestor de Base de Datos");
-
-		// pack the view and set it as minimum size
 		this.pack();
 		this.setMinimumSize(getSize());
 		this.setSize(new Dimension(700, 500)); // FIXME hardcode
-
-		// set main view content
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+
+		// insertFrame initialization
+		insertFrame.setTitle("Add new item");
+		insertFrame.setLocationRelativeTo(this);
+		insertFrame.setMinimumSize(new Dimension(600, 350));
 	}
 
 	@Override
@@ -126,8 +151,45 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		// propagate call to child submenus
 		loginSubmn.updateListeners(new LoginSubmnControl(controller, loginSubmn));
 		dataViewSubmenu.updateListeners(controller);
+		insertArticlePanel.updateListeners(new InsertArticleControl(controller, insertArticlePanel));
+		insertProviderPanel.updateListeners(new InsertProviderControl(controller, insertProviderPanel));
 		// window adapter
 		this.addWindowListener(controller.getWinAdapter());
+	}
+
+	public JFrame getInsertFrame(String componentName) {
+		SwingThemeManager.updateChildWindowLAF(insertFrame);
+		switch (componentName) {
+		case POPUP_INSERT_ARTICLE: {
+			insertProviderPanel.setVisible(false);
+			insertArticlePanel.setVisible(true);
+			break;
+		}
+		case POPUP_INSERT_PROVIDER: {
+			insertProviderPanel.setVisible(true);
+			insertArticlePanel.setVisible(false);
+			break;
+		}
+		}
+		insertFrame.repaint();
+		insertFrame.revalidate();
+		return insertFrame;
+	}
+
+	public JMenuItem getAddProvMntm() {
+		return addProvMntm;
+	}
+
+	public void setAddProvMntm(JMenuItem addProvMntm) {
+		this.addProvMntm = addProvMntm;
+	}
+
+	public InsertArticlePanel getInsertArticlePanel() {
+		return insertArticlePanel;
+	}
+
+	public InsertProviderPanel getProviderInsertPanel() {
+		return insertProviderPanel;
 	}
 
 	public LoginSubmenu getLoginSubmn() {

@@ -15,7 +15,7 @@ import org.uem.dam.GestorFarmacia.view.submenus.DefaultInteractableSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ProviderInsertPanel extends DefaultInteractableSubmenu<InsertProviderControl>
+public class InsertProviderPanel extends DefaultInteractableSubmenu<InsertProviderControl>
 		implements FetchableSubmenu<Provider> {
 
 	public static final String ACTION_ADD = "Add Provider";

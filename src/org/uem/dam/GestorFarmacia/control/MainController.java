@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import javax.swing.JFrame;
+
 import org.uem.dam.GestorFarmacia.model.SystemUser;
 import org.uem.dam.GestorFarmacia.persist.DBItemMap;
 import org.uem.dam.GestorFarmacia.persist.DBPersistence;
@@ -67,9 +69,13 @@ public class MainController implements ActionListener {
 		}
 		// FIXME this could be refactored into their own controller
 		case MainFrame.ACTION_NEW_ARTICLE: {
+			JFrame insertFrame = mainFrame.getInsertFrame(MainFrame.POPUP_INSERT_ARTICLE);
+			insertFrame.setVisible(true);
 			break;
 		}
 		case MainFrame.ACTION_NEW_PROVIDER: {
+			JFrame insertFrame = mainFrame.getInsertFrame(MainFrame.POPUP_INSERT_ARTICLE);
+			insertFrame.setVisible(true);
 			break;
 		}
 		default:

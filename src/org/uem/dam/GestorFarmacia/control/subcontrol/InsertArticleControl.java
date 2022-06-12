@@ -5,14 +5,14 @@ import java.awt.event.ActionListener;
 
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.model.DBItem;
-import org.uem.dam.GestorFarmacia.view.submenus.insertion.ArticleInsertPanel;
+import org.uem.dam.GestorFarmacia.view.submenus.insertion.InsertArticlePanel;
 
 public class InsertArticleControl extends DefaultSubcontrol implements ActionListener {
 
-	private final ArticleInsertPanel articleInsertPanel;
+	private final InsertArticlePanel articleInsertPanel;
 
 	public InsertArticleControl(MainController mainController,
-			ArticleInsertPanel articleInsertPanel) {
+			InsertArticlePanel articleInsertPanel) {
 		super(mainController);
 		this.articleInsertPanel = articleInsertPanel;
 	}
@@ -22,11 +22,11 @@ public class InsertArticleControl extends DefaultSubcontrol implements ActionLis
 		// TODO test functionality
 		String action = e.getActionCommand();
 		switch (action) {
-		case ArticleInsertPanel.ACTION_ADD: {
+		case InsertArticlePanel.ACTION_ADD: {
 			DBItem item = articleInsertPanel.getInputItem();
 			System.out.println(item);
 		}
-		case ArticleInsertPanel.ACTION_CLEAR: {
+		case InsertArticlePanel.ACTION_CLEAR: {
 			articleInsertPanel.clearFields();
 		}
 		default:

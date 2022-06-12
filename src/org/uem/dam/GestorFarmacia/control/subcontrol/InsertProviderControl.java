@@ -5,14 +5,14 @@ import java.awt.event.ActionListener;
 
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.model.Provider;
-import org.uem.dam.GestorFarmacia.view.submenus.insertion.ProviderInsertPanel;
+import org.uem.dam.GestorFarmacia.view.submenus.insertion.InsertProviderPanel;
 
 public class InsertProviderControl extends InteractableControl implements ActionListener {
 
-	private final ProviderInsertPanel providerInsertPanel;
+	private final InsertProviderPanel providerInsertPanel;
 
 	public InsertProviderControl(MainController mainController,
-			ProviderInsertPanel articleInsertPanel) {
+			InsertProviderPanel articleInsertPanel) {
 		super(mainController);
 		this.providerInsertPanel = articleInsertPanel;
 	}
@@ -22,11 +22,11 @@ public class InsertProviderControl extends InteractableControl implements Action
 		// TODO test functionality
 		String action = e.getActionCommand();
 		switch (action) {
-		case ProviderInsertPanel.ACTION_ADD: {
+		case InsertProviderPanel.ACTION_ADD: {
 			Provider provider = providerInsertPanel.getInputItem();
 			System.out.println(provider);
 		}
-		case ProviderInsertPanel.ACTION_CLEAR: {
+		case InsertProviderPanel.ACTION_CLEAR: {
 			providerInsertPanel.clearFields();
 		}
 		default:

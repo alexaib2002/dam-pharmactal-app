@@ -16,6 +16,7 @@ import org.uem.dam.GestorFarmacia.view.submenus.DefaultInteractableSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
+// FIXME login should extend class FetchableSubmenu
 public class LoginSubmenu extends DefaultInteractableSubmenu<LoginSubmnControl> {
 
 	private static final long serialVersionUID = 1L;
@@ -54,9 +55,7 @@ public class LoginSubmenu extends DefaultInteractableSubmenu<LoginSubmnControl> 
 		psswdFld = new JPasswordField();
 		add(psswdFld, "cell 1 4,growx");
 
-		loginBtn = new JButton("");
-		Image login = new ImageIcon(this.getClass().getResource("/login.png")).getImage();
-		loginBtn.setIcon(new ImageIcon(login));
+		loginBtn = new JButton("Login");
 		add(loginBtn, "cell 1 5,growx");
 	}
 
