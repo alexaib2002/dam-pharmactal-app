@@ -28,6 +28,20 @@ public class DBPersistence {
 		dbConnection = new DBConnection();
 	}
 
+	public int getTableMaxValue(String table, String incId) {
+		try {
+			int id = (int) fetchColumns((con, pstmt) -> {
+				String query = String.format( "SELECT MAX(%s) FROM %s", incId, table);
+				pstmt = con.prepareStatement(query);
+				return pstmt;
+			}, 1).get(0)[0];
+			return id;
+		} catch (ClassCastException cce) {
+			System.err.println(String.format("DDBB couldn't find the max value of %s on table %s", incId, table));
+			return -1;
+		}
+	}
+
 	public int executeUpdate(ExecutableExpression expr) {
 		int result = 0;
 		Connection con = null;
@@ -56,8 +70,8 @@ public class DBPersistence {
 									(String) columnValues[2],
 									(double) columnValues[3],
 									(int) columnValues[4]
-							)
-					);
+									)
+							);
 				} catch (ClassCastException cce) {
 					if (cce.getMessage().contains("java.lang.Integer cannot be cast to class java.lang.Double")) {
 						result.add(
@@ -67,8 +81,8 @@ public class DBPersistence {
 										(String) columnValues[2],
 										(double) (Integer) columnValues[3],
 										(int) columnValues[4]
-								)
-						);
+										)
+								);
 					}
 				}
 			} else if (itemClass.equals(Medicine.class)) {
@@ -81,10 +95,10 @@ public class DBPersistence {
 								"ARTICLES",
 								cols,
 								new String[] {
-										"AID = ?" },
+								"AID = ?" },
 								null,
 								true
-						);
+								);
 						pstmt = con.prepareStatement(query);
 						pstmt.setInt(1, articleId);
 						return pstmt;
@@ -94,7 +108,7 @@ public class DBPersistence {
 							new JWindow(),
 							String.format("Couldn't match Medicine with MedicineID %s", columnValues[1]),
 							JOptionPane.ERROR_MESSAGE
-					);
+							);
 					continue;
 				}
 				result.add(
@@ -104,8 +118,8 @@ public class DBPersistence {
 								(int) columnValues[2],
 								(String) columnValues[3],
 								(int) columnValues[4] == 1
-						)
-				);
+								)
+						);
 			} else if (itemClass.equals(Provider.class)) {
 				result.add(
 						new Provider(
@@ -113,8 +127,8 @@ public class DBPersistence {
 								(String) columnValues[1],
 								(String) columnValues[2],
 								(String) columnValues[3]
-						)
-				);
+								)
+						);
 			} else if (itemClass.equals(SystemUser.class)) {
 				result.add(
 						new SystemUser(
@@ -122,8 +136,8 @@ public class DBPersistence {
 								(String) columnValues[1],
 								(String) columnValues[2],
 								(int) columnValues[3] == 1 // translate Integer from DDBB to Java Boolean
-						)
-				);
+								)
+						);
 			} else {
 				ErrorUtils.onFatalErrorException(String.format("Couln't match %s passed to Select method", itemClass));
 			}

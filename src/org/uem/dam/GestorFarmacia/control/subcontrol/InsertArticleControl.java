@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 import org.uem.dam.GestorFarmacia.contract.ArticleContract;
+import org.uem.dam.GestorFarmacia.contract.MedContract;
 import org.uem.dam.GestorFarmacia.contract.TableContract;
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.model.Article;
@@ -26,7 +27,6 @@ public class InsertArticleControl extends DefaultSubcontrol implements ActionLis
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO test functionality
 		String action = e.getActionCommand();
 		switch (action) {
 		case InsertArticlePanel.ACTION_ADD: {
@@ -74,11 +74,38 @@ public class InsertArticleControl extends DefaultSubcontrol implements ActionLis
 		} else if (item instanceof Medicine) {
 
 			Medicine medicine = (Medicine) item;
+			Article article = medicine.article();
 
-//			int result = persistence.executeUpdate((con, pstmt) -> {
-//				String query = SQLQueryBuilder.buildInsertQuery(null, null);
-//				return pstmt;
-//			});
+			// first, insert article data
+			int result = persistence.executeUpdate((con, pstmt) -> {
+				String[] articleCols = ContractUtils.getAllCols(ArticleContract.class);
+				String[] cols = Arrays.copyOfRange(articleCols, 1, articleCols.length);
+				String query = SQLQueryBuilder.buildInsertQuery(TableContract.ARTICLES.toString(), cols);
+
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, article.providerId());
+				pstmt.setString(2, article.name());
+				pstmt.setDouble(3, article.price());
+				pstmt.setInt(4, article.stock());
+
+				return pstmt;
+			});
+
+			result = persistence.executeUpdate((con, pstmt) -> {
+				String[] cols = ContractUtils.getAllCols(MedContract.class);
+				String query = SQLQueryBuilder.buildInsertQuery(TableContract.MEDS.toString(), cols);
+				System.out.println(query);
+
+
+				pstmt = con.prepareStatement(query);
+				pstmt.setInt(1, persistence.getTableMaxValue(TableContract.ARTICLES.toString(), ArticleContract.AID.toString()));
+				pstmt.setInt(2, medicine.medId());
+				pstmt.setInt(3, medicine.mass());
+				pstmt.setString(4, medicine.unit());
+				pstmt.setBoolean(5, medicine.requiresPresc());
+
+				return pstmt;
+			});
 
 		}
 	}
