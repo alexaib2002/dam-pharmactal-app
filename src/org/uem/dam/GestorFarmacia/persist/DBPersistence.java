@@ -37,7 +37,7 @@ public class DBPersistence {
 			pstmt = expr.executeSQL(con, pstmt);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("Error en codigo SQL");
+			System.err.println(e.getMessage());
 		} finally {
 			closeStatement(pstmt, con);
 		}
@@ -48,9 +48,29 @@ public class DBPersistence {
 		ArrayList<DBItem> result = new ArrayList<>();
 		for (Object[] columnValues : fetchColumns(expr, colCount)) {
 			if (itemClass.equals(Article.class)) {
-				result.add(
-						new Article((int) columnValues[0], (int) columnValues[1], (String) columnValues[2],
-								(double) columnValues[3], (int) columnValues[4]));
+				try {
+					result.add(
+							new Article(
+									(int) columnValues[0],
+									(int) columnValues[1],
+									(String) columnValues[2],
+									(double) columnValues[3],
+									(int) columnValues[4]
+							)
+					);
+				} catch (ClassCastException cce) {
+					if (cce.getMessage().contains("java.lang.Integer cannot be cast to class java.lang.Double")) {
+						result.add(
+								new Article(
+										(int) columnValues[0],
+										(int) columnValues[1],
+										(String) columnValues[2],
+										(double) (Integer) columnValues[3],
+										(int) columnValues[4]
+								)
+						);
+					}
+				}
 			} else if (itemClass.equals(Medicine.class)) {
 				String[] cols = ContractUtils.getAllCols(ArticleContract.class);
 				Article foreignArticle = null;
@@ -63,7 +83,8 @@ public class DBPersistence {
 								new String[] {
 										"AID = ?" },
 								null,
-								true);
+								true
+						);
 						pstmt = con.prepareStatement(query);
 						pstmt.setInt(1, articleId);
 						return pstmt;
@@ -72,21 +93,37 @@ public class DBPersistence {
 					WindowActionUtils.promptInfoDialog(
 							new JWindow(),
 							String.format("Couldn't match Medicine with MedicineID %s", columnValues[1]),
-							JOptionPane.ERROR_MESSAGE);
+							JOptionPane.ERROR_MESSAGE
+					);
 					continue;
 				}
 				result.add(
-						new Medicine(foreignArticle, (int) columnValues[1], (int) columnValues[2],
-								(String) columnValues[3], (int) columnValues[4] == 1));
+						new Medicine(
+								foreignArticle,
+								(int) columnValues[1],
+								(int) columnValues[2],
+								(String) columnValues[3],
+								(int) columnValues[4] == 1
+						)
+				);
 			} else if (itemClass.equals(Provider.class)) {
 				result.add(
-						new Provider((int) columnValues[0], (String) columnValues[1], (String) columnValues[2],
-								(String) columnValues[3]));
+						new Provider(
+								(int) columnValues[0],
+								(String) columnValues[1],
+								(String) columnValues[2],
+								(String) columnValues[3]
+						)
+				);
 			} else if (itemClass.equals(SystemUser.class)) {
 				result.add(
-						new SystemUser((int) columnValues[0], (String) columnValues[1], (String) columnValues[2],
+						new SystemUser(
+								(int) columnValues[0],
+								(String) columnValues[1],
+								(String) columnValues[2],
 								(int) columnValues[3] == 1 // translate Integer from DDBB to Java Boolean
-						));
+						)
+				);
 			} else {
 				ErrorUtils.onFatalErrorException(String.format("Couln't match %s passed to Select method", itemClass));
 			}

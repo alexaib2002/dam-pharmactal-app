@@ -59,11 +59,11 @@ public class InsertProviderPanel extends DefaultInteractableSubmenu<InsertProvid
 		add(txtAddress, "cell 2 4 3 1,growx");
 		txtAddress.setColumns(10);
 
-		btnClean = new JButton(ACTION_CLEAR);
-		add(btnClean, "cell 1 5 2 1,growx");
-
 		btnAdd = new JButton(ACTION_ADD);
-		add(btnAdd, "cell 3 5 2 1,growx");
+		add(btnAdd, "cell 1 5 2 1,growx");
+
+		btnClean = new JButton("Clean Data");
+		add(btnClean, "cell 3 5 2 1,growx");
 	}
 
 	@Override
@@ -96,8 +96,12 @@ public class InsertProviderPanel extends DefaultInteractableSubmenu<InsertProvid
 
 		if (phone.isBlank()) {
 			WindowActionUtils.promptInfoDialog(new JWindow(), "Phone field cannot be empty", JOptionPane.ERROR_MESSAGE);
-		} else if (!phone.matches("(\\+34|0034|34)?[ -]*(6|7)[ -]*([0-9][ -]*){8}")) {
-			WindowActionUtils.promptInfoDialog(new JWindow(), "Invalid phone format", JOptionPane.ERROR_MESSAGE);
+		} else if (!phone.matches("(\\[ -]*(6|7)[ -]*([0-9][ -]*){8}")) {
+			WindowActionUtils.promptInfoDialog(
+					new JWindow(),
+					"Invalid phone format\nExample of expected phone:\n+34612548798",
+					JOptionPane.ERROR_MESSAGE
+			);
 		}
 		return phone;
 	}
