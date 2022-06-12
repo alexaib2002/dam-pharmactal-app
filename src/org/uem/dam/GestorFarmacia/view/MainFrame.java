@@ -135,7 +135,6 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		// insertFrame initialization
 		insertFrame.setTitle("Add new item");
 		insertFrame.setLocationRelativeTo(this);
-		insertFrame.setMinimumSize(new Dimension(600, 350));
 	}
 
 	@Override
@@ -157,23 +156,20 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		this.addWindowListener(controller.getWinAdapter());
 	}
 
-	public JFrame getInsertFrame(String componentName) {
+	public void popupInsertFrame(String componentName) {
 		SwingThemeManager.updateChildWindowLAF(insertFrame);
 		switch (componentName) {
 		case POPUP_INSERT_ARTICLE: {
-			insertProviderPanel.setVisible(false);
-			insertArticlePanel.setVisible(true);
+			insertFrame.setContentPane(insertArticlePanel);
 			break;
 		}
 		case POPUP_INSERT_PROVIDER: {
-			insertProviderPanel.setVisible(true);
-			insertArticlePanel.setVisible(false);
+			insertFrame.setContentPane(insertProviderPanel);
 			break;
 		}
 		}
-		insertFrame.repaint();
-		insertFrame.revalidate();
-		return insertFrame;
+		insertFrame.setVisible(true);
+		insertFrame.pack();
 	}
 
 	public JMenuItem getAddProvMntm() {

@@ -32,7 +32,7 @@ public class InsertProviderPanel extends DefaultInteractableSubmenu<InsertProvid
 	@Override
 	public void initComponents() {
 
-		setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow]", "[][5%][][][][25%:n]"));
+		setLayout(new MigLayout("", "[grow][grow][grow][grow][grow][grow]", "[][5%][][][][grow 50][grow]"));
 
 		JLabel lblTitle = new JLabel("Add new provider");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 18));

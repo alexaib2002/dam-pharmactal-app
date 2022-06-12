@@ -25,7 +25,8 @@ import org.uem.dam.GestorFarmacia.view.submenus.DefaultInteractableSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class InsertArticlePanel extends DefaultInteractableSubmenu<InsertArticleControl> implements FetchableSubmenu<DBItem> {
+public class InsertArticlePanel extends DefaultInteractableSubmenu<InsertArticleControl>
+		implements FetchableSubmenu<DBItem> {
 
 	public static final String ACTION_ADD = "Add Item";
 	public static final String ACTION_CLEAR = "Clear Data";
@@ -49,7 +50,13 @@ public class InsertArticlePanel extends DefaultInteractableSubmenu<InsertArticle
 	@SuppressWarnings("removal")
 	@Override
 	public void initComponents() {
-		setLayout(new MigLayout("", "[grow][][][][][][][grow]", "[][5%][][][][][][][10%,center][25%:n,center]"));
+		setLayout(
+				new MigLayout(
+						"",
+						"[grow][][][][][][][grow]",
+						"[][5%][][][][][][][10%,center][grow 50,center][5%:n,grow]"
+				)
+		);
 
 		JLabel lblTitle = new JLabel("Add new item");
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -120,9 +127,9 @@ public class InsertArticlePanel extends DefaultInteractableSubmenu<InsertArticle
 								"mg",
 								"g",
 								"ml",
-						"l" }
-						)
-				);
+								"l" }
+				)
+		);
 		add(cmbxUnits, "cell 4 7 2 1,growx");
 
 		chkbxPresc = new JCheckBox("This medicine should require prescription");
@@ -158,7 +165,7 @@ public class InsertArticlePanel extends DefaultInteractableSubmenu<InsertArticle
 					txtName.getText(),
 					Double.parseDouble(txtPrice.getText()),
 					(int) spnStock.getValue()
-					);
+			);
 			if (rdbtnYes.isSelected()) {
 				return new Medicine(
 						item,
@@ -166,7 +173,7 @@ public class InsertArticlePanel extends DefaultInteractableSubmenu<InsertArticle
 						Integer.parseInt(txtMass.getText()),
 						(String) cmbxUnits.getSelectedItem(),
 						chkbxPresc.isSelected()
-						);
+				);
 			}
 		} catch (NullPointerException npe) {
 			WindowActionUtils.promptInfoDialog(new JWindow(), "Please fill every field", JOptionPane.ERROR_MESSAGE);
@@ -175,7 +182,7 @@ public class InsertArticlePanel extends DefaultInteractableSubmenu<InsertArticle
 					new JWindow(),
 					"The %s field should be a number without any letter",
 					JOptionPane.ERROR_MESSAGE
-					);
+			);
 		}
 		return item;
 	}

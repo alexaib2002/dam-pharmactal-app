@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JFrame;
-
 import org.uem.dam.GestorFarmacia.model.SystemUser;
 import org.uem.dam.GestorFarmacia.persist.DBItemMap;
 import org.uem.dam.GestorFarmacia.persist.DBPersistence;
@@ -63,19 +61,18 @@ public class MainController implements ActionListener {
 			break;
 		}
 		case MainFrame.ACTION_RETURN_TO_HOME: {
-			// TODO implement set submenu to view, will need to wait until welcome branch is merged
+			// TODO implement set submenu to view, will need to wait until welcome branch is
+			// merged
 			System.out.println("Home not implemented yet");
 			break;
 		}
 		// FIXME this could be refactored into their own controller
 		case MainFrame.ACTION_NEW_ARTICLE: {
-			JFrame insertFrame = mainFrame.getInsertFrame(MainFrame.POPUP_INSERT_ARTICLE);
-			insertFrame.setVisible(true);
+			mainFrame.popupInsertFrame(MainFrame.POPUP_INSERT_ARTICLE);
 			break;
 		}
 		case MainFrame.ACTION_NEW_PROVIDER: {
-			JFrame insertFrame = mainFrame.getInsertFrame(MainFrame.POPUP_INSERT_ARTICLE);
-			insertFrame.setVisible(true);
+			mainFrame.popupInsertFrame(MainFrame.POPUP_INSERT_PROVIDER);
 			break;
 		}
 		default:
