@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import org.uem.dam.GestorFarmacia.contract.TableContract;
 import org.uem.dam.GestorFarmacia.contract.UsersContract;
 import org.uem.dam.GestorFarmacia.control.MainController;
+import org.uem.dam.GestorFarmacia.control.SystemState;
 import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.model.SystemUser;
 import org.uem.dam.GestorFarmacia.utils.ContractUtils;
@@ -34,13 +35,13 @@ public class LoginSubmnControl extends DefaultSubcontrol implements ActionListen
 			if (validateLogin()) {
 				System.out.println("User authenticated");
 				mainFrame.setSubmenuView(mainFrame.getDataViewSubmn());
-				// TODO log user who has entered the system
 			} else {
 				WindowActionUtils.promptInfoDialog(
 						mainFrame,
 						"Invalid username or password",
 						"Access denied",
-						JOptionPane.ERROR_MESSAGE);
+						JOptionPane.ERROR_MESSAGE
+				);
 			}
 		}
 	}
@@ -55,7 +56,8 @@ public class LoginSubmnControl extends DefaultSubcontrol implements ActionListen
 					new String[] {
 							String.format("USERNAME LIKE ?", UsersContract.USERNAME.toString()) },
 					null,
-					false);
+					false
+			);
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, insertedUser.name());
 			return pstmt;
@@ -72,6 +74,17 @@ public class LoginSubmnControl extends DefaultSubcontrol implements ActionListen
 			System.err.println("Invalid password");
 			return false;
 		}
+		checkLoggedUser(registeredUser);
 		return true;
 	}
+
+	private void checkLoggedUser(SystemUser user) {
+		mainController.setSystemUser(user);
+		if (user.admin()) {
+			mainController.setSystemState(SystemState.ADMIN);
+			return;
+		}
+		mainController.setSystemState(SystemState.VIEWER);
+	}
+
 }

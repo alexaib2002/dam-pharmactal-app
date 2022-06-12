@@ -5,8 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JComponent;
-
+import org.uem.dam.GestorFarmacia.model.SystemUser;
 import org.uem.dam.GestorFarmacia.persist.DBItemMap;
 import org.uem.dam.GestorFarmacia.persist.DBPersistence;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
@@ -16,11 +15,14 @@ import org.uem.dam.GestorFarmacia.view.MainFrame;
 
 public class MainController implements ActionListener {
 
-	private DBItemMap dbItemMap;
+	private final DBItemMap dbItemMap;
 
-	private MainFrame mainFrame;
-	private DBPersistence dbPersistence;
-	private WindowAdapter winAdapter;
+	private SystemState systemState;
+	private SystemUser systemUser;
+
+	private final MainFrame mainFrame;
+	private final DBPersistence dbPersistence;
+	private final WindowAdapter winAdapter;
 
 	public MainController(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
@@ -32,16 +34,49 @@ public class MainController implements ActionListener {
 				WindowActionUtils.onExitEvent(mainFrame);
 			}
 		};
+		setSystemState(SystemState.NOUSER);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		String action = event.getActionCommand().toLowerCase();
-		String callerID = ((String) ((JComponent) event.getSource()).getClientProperty("CallerID"));
-		if (callerID != null) { // there's a source type attached, so we can filter the caller
-			parseCallerIDAction(callerID, action);
-		} else { // recognized as generic source, as it wasn't named on its constructor
-			parseGenericAction(action);
+		switch (event.getActionCommand()) {
+		case MainFrame.ACTION_LOG_OUT: {
+			mainFrame.setSubmenuView(mainFrame.getLoginSubmn());
+			setSystemState(SystemState.NOUSER);
+			setSystemUser(null);
+			break;
+		}
+		case MainFrame.ACTION_CLOSE_APP: {
+			WindowActionUtils.onExitEvent(mainFrame);
+			break;
+		}
+		case MainFrame.ACTION_DARK: {
+			SwingThemeManager.switchTheme(LookAndFeelItem.DARK);
+			SwingThemeManager.updateChildWindowLAF(mainFrame);
+			break;
+		}
+		case MainFrame.ACTION_LIGHT: {
+			SwingThemeManager.switchTheme(LookAndFeelItem.LIGHT);
+			SwingThemeManager.updateChildWindowLAF(mainFrame);
+			break;
+		}
+		case MainFrame.ACTION_RETURN_TO_HOME: {
+			// TODO implement set submenu to view, will need to wait until welcome branch is
+			// merged
+			System.out.println("Home not implemented yet");
+			break;
+		}
+		// FIXME this could be refactored into their own controller
+		case MainFrame.ACTION_NEW_ARTICLE: {
+			mainFrame.popupInsertFrame(MainFrame.POPUP_INSERT_ARTICLE);
+			break;
+		}
+		case MainFrame.ACTION_NEW_PROVIDER: {
+			mainFrame.popupInsertFrame(MainFrame.POPUP_INSERT_PROVIDER);
+			break;
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + event.getActionCommand());
 		}
 	}
 
@@ -61,45 +96,21 @@ public class MainController implements ActionListener {
 		return dbItemMap;
 	}
 
-	private void parseCallerIDAction(String callerID, String action) {
-		switch (callerID) {
-		case "ThemeMenu": {
-			parseThemeMenuAction(action);
-			break;
-		}
-		default:
-			throw new IllegalArgumentException("Unnasinged ID action: " + action);
-		}
-
+	public void setSystemState(SystemState systemState) {
+		this.systemState = systemState;
+		mainFrame.onSystemStateChanged(systemState);
 	}
 
-	/* General action parsers */
-
-	private void parseGenericAction(String action) {
-		switch (action.toLowerCase()) {
-		case "exit": {
-			WindowActionUtils.onExitEvent(mainFrame);
-			break;
-		}
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + action);
-		}
+	public SystemState getSystemState() {
+		return systemState;
 	}
 
-	/* Special action parsers */
-
-	private void parseThemeMenuAction(String action) {
-		switch (action) {
-		case "light": {
-			SwingThemeManager.switchTheme(LookAndFeelItem.LIGHT);
-			break;
-		}
-		case "dark": {
-			SwingThemeManager.switchTheme(LookAndFeelItem.DARK);
-			break;
-		}
-		}
-		SwingThemeManager.updateChildWindowLAF(mainFrame);
-		System.out.println(String.format("Updating theme to %s based on user request", action.toLowerCase()));
+	public SystemUser getSystemUser() {
+		return systemUser;
 	}
+
+	public void setSystemUser(SystemUser systemUser) {
+		this.systemUser = systemUser;
+	}
+
 }
