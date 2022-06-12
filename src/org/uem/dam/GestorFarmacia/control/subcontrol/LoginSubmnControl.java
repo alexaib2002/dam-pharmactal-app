@@ -79,6 +79,7 @@ public class LoginSubmnControl extends DefaultSubcontrol implements ActionListen
 	}
 
 	private void checkLoggedUser(SystemUser user) {
+		mainController.setSystemUser(user);
 		if (user.admin()) {
 			mainController.setSystemState(SystemState.ADMIN);
 			return;

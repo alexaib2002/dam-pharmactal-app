@@ -5,8 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JComponent;
-
+import org.uem.dam.GestorFarmacia.model.SystemUser;
 import org.uem.dam.GestorFarmacia.persist.DBItemMap;
 import org.uem.dam.GestorFarmacia.persist.DBPersistence;
 import org.uem.dam.GestorFarmacia.swing_theming.SwingThemeManager;
@@ -19,6 +18,7 @@ public class MainController implements ActionListener {
 	private final DBItemMap dbItemMap;
 
 	private SystemState systemState;
+	private SystemUser systemUser;
 
 	private final MainFrame mainFrame;
 	private final DBPersistence dbPersistence;
@@ -39,12 +39,38 @@ public class MainController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		String action = event.getActionCommand().toLowerCase();
-		String callerID = ((String) ((JComponent) event.getSource()).getClientProperty("CallerID"));
-		if (callerID != null) { // there's a source type attached, so we can filter the caller
-			parseCallerIDAction(callerID, action);
-		} else { // recognized as generic source, as it wasn't named on its constructor
-			parseGenericAction(action);
+		switch (event.getActionCommand()) {
+		case MainFrame.ACTION_LOG_OUT: {
+			System.out.println("Log out not implemented yet");
+			break;
+		}
+		case MainFrame.ACTION_CLOSE_APP: {
+			WindowActionUtils.onExitEvent(mainFrame);
+			break;
+		}
+		case MainFrame.ACTION_DARK: {
+			SwingThemeManager.switchTheme(LookAndFeelItem.DARK);
+			SwingThemeManager.updateChildWindowLAF(mainFrame);
+			break;
+		}
+		case MainFrame.ACTION_LIGHT: {
+			SwingThemeManager.switchTheme(LookAndFeelItem.LIGHT);
+			SwingThemeManager.updateChildWindowLAF(mainFrame);
+			break;
+		}
+		case MainFrame.ACTION_RETURN_TO_HOME: {
+			System.out.println("Home not implemented yet");
+			break;
+		}
+		// FIXME this could be refactored into their own controller
+		case MainFrame.ACTION_NEW_ARTICLE: {
+			break;
+		}
+		case MainFrame.ACTION_NEW_PROVIDER: {
+			break;
+		}
+		default:
+			throw new IllegalArgumentException("Unexpected value: " + event.getActionCommand());
 		}
 	}
 
@@ -66,51 +92,19 @@ public class MainController implements ActionListener {
 
 	public void setSystemState(SystemState systemState) {
 		this.systemState = systemState;
+		mainFrame.onSystemStateChanged(systemState);
 	}
 
 	public SystemState getSystemState() {
 		return systemState;
 	}
 
-	private void parseCallerIDAction(String callerID, String action) {
-		switch (callerID) {
-		case "ThemeMenu": {
-			parseThemeMenuAction(action);
-			break;
-		}
-		default:
-			throw new IllegalArgumentException("Unnasinged ID action: " + action);
-		}
-
+	public SystemUser getSystemUser() {
+		return systemUser;
 	}
 
-	/* General action parsers */
-
-	private void parseGenericAction(String action) {
-		switch (action.toLowerCase()) {
-		case "exit": {
-			WindowActionUtils.onExitEvent(mainFrame);
-			break;
-		}
-		default:
-			throw new IllegalArgumentException("Unexpected value: " + action);
-		}
+	public void setSystemUser(SystemUser systemUser) {
+		this.systemUser = systemUser;
 	}
 
-	/* Special action parsers */
-
-	private void parseThemeMenuAction(String action) {
-		switch (action) {
-		case "light": {
-			SwingThemeManager.switchTheme(LookAndFeelItem.LIGHT);
-			break;
-		}
-		case "dark": {
-			SwingThemeManager.switchTheme(LookAndFeelItem.DARK);
-			break;
-		}
-		}
-		SwingThemeManager.updateChildWindowLAF(mainFrame);
-		System.out.println(String.format("Updating theme to %s based on user request", action.toLowerCase()));
-	}
 }

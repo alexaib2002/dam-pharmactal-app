@@ -1,5 +1,6 @@
 package org.uem.dam.GestorFarmacia.view;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -19,9 +20,18 @@ import net.miginfocom.swing.MigLayout;
 
 public class MainFrame extends JFrame implements InteractableView<MainController> {
 
+	public static final String ACTION_LOG_OUT = "Log out";
+	public static final String ACTION_CLOSE_APP = "Close app";
+	public static final String ACTION_NEW_PROVIDER = "New provider";
+	public static final String ACTION_NEW_ARTICLE = "New article";
+	public static final String ACTION_LIGHT = "Light";
+	public static final String ACTION_DARK = "Dark";
+	public static final String ACTION_RETURN_TO_HOME = "Return to home";
+
 	private static final long serialVersionUID = 1L;
+
 	private JMenuBar menuBar;
-	private JMenu fileMn;
+	private JMenu systemMn;
 	private JMenuItem exitMntm;
 
 	private LoginSubmenu loginSubmn;
@@ -30,8 +40,14 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 	private JMenu mnTheme;
 	private JMenuItem lightMntm;
 	private JMenuItem darkMntm;
+	private JMenu mnAdd;
+	private JMenuItem addItemMntm;
+	private JMenuItem addProvMntm;
+	private JMenuItem homeMntm;
+	private JMenuItem logOutmntm;
 
 	public MainFrame() {
+		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		initComponents();
 		initAttributes();
 		setSubmenuView(loginSubmn); // always want to start on login
@@ -44,11 +60,23 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
-		fileMn = new JMenu("File");
-		menuBar.add(fileMn);
+		systemMn = new JMenu("System");
+		menuBar.add(systemMn);
 
-		exitMntm = new JMenuItem("Exit");
-		fileMn.add(exitMntm);
+		logOutmntm = new JMenuItem(ACTION_LOG_OUT);
+		systemMn.add(logOutmntm);
+
+		exitMntm = new JMenuItem(ACTION_CLOSE_APP);
+		systemMn.add(exitMntm);
+
+		mnAdd = new JMenu("Add");
+		menuBar.add(mnAdd);
+
+		addItemMntm = new JMenuItem(ACTION_NEW_ARTICLE);
+		mnAdd.add(addItemMntm);
+
+		addProvMntm = new JMenuItem(ACTION_NEW_PROVIDER);
+		mnAdd.add(addProvMntm);
 
 		mnView = new JMenu("View");
 		menuBar.add(mnView);
@@ -56,13 +84,14 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		mnTheme = new JMenu("Theme");
 		mnView.add(mnTheme);
 
-		lightMntm = new JMenuItem("Light");
-		lightMntm.putClientProperty("CallerID", "ThemeMenu");
+		lightMntm = new JMenuItem(ACTION_LIGHT);
 		mnTheme.add(lightMntm);
 
-		darkMntm = new JMenuItem("Dark");
-		darkMntm.putClientProperty("CallerID", "ThemeMenu");
+		darkMntm = new JMenuItem(ACTION_DARK);
 		mnTheme.add(darkMntm);
+
+		homeMntm = new JMenuItem(ACTION_RETURN_TO_HOME);
+		mnView.add(homeMntm);
 
 		loginSubmn = new LoginSubmenu();
 
@@ -90,6 +119,10 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		exitMntm.addActionListener(controller);
 		lightMntm.addActionListener(controller);
 		darkMntm.addActionListener(controller);
+		addItemMntm.addActionListener(controller);
+		addProvMntm.addActionListener(controller);
+		logOutmntm.addActionListener(controller);
+		homeMntm.addActionListener(controller);
 		// propagate call to child submenus
 		loginSubmn.updateListeners(new LoginSubmnControl(controller, loginSubmn));
 		dataViewSubmenu.updateListeners(controller);
@@ -113,20 +146,31 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 	}
 
 	public void onSystemStateChanged(SystemState state) {
+		resetVariableLayout();
 		switch (state) {
 		case NOUSER: {
-
-			break;
-		}
-		case VIEWER: {
-
 			break;
 		}
 		case ADMIN: {
-
+			mnAdd.setVisible(true);
+		}
+		case VIEWER: {
+			logOutmntm.setVisible(true);
+			homeMntm.setVisible(true);
 			break;
 		}
 		}
+		updateMenuBar();
+	}
+
+	private void resetVariableLayout() {
+		mnAdd.setVisible(false);
+		logOutmntm.setVisible(false);
+		homeMntm.setVisible(false);
+	}
+
+	private void updateMenuBar() {
+		menuBar.revalidate();
 	}
 
 	private void onSubmenuUpdate() {
