@@ -16,7 +16,7 @@ import org.uem.dam.GestorFarmacia.view.submenus.DefaultInteractableSubmenu;
 import net.miginfocom.swing.MigLayout;
 
 public class InsertProviderPanel extends DefaultInteractableSubmenu<InsertProviderControl>
-		implements FetchableSubmenu<Provider> {
+implements FetchableSubmenu<Provider> {
 
 	public static final String ACTION_ADD = "Add Provider";
 	public static final String ACTION_CLEAR = "Clean Data";
@@ -96,12 +96,12 @@ public class InsertProviderPanel extends DefaultInteractableSubmenu<InsertProvid
 
 		if (phone.isBlank()) {
 			WindowActionUtils.promptInfoDialog(new JWindow(), "Phone field cannot be empty", JOptionPane.ERROR_MESSAGE);
-		} else if (!phone.matches("(\\[ -]*(6|7)[ -]*([0-9][ -]*){8}")) {
+		} else if (phone.length() != 9) {
 			WindowActionUtils.promptInfoDialog(
 					new JWindow(),
-					"Invalid phone format\nExample of expected phone:\n+34612548798",
+					"Invalid phone format\nPhone should contain numeric 9 digits",
 					JOptionPane.ERROR_MESSAGE
-			);
+					);
 		}
 		return phone;
 	}
