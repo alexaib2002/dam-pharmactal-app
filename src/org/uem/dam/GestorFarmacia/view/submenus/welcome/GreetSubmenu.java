@@ -17,6 +17,8 @@ public class GreetSubmenu extends DefaultInteractableSubmenu<ActionListener> imp
 	public static final String ACTION_CONTINUE = "Continue";
 
 	private static final long serialVersionUID = 1L;
+
+	private UserInfoPanel userInfoPanel;
 	private JButton btnContinue;
 
 	@Override
@@ -30,7 +32,7 @@ public class GreetSubmenu extends DefaultInteractableSubmenu<ActionListener> imp
 		JLabel lblNewLabel = new JLabel("Your best bet for meds");
 		add(lblNewLabel, "cell 0 1");
 
-		UserInfoPanel userInfoPanel = new UserInfoPanel();
+		userInfoPanel = new UserInfoPanel();
 		add(userInfoPanel, "cell 0 2,grow");
 
 		btnContinue = new JButton(ACTION_CONTINUE);
@@ -42,4 +44,9 @@ public class GreetSubmenu extends DefaultInteractableSubmenu<ActionListener> imp
 	public void updateListeners(ActionListener controller) {
 		btnContinue.addActionListener(controller);
 	}
+
+	public UserInfoPanel getUserInfoPanel() {
+		return userInfoPanel;
+	}
+
 }

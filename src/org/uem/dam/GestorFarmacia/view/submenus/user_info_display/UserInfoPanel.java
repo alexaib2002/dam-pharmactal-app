@@ -12,7 +12,7 @@ import org.uem.dam.GestorFarmacia.view.DefaultComponent;
 
 import net.miginfocom.swing.MigLayout;
 
-public class UserInfoPanel extends DefaultComponent implements BuildableView  {
+public class UserInfoPanel extends DefaultComponent implements BuildableView {
 
 	private JLabel lblUserName;
 	private JLabel lblUserPrivileges;
@@ -37,7 +37,6 @@ public class UserInfoPanel extends DefaultComponent implements BuildableView  {
 		lblCurrentUser.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		add(lblCurrentUser, "cell 0 2,alignx center");
 
-
 		lblUserName = new JLabel();
 		lblUserName.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		add(lblUserName, "cell 0 3,alignx center");
@@ -52,8 +51,10 @@ public class UserInfoPanel extends DefaultComponent implements BuildableView  {
 
 	public void setUserData(String name, boolean admin) {
 		lblUserName.setText(name);
+		System.out.println(admin);
 		if (admin) {
 			lblUserPrivileges.setText("View, add, modify and delete records");
+			return;
 		}
 		lblUserPrivileges.setText("View and modify records");
 	}
