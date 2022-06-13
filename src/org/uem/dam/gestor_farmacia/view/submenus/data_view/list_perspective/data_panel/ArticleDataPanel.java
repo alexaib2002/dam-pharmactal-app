@@ -6,12 +6,10 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import org.uem.dam.gestor_farmacia.model.Article;
-import org.uem.dam.gestor_farmacia.view.submenus.insertion.FetchableSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ArticleDataPanel extends UpdateDataDefaultPanel
-		implements RefreshableDataPanel<Article>, FetchableSubmenu<Article> {
+public class ArticleDataPanel extends UpdateDataDefaultPanel implements RefreshableDataPanel<Article> {
 
 	public static final String ACTION_UPDATE = "Update Article";
 
@@ -89,11 +87,6 @@ public class ArticleDataPanel extends UpdateDataDefaultPanel
 				(double) priceSpn.getValue(),
 				(int) stockSpn.getValue()
 		);
-	}
-
-	@Override
-	public void clearFields() {
-		// FIXME fetchable submenu shouln't enforce clearFields
 	}
 
 	@Override

@@ -27,7 +27,7 @@ import org.uem.dam.gestor_farmacia.view.submenus.DefaultInteractableSubmenu;
 import net.miginfocom.swing.MigLayout;
 
 public class InsertArticlePanel extends DefaultInteractableSubmenu<InsertArticleControl>
-		implements FetchableSubmenu<DBItem> {
+		implements FillableSubmenu<DBItem> {
 	public InsertArticlePanel() {
 	}
 

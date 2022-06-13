@@ -69,6 +69,11 @@ public class ProvidersDataPanel extends UpdateDataDefaultPanel implements Refres
 	}
 
 	@Override
+	public Provider getInputItem() {
+		return new Provider((int) pidSpn.getValue(), nameTxt.getText(), phoneTxt.getText(), addrTxt.getText());
+	}
+
+	@Override
 	public void setEditsEnabled(boolean enabled) {
 		nameTxt.setEnabled(enabled);
 		pidSpn.setEnabled(enabled);
