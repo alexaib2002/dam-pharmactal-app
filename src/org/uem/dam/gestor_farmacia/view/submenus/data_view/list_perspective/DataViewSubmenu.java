@@ -36,11 +36,10 @@ public class DataViewSubmenu extends DefaultInteractableSubmenu<MainController> 
 		tabbedPane.setMinimumSize(new Dimension(200, 0));
 
 		itemInspectorContainer = new ItemInspectorContainer();
-		itemInspectorContainer.setMinimumSize(itemInspectorContainer.getMinimumSize());
 
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, tabbedPane, itemInspectorContainer);
 		splitPane.setOneTouchExpandable(true);
-		splitPane.setResizeWeight(1.0);
+		splitPane.setResizeWeight(.75f);
 		add(splitPane, "growx");
 	}
 
