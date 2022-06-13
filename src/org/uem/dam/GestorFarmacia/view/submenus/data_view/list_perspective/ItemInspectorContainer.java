@@ -69,6 +69,12 @@ public class ItemInspectorContainer extends DefaultComponent {
 		refreshLayout();
 	}
 
+	public void setEditEnabled(boolean value) {
+		articleDataPanel.setEditsEnabled(value);
+		medDataPanel.setEditsEnabled(value);
+		providersDataPanel.setEditsEnabled(value);
+	}
+
 	private void onOverlayUpdate() {
 		articleDataPanel.setVisible(false);
 		medDataPanel.setVisible(false);

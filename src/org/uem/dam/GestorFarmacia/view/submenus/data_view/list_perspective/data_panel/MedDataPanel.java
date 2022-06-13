@@ -65,4 +65,13 @@ public class MedDataPanel extends DefaultComponent implements RefreshableDataPan
 
 	}
 
+	@Override
+	public void setEditsEnabled(boolean enabled) {
+		midSpn.setEnabled(enabled);
+		massSpn.setEnabled(enabled);
+		chckbxNewCheckBox.setEnabled(enabled);
+		unitCmbx.setEnabled(enabled);
+		articlePanel.setEditsEnabled(enabled);
+	}
+
 }

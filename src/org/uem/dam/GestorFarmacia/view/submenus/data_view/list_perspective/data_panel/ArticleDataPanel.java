@@ -60,4 +60,14 @@ public class ArticleDataPanel extends DefaultComponent implements RefreshableDat
 		priceSpn.setValue(article.price());
 		stockSpn.setValue(article.stock());
 	}
+
+	@Override
+	public void setEditsEnabled(boolean enabled) {
+		aidTxt.setEnabled(enabled);
+		nameTxt.setEnabled(enabled);
+		priceLbl.setEnabled(enabled);
+		priceSpn.setEnabled(enabled);
+		stockLbl.setEnabled(enabled);
+		stockSpn.setEnabled(enabled);
+	}
 }

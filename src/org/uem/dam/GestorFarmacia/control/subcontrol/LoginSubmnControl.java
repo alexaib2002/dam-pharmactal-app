@@ -41,7 +41,7 @@ public class LoginSubmnControl extends DefaultSubcontrol implements ActionListen
 						"Invalid username or password",
 						"Access denied",
 						JOptionPane.ERROR_MESSAGE
-				);
+						);
 			}
 		}
 	}
@@ -57,7 +57,7 @@ public class LoginSubmnControl extends DefaultSubcontrol implements ActionListen
 							String.format("USERNAME LIKE ?", UsersContract.USERNAME.toString()) },
 					null,
 					false
-			);
+					);
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, insertedUser.name());
 			return pstmt;
@@ -80,6 +80,7 @@ public class LoginSubmnControl extends DefaultSubcontrol implements ActionListen
 
 	private void checkLoggedUser(SystemUser user) {
 		mainController.setSystemUser(user);
+		mainFrame.getDataViewSubmn().getItemInspectorContainer().setEditEnabled(user.admin());
 		mainFrame.getGreetSubmn().getUserInfoPanel().setUserData(user.name(), user.admin());
 		if (user.admin()) {
 			mainController.setSystemState(SystemState.ADMIN);

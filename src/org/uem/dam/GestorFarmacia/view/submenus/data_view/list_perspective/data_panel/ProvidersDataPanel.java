@@ -60,4 +60,12 @@ public class ProvidersDataPanel extends DefaultComponent implements RefreshableD
 		addrTxt.setText(provider.address());
 	}
 
+	@Override
+	public void setEditsEnabled(boolean enabled) {
+		nameTxt.setEnabled(enabled);
+		pidSpn.setEnabled(enabled);
+		phoneTxt.setEnabled(enabled);
+		addrTxt.setEnabled(enabled);
+	}
+
 }
