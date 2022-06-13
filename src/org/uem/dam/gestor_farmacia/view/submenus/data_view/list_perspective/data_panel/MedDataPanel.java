@@ -8,10 +8,12 @@ import javax.swing.JSpinner;
 import javax.swing.border.TitledBorder;
 
 import org.uem.dam.gestor_farmacia.model.Medicine;
+import org.uem.dam.gestor_farmacia.view.submenus.insertion.FetchableSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableDataPanel<Medicine> {
+public class MedDataPanel extends UpdateDataDefaultPanel
+		implements RefreshableDataPanel<Medicine>, FetchableSubmenu<Medicine> {
 
 	public static final String ACTION_UPDATE = "Update Medicine";
 
@@ -74,6 +76,23 @@ public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableD
 		chckbxNewCheckBox.setSelected(medicine.requiresPresc());
 		unitCmbx.setSelectedItem(medicine.unit());
 		articlePanel.refreshData(medicine.article());
+	}
+
+	@Override
+	public Medicine getInputItem() {
+		return new Medicine(
+				null, // FIXME fetch article
+				(int) midSpn.getValue(),
+				(int) massSpn.getValue(),
+				(String) unitCmbx.getSelectedItem(),
+				chckbxNewCheckBox.isSelected()
+		);
+	}
+
+	@Override
+	public void clearFields() {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
