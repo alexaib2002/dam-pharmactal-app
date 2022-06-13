@@ -8,11 +8,12 @@ import javax.swing.JSpinner;
 import javax.swing.border.TitledBorder;
 
 import org.uem.dam.gestor_farmacia.model.Medicine;
-import org.uem.dam.gestor_farmacia.view.DefaultComponent;
 
 import net.miginfocom.swing.MigLayout;
 
-public class MedDataPanel extends DefaultComponent implements RefreshableDataPanel<Medicine> {
+public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableDataPanel<Medicine> {
+
+	public static final String ACTION_UPDATE = "Update Medicine";
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,35 +25,46 @@ public class MedDataPanel extends DefaultComponent implements RefreshableDataPan
 
 	@Override
 	public void initComponents() {
+		super.initComponents();
+
 		setBorder(new TitledBorder(null, "Medicine", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		setLayout(new MigLayout("", "[right][grow,fill][]", "[][][][]"));
+
+		editPanel.setLayout(new MigLayout("", "[right][grow]", "[][][][]"));
 
 		JLabel aidLbl = new JLabel("Medicine ID");
-		this.add(aidLbl, "flowy,cell 0 0,alignx right,aligny center");
+		editPanel.add(aidLbl, "flowy,cell 0 0,alignx right,aligny center");
 
 		midSpn = new JSpinner();
-		add(midSpn, "cell 1 0");
+		editPanel.add(midSpn, "cell 1 0");
 
 		JLabel nameLbl = new JLabel("Mass");
-		this.add(nameLbl, "cell 0 1,alignx trailing");
+		editPanel.add(nameLbl, "cell 0 1,alignx trailing");
 
 		massSpn = new JSpinner();
-		add(massSpn, "flowx,cell 1 1,alignx center");
+		editPanel.add(massSpn, "flowx,cell 1 1,alignx center");
 
 		unitCmbx = new JComboBox<String>();
 		unitCmbx.setModel(
-				new DefaultComboBoxModel<String>(new String[] {
-						"g",
-						"mg",
-						"l",
-				"ml" }));
-		add(unitCmbx, "cell 2 1,growx");
+				new DefaultComboBoxModel<String>(
+						new String[] {
+								"g",
+								"mg",
+								"l",
+								"ml" }
+				)
+		);
+		editPanel.add(unitCmbx, "cell 2 1,growx");
 
 		chckbxNewCheckBox = new JCheckBox("Requires prescription");
-		add(chckbxNewCheckBox, "cell 0 2 3 1,alignx center");
+		editPanel.add(chckbxNewCheckBox, "cell 0 2 3 1,alignx center");
 
 		articlePanel = new ArticleDataPanel();
-		add(articlePanel, "cell 0 3 3 1,grow");
+		editPanel.add(articlePanel, "cell 0 3 3 1,grow");
+	}
+
+	@Override
+	public void initAttributes() {
+		updateBtn.setText(ACTION_UPDATE);
 	}
 
 	@Override
@@ -62,7 +74,6 @@ public class MedDataPanel extends DefaultComponent implements RefreshableDataPan
 		chckbxNewCheckBox.setSelected(medicine.requiresPresc());
 		unitCmbx.setSelectedItem(medicine.unit());
 		articlePanel.refreshData(medicine.article());
-
 	}
 
 	@Override
@@ -72,6 +83,7 @@ public class MedDataPanel extends DefaultComponent implements RefreshableDataPan
 		chckbxNewCheckBox.setEnabled(enabled);
 		unitCmbx.setEnabled(enabled);
 		articlePanel.setEditsEnabled(enabled);
+		updateBtn.setEnabled(enabled);
 	}
 
 }

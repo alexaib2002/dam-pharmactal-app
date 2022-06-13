@@ -6,11 +6,12 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import org.uem.dam.gestor_farmacia.model.Article;
-import org.uem.dam.gestor_farmacia.view.DefaultComponent;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ArticleDataPanel extends DefaultComponent implements RefreshableDataPanel<Article> {
+public class ArticleDataPanel extends UpdateDataDefaultPanel implements RefreshableDataPanel<Article> {
+
+	public static final String ACTION_UPDATE = "Update Article";
 
 	private static final long serialVersionUID = 1L;
 
@@ -23,34 +24,42 @@ public class ArticleDataPanel extends DefaultComponent implements RefreshableDat
 
 	@Override
 	public void initComponents() {
-		setBorder(new TitledBorder(null, "Article", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		setLayout(new MigLayout("", "[right][grow]", "[][][][]"));
+		super.initComponents();
 
+		setBorder(new TitledBorder(null, "Article", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+
+		editPanel.setLayout(new MigLayout("", "[right][grow]", "[][][][]"));
 		JLabel aidLbl = new JLabel("Article ID");
-		this.add(aidLbl, "flowy,cell 0 0,alignx right,aligny center");
+		editPanel.add(aidLbl, "flowy,cell 0 0,alignx right,aligny center");
 
 		aidTxt = new JTextField();
-		this.add(aidTxt, "cell 1 0,growx,aligny top");
+		editPanel.add(aidTxt, "cell 1 0,growx,aligny top");
 		aidTxt.setColumns(10);
 
 		JLabel nameLbl = new JLabel("Name");
-		this.add(nameLbl, "cell 0 1,alignx right");
+		editPanel.add(nameLbl, "cell 0 1,alignx right");
 
 		nameTxt = new JTextField();
-		this.add(nameTxt, "cell 1 1,growx");
+		editPanel.add(nameTxt, "cell 1 1,growx");
 		nameTxt.setColumns(10);
 
 		priceLbl = new JLabel("Price");
-		add(priceLbl, "cell 0 2,alignx right");
+		editPanel.add(priceLbl, "cell 0 2,alignx right");
 
 		priceSpn = new JSpinner();
-		add(priceSpn, "cell 1 2");
+		editPanel.add(priceSpn, "cell 1 2");
 
 		stockLbl = new JLabel("Stock");
-		add(stockLbl, "cell 0 3,alignx right");
+		editPanel.add(stockLbl, "cell 0 3,alignx right");
 
 		stockSpn = new JSpinner();
-		add(stockSpn, "cell 1 3");
+		editPanel.add(stockSpn, "cell 1 3");
+
+	}
+
+	@Override
+	public void initAttributes() {
+		updateBtn.setText(ACTION_UPDATE);
 	}
 
 	@Override
@@ -69,5 +78,6 @@ public class ArticleDataPanel extends DefaultComponent implements RefreshableDat
 		priceSpn.setEnabled(enabled);
 		stockLbl.setEnabled(enabled);
 		stockSpn.setEnabled(enabled);
+		updateBtn.setEnabled(enabled);
 	}
 }
