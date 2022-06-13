@@ -46,7 +46,6 @@ public class UserInfoPanel extends DefaultComponent implements BuildableView {
 
 		lblUserPrivileges = new JLabel();
 		add(lblUserPrivileges, "cell 0 5,alignx center");
-		Image button = new ImageIcon(this.getClass().getResource("/check-mark.png")).getImage();
 	}
 
 	public void setUserData(String name, boolean admin) {

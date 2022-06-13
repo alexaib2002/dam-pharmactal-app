@@ -4,12 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
+import javax.swing.JOptionPane;
+
 import org.uem.dam.GestorFarmacia.contract.ProviderContract;
 import org.uem.dam.GestorFarmacia.contract.TableContract;
 import org.uem.dam.GestorFarmacia.control.MainController;
 import org.uem.dam.GestorFarmacia.model.Provider;
 import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
+import org.uem.dam.GestorFarmacia.utils.WindowActionUtils;
 import org.uem.dam.GestorFarmacia.view.submenus.insertion.InsertProviderPanel;
 
 public class InsertProviderControl extends InteractableControl implements ActionListener, ItemGenerator<Provider> {
@@ -55,6 +58,10 @@ public class InsertProviderControl extends InteractableControl implements Action
 
 			return pstmt;
 		});
+
+		if (result == 1) {
+			WindowActionUtils.promptInfoDialog(mainFrame, "Sentencia ejecutada correctamente", JOptionPane.INFORMATION_MESSAGE);
+		}
 	}
 
 }

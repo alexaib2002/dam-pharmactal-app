@@ -59,6 +59,7 @@ public class DataViewSubmenu extends DefaultInteractableSubmenu<MainController> 
 
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void updateListeners(MainController controller) {
 		ChangeListener updateManager = new DataViewContnListener(controller, this);

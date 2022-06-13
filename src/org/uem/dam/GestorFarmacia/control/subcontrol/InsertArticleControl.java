@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
+import javax.swing.JOptionPane;
+
 import org.uem.dam.GestorFarmacia.contract.ArticleContract;
 import org.uem.dam.GestorFarmacia.contract.MedContract;
 import org.uem.dam.GestorFarmacia.contract.TableContract;
@@ -13,6 +15,7 @@ import org.uem.dam.GestorFarmacia.model.DBItem;
 import org.uem.dam.GestorFarmacia.model.Medicine;
 import org.uem.dam.GestorFarmacia.utils.ContractUtils;
 import org.uem.dam.GestorFarmacia.utils.SQLQueryBuilder;
+import org.uem.dam.GestorFarmacia.utils.WindowActionUtils;
 import org.uem.dam.GestorFarmacia.view.submenus.insertion.InsertArticlePanel;
 
 public class InsertArticleControl extends DefaultSubcontrol implements ActionListener, ItemGenerator<DBItem> {
@@ -71,6 +74,10 @@ public class InsertArticleControl extends DefaultSubcontrol implements ActionLis
 				return pstmt;
 			});
 
+			if (result == 1) {
+				WindowActionUtils.promptInfoDialog(mainFrame, "Sentencia ejecutada correctamente", JOptionPane.INFORMATION_MESSAGE);
+			}
+
 		} else if (item instanceof Medicine) {
 
 			Medicine medicine = (Medicine) item;
@@ -106,6 +113,10 @@ public class InsertArticleControl extends DefaultSubcontrol implements ActionLis
 
 				return pstmt;
 			});
+
+			if (result == 1) {
+				WindowActionUtils.promptInfoDialog(mainFrame, "Sentencia ejecutada correctamente", JOptionPane.INFORMATION_MESSAGE);
+			}
 
 		}
 	}
