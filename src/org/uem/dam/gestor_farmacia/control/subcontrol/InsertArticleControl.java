@@ -101,7 +101,7 @@ public class InsertArticleControl extends DefaultSubcontrol implements ActionLis
 			result = persistence.executeUpdate((con, pstmt) -> {
 				String[] cols = ContractUtils.getAllCols(MedContract.class);
 				String query = SQLQueryBuilder.buildInsertQuery(TableContract.MEDS.toString(), cols);
-				System.out.println(query);
+
 
 
 				pstmt = con.prepareStatement(query);

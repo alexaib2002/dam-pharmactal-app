@@ -189,9 +189,9 @@ public class DBPersistence {
 				pstmt.close();
 			if (con != null)
 				con.close();
-			System.out.println("Conexion a BBDD cerrada con exito");
+
 		} catch (SQLException e) {
-			System.out.println("Error durante cierre de conexion a BBDD");
+
 		}
 	}
 }

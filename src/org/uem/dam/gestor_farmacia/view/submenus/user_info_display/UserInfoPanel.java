@@ -50,7 +50,7 @@ public class UserInfoPanel extends DefaultComponent implements BuildableView {
 
 	public void setUserData(String name, boolean admin) {
 		lblUserName.setText(name);
-		System.out.println(admin);
+
 		if (admin) {
 			lblUserPrivileges.setText("View, add, modify and delete records");
 			return;
