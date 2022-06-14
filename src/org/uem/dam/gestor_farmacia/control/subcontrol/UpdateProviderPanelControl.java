@@ -1,7 +1,5 @@
 package org.uem.dam.gestor_farmacia.control.subcontrol;
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.JOptionPane;
 
 import org.uem.dam.gestor_farmacia.contract.ProviderContract;
@@ -21,7 +19,7 @@ public class UpdateProviderPanelControl extends UpdateItemPanelControl<Providers
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void onUpdateAction() {
 		Provider article = dataPanel.getInputItem();
 		int result = persistence.executeUpdate((con, pstmt) -> {
 			String query = SQLQueryBuilder.buildUpdateQuery(
@@ -30,8 +28,6 @@ public class UpdateProviderPanelControl extends UpdateItemPanelControl<Providers
 					"PID"
 			);
 			pstmt = con.prepareStatement(query);
-			System.out.println(article);
-			System.out.println(query);
 			pstmt.setInt(1, article.providerId());
 			pstmt.setString(2, article.name());
 			pstmt.setString(3, article.phone());
@@ -44,6 +40,12 @@ public class UpdateProviderPanelControl extends UpdateItemPanelControl<Providers
 				String.format("%s item has been updated sucessfully", result),
 				JOptionPane.INFORMATION_MESSAGE
 		);
+	}
+
+	@Override
+	public void onRemoveAction() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

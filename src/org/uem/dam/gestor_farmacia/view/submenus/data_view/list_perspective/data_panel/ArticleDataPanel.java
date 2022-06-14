@@ -11,8 +11,6 @@ import net.miginfocom.swing.MigLayout;
 
 public class ArticleDataPanel extends UpdateDataDefaultPanel implements RefreshableDataPanel<Article> {
 
-	private static final String ACTION_UPDATE = "Update Article";
-
 	private static final long serialVersionUID = 1L;
 
 	private JTextField aidTxt;
@@ -65,11 +63,6 @@ public class ArticleDataPanel extends UpdateDataDefaultPanel implements Refresha
 	}
 
 	@Override
-	public void initAttributes() {
-		updateBtn.setText(ACTION_UPDATE);
-	}
-
-	@Override
 	public void refreshData(Article article) {
 		aidTxt.setText(Integer.toString(article.articleId()));
 		pidSpn.setValue(article.providerId());
@@ -97,8 +90,9 @@ public class ArticleDataPanel extends UpdateDataDefaultPanel implements Refresha
 		priceSpn.setEnabled(enabled);
 		stockLbl.setEnabled(enabled);
 		stockSpn.setEnabled(enabled);
-		updateBtn.setEnabled(enabled);
 		pidSpn.setEnabled(enabled);
+		updateBtn.setEnabled(enabled);
+		removeBtn.setEnabled(enabled);
 	}
 
 //	@Override

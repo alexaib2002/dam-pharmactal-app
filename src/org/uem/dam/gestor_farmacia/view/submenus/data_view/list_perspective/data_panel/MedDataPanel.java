@@ -14,8 +14,6 @@ import net.miginfocom.swing.MigLayout;
 
 public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableDataPanel<Medicine> {
 
-	public static final String ACTION_UPDATE = "Update Medicine";
-
 	private static final long serialVersionUID = 1L;
 
 	private JSpinner midSpn;
@@ -64,11 +62,6 @@ public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableD
 	}
 
 	@Override
-	public void initAttributes() {
-		updateBtn.setText(ACTION_UPDATE);
-	}
-
-	@Override
 	public void refreshData(Medicine medicine) {
 		midSpn.setValue(medicine.medId());
 		massSpn.setValue(medicine.mass());
@@ -96,10 +89,11 @@ public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableD
 		unitCmbx.setEnabled(enabled);
 		articlePanel.setEditsEnabled(enabled);
 		updateBtn.setEnabled(enabled);
+		removeBtn.setEnabled(enabled);
 	}
 
 	@Override
-	public void updateListeners(UpdateItemPanelControl controller) {
+	public void updateListeners(UpdateItemPanelControl<?> controller) {
 		super.updateListeners(controller);
 		articlePanel.updateListeners(controller);
 	}

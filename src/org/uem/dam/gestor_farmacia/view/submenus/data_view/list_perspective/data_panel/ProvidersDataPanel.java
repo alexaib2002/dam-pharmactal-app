@@ -11,8 +11,6 @@ import net.miginfocom.swing.MigLayout;
 
 public class ProvidersDataPanel extends UpdateDataDefaultPanel implements RefreshableDataPanel<Provider> {
 
-	public static final String ACTION_UPDATE = "Update Provider";
-
 	private static final long serialVersionUID = 1L;
 
 	private JTextField nameTxt;
@@ -56,11 +54,6 @@ public class ProvidersDataPanel extends UpdateDataDefaultPanel implements Refres
 	}
 
 	@Override
-	public void initAttributes() {
-		updateBtn.setText(ACTION_UPDATE);
-	}
-
-	@Override
 	public void refreshData(Provider provider) {
 		nameTxt.setText(provider.name());
 		pidSpn.setValue(provider.providerId());
@@ -80,6 +73,7 @@ public class ProvidersDataPanel extends UpdateDataDefaultPanel implements Refres
 		phoneTxt.setEnabled(enabled);
 		addrTxt.setEnabled(enabled);
 		updateBtn.setEnabled(enabled);
+		removeBtn.setEnabled(enabled);
 	}
 
 }
