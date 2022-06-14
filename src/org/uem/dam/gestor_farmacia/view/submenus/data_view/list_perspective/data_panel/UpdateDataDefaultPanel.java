@@ -3,13 +3,16 @@ package org.uem.dam.gestor_farmacia.view.submenus.data_view.list_perspective.dat
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import org.uem.dam.gestor_farmacia.control.subcontrol.UpdateItemPanelControl;
 import org.uem.dam.gestor_farmacia.model.DBItem;
 import org.uem.dam.gestor_farmacia.view.DefaultComponent;
+import org.uem.dam.gestor_farmacia.view.InteractableView;
 import org.uem.dam.gestor_farmacia.view.submenus.FetchableSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-public abstract class UpdateDataDefaultPanel extends DefaultComponent implements FetchableSubmenu<DBItem> {
+public abstract class UpdateDataDefaultPanel extends DefaultComponent
+		implements FetchableSubmenu<DBItem>, InteractableView<UpdateItemPanelControl> {
 
 	public static final String ACTION_UPDATE = "NOACTION";
 
@@ -29,5 +32,10 @@ public abstract class UpdateDataDefaultPanel extends DefaultComponent implements
 
 	@Override
 	public abstract DBItem getInputItem();
+
+	@Override
+	public void updateListeners(UpdateItemPanelControl controller) {
+		updateBtn.addActionListener(controller);
+	}
 
 }

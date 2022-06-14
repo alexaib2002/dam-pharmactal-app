@@ -75,7 +75,11 @@ public class InsertArticleControl extends DefaultSubcontrol implements ActionLis
 			});
 
 			if (result == 1) {
-				WindowActionUtils.promptInfoDialog(mainFrame, "Sentencia ejecutada correctamente", JOptionPane.INFORMATION_MESSAGE);
+				WindowActionUtils.promptInfoDialog(
+						mainFrame,
+						"Sentencia ejecutada correctamente",
+						JOptionPane.INFORMATION_MESSAGE
+				);
 			}
 
 		} else if (item instanceof Medicine) {
@@ -102,10 +106,11 @@ public class InsertArticleControl extends DefaultSubcontrol implements ActionLis
 				String[] cols = ContractUtils.getAllCols(MedContract.class);
 				String query = SQLQueryBuilder.buildInsertQuery(TableContract.MEDS.toString(), cols);
 
-
-
 				pstmt = con.prepareStatement(query);
-				pstmt.setInt(1, persistence.getTableMaxValue(TableContract.ARTICLES.toString(), ArticleContract.AID.toString()));
+				pstmt.setInt(
+						1,
+						persistence.getTableMaxValue(TableContract.ARTICLES.toString(), ArticleContract.AID.toString())
+				);
 				pstmt.setInt(2, medicine.medId());
 				pstmt.setInt(3, medicine.mass());
 				pstmt.setString(4, medicine.unit());
@@ -115,7 +120,11 @@ public class InsertArticleControl extends DefaultSubcontrol implements ActionLis
 			});
 
 			if (result == 1) {
-				WindowActionUtils.promptInfoDialog(mainFrame, "Sentencia ejecutada correctamente", JOptionPane.INFORMATION_MESSAGE);
+				WindowActionUtils.promptInfoDialog(
+						mainFrame,
+						"Sentencia ejecutada correctamente",
+						JOptionPane.INFORMATION_MESSAGE
+				);
 			}
 
 		}

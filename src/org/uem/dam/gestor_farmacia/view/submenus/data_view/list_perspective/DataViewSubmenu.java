@@ -58,7 +58,9 @@ public class DataViewSubmenu extends DefaultInteractableSubmenu<MainController> 
 
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({
+			"unchecked",
+			"rawtypes" })
 	@Override
 	public void updateListeners(MainController controller) {
 		ChangeListener updateManager = new DataViewContnListener(controller, this);
@@ -71,11 +73,18 @@ public class DataViewSubmenu extends DefaultInteractableSubmenu<MainController> 
 				ItemListContainer itmListContainer = (ItemListContainer) pointerEntry.getValue();
 				String tableName = pointerEntry.getKey();
 				itmListContainer.updateListeners(
-						new ItemListContnListener(controller, tableName, controller.getDbItemMap(),
-								itmListContainer.getList(), itemInspectorContainer.getDataPanel(tableName)));
+						new ItemListContnListener(
+								controller,
+								tableName,
+								controller.getDbItemMap(),
+								itmListContainer.getList(),
+								itemInspectorContainer.getDataPanel(tableName)
+						)
+				);
 			}
 		}
 		updateManager.stateChanged(null); // fire another time so listeners can retrieve data
+		itemInspectorContainer.updateListeners(controller);
 	}
 
 	public JTabbedPane getTabbedPane() {

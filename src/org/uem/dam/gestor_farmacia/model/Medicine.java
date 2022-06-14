@@ -12,7 +12,7 @@ public record Medicine(
 		return new String[] {
 				Integer.toString(article.articleId()),
 				Integer.toString(medId),
-				Integer.toString(mass),
+				Double.toString(mass),
 				unit,
 				Boolean.toString(requiresPresc) };
 	}
