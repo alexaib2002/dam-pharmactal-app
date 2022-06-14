@@ -29,9 +29,10 @@ public class UpdateMedPanelControl extends UpdateItemPanelControl<MedDataPanel> 
 					ContractUtils.getAllCols(MedContract.class),
 					"AID"
 			);
+
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, article.medId());
-			pstmt.setInt(2, article.article().articleId());
+			pstmt.setInt(1, article.article().articleId());
+			pstmt.setInt(2, article.medId());
 			pstmt.setInt(3, article.mass());
 			pstmt.setString(4, article.unit());
 			pstmt.setBoolean(5, article.requiresPresc());

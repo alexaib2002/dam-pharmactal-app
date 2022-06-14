@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.border.TitledBorder;
 
+import org.uem.dam.gestor_farmacia.control.subcontrol.UpdateItemPanelControl;
 import org.uem.dam.gestor_farmacia.model.Medicine;
 
 import net.miginfocom.swing.MigLayout;
@@ -79,7 +80,7 @@ public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableD
 	@Override
 	public Medicine getInputItem() {
 		return new Medicine(
-				null, // FIXME fetch article
+				articlePanel.getInputItem(), // FIXME fetch article
 				(int) midSpn.getValue(),
 				(int) massSpn.getValue(),
 				(String) unitCmbx.getSelectedItem(),
@@ -95,6 +96,12 @@ public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableD
 		unitCmbx.setEnabled(enabled);
 		articlePanel.setEditsEnabled(enabled);
 		updateBtn.setEnabled(enabled);
+	}
+
+	@Override
+	public void updateListeners(UpdateItemPanelControl controller) {
+		super.updateListeners(controller);
+		articlePanel.updateListeners(controller);
 	}
 
 }

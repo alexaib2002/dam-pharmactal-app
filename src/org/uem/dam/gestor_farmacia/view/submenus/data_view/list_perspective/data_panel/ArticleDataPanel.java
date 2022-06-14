@@ -82,9 +82,9 @@ public class ArticleDataPanel extends UpdateDataDefaultPanel implements Refresha
 	public Article getInputItem() {
 		return new Article(
 				Integer.parseInt(aidTxt.getText()),
-				2,
+				(int) pidSpn.getValue(),
 				nameTxt.getText(),
-				Double.parseDouble((String) priceSpn.getValue()),
+				Double.parseDouble(priceSpn.getValue().toString()),
 				(int) stockSpn.getValue()
 		);
 	}
