@@ -25,8 +25,8 @@ public class UpdateArticlePanelControl extends UpdateItemPanelControl<ArticleDat
 			String query = SQLQueryBuilder.buildUpdateQuery(
 					TableContract.ARTICLES.toString(),
 					ContractUtils.getAllCols(ArticleContract.class),
-					"AID"
-			);
+					ArticleContract.AID.toString()
+					);
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, article.articleId());
 			pstmt.setInt(2, article.providerId());
@@ -40,13 +40,26 @@ public class UpdateArticlePanelControl extends UpdateItemPanelControl<ArticleDat
 				mainFrame,
 				String.format("%s item has been updated sucessfully", result),
 				JOptionPane.INFORMATION_MESSAGE
-		);
+				);
 	}
 
 	@Override
 	public void onRemoveAction() {
-		// TODO Auto-generated method stub
-
+		Article article = dataPanel.getInputItem();
+		int result = persistence.executeUpdate((con, pstmt) -> {
+			String query = SQLQueryBuilder.buildDeleteQuery(
+					TableContract.ARTICLES.toString(),
+					ArticleContract.AID.toString()
+					);
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, article.articleId());
+			return pstmt;
+		});
+		WindowActionUtils.promptInfoDialog(
+				mainFrame,
+				String.format("%s item has been removed sucessfully", result),
+				JOptionPane.INFORMATION_MESSAGE
+				);
 	}
 
 }

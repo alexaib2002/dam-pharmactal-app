@@ -25,8 +25,8 @@ public class UpdateProviderPanelControl extends UpdateItemPanelControl<Providers
 			String query = SQLQueryBuilder.buildUpdateQuery(
 					TableContract.PROVIDERS.toString(),
 					ContractUtils.getAllCols(ProviderContract.class),
-					"PID"
-			);
+					ProviderContract.PID.toString()
+					);
 			pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, article.providerId());
 			pstmt.setString(2, article.name());
@@ -39,13 +39,26 @@ public class UpdateProviderPanelControl extends UpdateItemPanelControl<Providers
 				mainFrame,
 				String.format("%s item has been updated sucessfully", result),
 				JOptionPane.INFORMATION_MESSAGE
-		);
+				);
 	}
 
 	@Override
 	public void onRemoveAction() {
-		// TODO Auto-generated method stub
-
+		Provider article = dataPanel.getInputItem();
+		int result = persistence.executeUpdate((con, pstmt) -> {
+			String query = SQLQueryBuilder.buildDeleteQuery(
+					TableContract.PROVIDERS.toString(),
+					ProviderContract.PID.toString()
+					);
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, article.providerId());
+			return pstmt;
+		});
+		WindowActionUtils.promptInfoDialog(
+				mainFrame,
+				String.format("%s item has been removed sucessfully", result),
+				JOptionPane.INFORMATION_MESSAGE
+				);
 	}
 
 }

@@ -1,7 +1,7 @@
 package org.uem.dam.gestor_farmacia.utils;
 
 public abstract class SQLQueryBuilder {
-	
+
 	public static String buildSelectQuery(String table, String[] cols, String[] where, String orderBy,
 			boolean distinct) {
 		String query = "SELECT ";
@@ -142,5 +142,5 @@ public abstract class SQLQueryBuilder {
 
 		return query;
 	}
-	
+
 }
