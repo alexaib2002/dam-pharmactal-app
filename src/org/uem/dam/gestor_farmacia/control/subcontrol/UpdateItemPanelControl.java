@@ -27,6 +27,7 @@ public abstract class UpdateItemPanelControl<T extends UpdateDataDefaultPanel> e
 		} else if (emisor.getName().equals(UpdateDataDefaultPanel.NAME_BTN_REMOVE)) {
 			onRemoveAction();
 		}
+		mainController.refreshList();
 	}
 
 	public abstract void onUpdateAction();

@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.event.ChangeListener;
 
 import org.uem.dam.gestor_farmacia.contract.TableContract;
 import org.uem.dam.gestor_farmacia.control.MainController;
@@ -63,7 +62,8 @@ public class DataViewSubmenu extends DefaultInteractableSubmenu<MainController> 
 			"rawtypes" })
 	@Override
 	public void updateListeners(MainController controller) {
-		ChangeListener updateManager = new DataViewContnListener(controller, this);
+		DataViewContnListener updateManager = new DataViewContnListener(controller, this);
+		controller.setDataViewUpdateManager(updateManager);
 		tabbedPane.addChangeListener(updateManager);
 		// FIXME implement #17 will fix need of firing
 		updateManager.stateChanged(null); // fire first run so dbItemMap is loaded with data
