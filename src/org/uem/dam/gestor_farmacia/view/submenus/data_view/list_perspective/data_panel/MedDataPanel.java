@@ -22,6 +22,14 @@ public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableD
 	private JComboBox<String> unitCmbx;
 	private ArticleDataPanel articlePanel;
 
+	public MedDataPanel(boolean nested) {
+		super(nested);
+	}
+
+	public MedDataPanel() {
+		super(false);
+	}
+
 	@Override
 	public void initComponents() {
 		super.initComponents();
@@ -30,17 +38,20 @@ public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableD
 
 		editPanel.setLayout(new MigLayout("", "[right][grow]", "[][][][]"));
 
+		articlePanel = new ArticleDataPanel(true);
+		editPanel.add(articlePanel, "cell 0 0 3 1,grow");
+
 		JLabel aidLbl = new JLabel("Medicine ID");
-		editPanel.add(aidLbl, "flowy,cell 0 0,alignx right,aligny center");
+		editPanel.add(aidLbl, "flowy,cell 0 1,alignx right,aligny center");
 
 		midSpn = new JSpinner();
-		editPanel.add(midSpn, "cell 1 0");
+		editPanel.add(midSpn, "cell 1 1");
 
 		JLabel nameLbl = new JLabel("Mass");
-		editPanel.add(nameLbl, "cell 0 1,alignx trailing");
+		editPanel.add(nameLbl, "cell 0 2,alignx trailing");
 
 		massSpn = new JSpinner();
-		editPanel.add(massSpn, "flowx,cell 1 1,alignx center");
+		editPanel.add(massSpn, "flowx,cell 1 2,alignx center");
 
 		unitCmbx = new JComboBox<String>();
 		unitCmbx.setModel(
@@ -49,16 +60,13 @@ public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableD
 								"g",
 								"mg",
 								"l",
-								"ml" }
-				)
-		);
-		editPanel.add(unitCmbx, "cell 2 1,growx");
+						"ml" }
+						)
+				);
+		editPanel.add(unitCmbx, "cell 2 2,growx");
 
 		chckbxNewCheckBox = new JCheckBox("Requires prescription");
-		editPanel.add(chckbxNewCheckBox, "cell 0 2 3 1,alignx center");
-
-		articlePanel = new ArticleDataPanel();
-		editPanel.add(articlePanel, "cell 0 3 3 1,grow");
+		editPanel.add(chckbxNewCheckBox, "cell 0 3 3 1,alignx center");
 	}
 
 	@Override
@@ -78,7 +86,7 @@ public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableD
 				(int) massSpn.getValue(),
 				(String) unitCmbx.getSelectedItem(),
 				chckbxNewCheckBox.isSelected()
-		);
+				);
 	}
 
 	@Override

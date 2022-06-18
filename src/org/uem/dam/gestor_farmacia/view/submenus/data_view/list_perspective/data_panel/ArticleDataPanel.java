@@ -21,6 +21,14 @@ public class ArticleDataPanel extends UpdateDataDefaultPanel implements Refresha
 	private JSpinner stockSpn;
 	private JSpinner pidSpn;
 
+	public ArticleDataPanel(boolean nested) {
+		super(nested);
+	}
+
+	public ArticleDataPanel() {
+		super(false);
+	}
+
 	@Override
 	public void initComponents() {
 		super.initComponents();
@@ -79,7 +87,7 @@ public class ArticleDataPanel extends UpdateDataDefaultPanel implements Refresha
 				nameTxt.getText(),
 				Double.parseDouble(priceSpn.getValue().toString()),
 				(int) stockSpn.getValue()
-		);
+				);
 	}
 
 	@Override
@@ -94,11 +102,5 @@ public class ArticleDataPanel extends UpdateDataDefaultPanel implements Refresha
 		updateBtn.setEnabled(enabled);
 		removeBtn.setEnabled(enabled);
 	}
-
-//	@Override
-//	public void updateListeners(ActionListener controller) {
-//		// TODO Auto-generated method stub-
-//
-//	}
 
 }

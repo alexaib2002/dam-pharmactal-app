@@ -133,7 +133,7 @@ public class MainFrame extends JFrame implements InteractableView<MainController
 		this.setTitle("Gestor de Base de Datos");
 		this.pack();
 		this.setMinimumSize(getSize());
-		this.setSize(new Dimension(700, 500)); // FIXME hardcode
+		this.setSize(new Dimension(900, 700)); // FIXME hardcode
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
 		// insertFrame initialization

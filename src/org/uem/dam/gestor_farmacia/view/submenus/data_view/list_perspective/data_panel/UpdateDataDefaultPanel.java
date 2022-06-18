@@ -15,7 +15,7 @@ import org.uem.dam.gestor_farmacia.view.submenus.FetchableSubmenu;
 import net.miginfocom.swing.MigLayout;
 
 public abstract class UpdateDataDefaultPanel extends DefaultComponent
-		implements FetchableSubmenu<DBItem>, InteractableView<UpdateItemPanelControl<?>> {
+implements FetchableSubmenu<DBItem>, InteractableView<UpdateItemPanelControl<?>> {
 
 	public static final String NAME_BTN_UPDATE = "UpdateButton";
 	public static final String NAME_BTN_REMOVE = "RemoveButton";
@@ -26,14 +26,20 @@ public abstract class UpdateDataDefaultPanel extends DefaultComponent
 	protected JButton removeBtn;
 	protected JPanel editPanel;
 
+	public UpdateDataDefaultPanel(boolean nested) {
+		removeBtn.setEnabled(!nested);
+		removeBtn.setVisible(!nested);
+		if (nested) {
+			this.remove(updateBtn);
+			this.add(updateBtn, "cell 0 1 2,alignx center");
+		}
+	}
+
 	@Override
 	public void initComponents() {
 		setLayout(new MigLayout("", "[grow,right][grow]", "[grow][]"));
 		editPanel = new JPanel();
 		this.add(editPanel, "cell 0 0 2 1,grow");
-
-		// FIXME this shouldn't be added on nested panels, fix separating delete button
-		// to RootDataPanel Class
 
 		Insets buttonMargins = new Insets(10, 10, 10, 10);
 
@@ -58,5 +64,4 @@ public abstract class UpdateDataDefaultPanel extends DefaultComponent
 		updateBtn.addActionListener(controller);
 		removeBtn.addActionListener(controller);
 	}
-
 }

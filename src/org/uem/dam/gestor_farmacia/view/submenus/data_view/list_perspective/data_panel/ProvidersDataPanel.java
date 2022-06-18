@@ -18,6 +18,14 @@ public class ProvidersDataPanel extends UpdateDataDefaultPanel implements Refres
 	private JTextField phoneTxt;
 	private JTextField addrTxt;
 
+	public ProvidersDataPanel() {
+		super(false);
+	}
+
+	public ProvidersDataPanel(boolean nested) {
+		super(nested);
+	}
+
 	@Override
 	public void initComponents() {
 		super.initComponents();
