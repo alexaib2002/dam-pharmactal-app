@@ -67,7 +67,6 @@ public class MainController implements ActionListener {
 			mainFrame.setSubmenuView(mainFrame.getGreetSubmn());
 			break;
 		}
-		// FIXME this could be refactored into their own controller
 		case MainFrame.ACTION_NEW_ARTICLE: {
 			mainFrame.popupInsertFrame(MainFrame.POPUP_INSERT_ARTICLE);
 			break;

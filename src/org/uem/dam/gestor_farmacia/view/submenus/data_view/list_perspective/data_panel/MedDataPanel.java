@@ -81,7 +81,7 @@ public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableD
 	@Override
 	public Medicine getInputItem() {
 		return new Medicine(
-				articlePanel.getInputItem(), // FIXME fetch article
+				articlePanel.getInputItem(),
 				(int) midSpn.getValue(),
 				(int) massSpn.getValue(),
 				(String) unitCmbx.getSelectedItem(),
