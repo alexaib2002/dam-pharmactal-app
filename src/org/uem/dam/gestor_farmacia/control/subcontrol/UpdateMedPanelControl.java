@@ -2,6 +2,7 @@ package org.uem.dam.gestor_farmacia.control.subcontrol;
 
 import javax.swing.JOptionPane;
 
+import org.uem.dam.gestor_farmacia.contract.ArticleContract;
 import org.uem.dam.gestor_farmacia.contract.MedContract;
 import org.uem.dam.gestor_farmacia.contract.TableContract;
 import org.uem.dam.gestor_farmacia.control.MainController;
@@ -49,7 +50,26 @@ public class UpdateMedPanelControl extends UpdateItemPanelControl<MedDataPanel> 
 
 	@Override
 	public void onRemoveAction() {
-		// TODO Auto-generated method stub
+		Medicine med = dataPanel.getInputItem();
+		Article medArt = med.article();
+		int result = persistence.executeUpdate((con, pstmt) -> {
+			String query = SQLQueryBuilder.buildDeleteQuery(
+					TableContract.MEDS.toString(),
+					MedContract.MID.toString()
+					);
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, med.medId());
+			return pstmt;
+		});
+		result = persistence.executeUpdate((con, pstmt) -> {
+			String query = SQLQueryBuilder.buildDeleteQuery(
+					TableContract.ARTICLES.toString(),
+					ArticleContract.AID.toString()
+					);
+			pstmt = con.prepareStatement(query);
+			pstmt.setInt(1, medArt.articleId());
+			return pstmt;
+		});
 
 	}
 
