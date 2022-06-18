@@ -5,7 +5,9 @@ import javax.swing.JOptionPane;
 import org.uem.dam.gestor_farmacia.contract.MedContract;
 import org.uem.dam.gestor_farmacia.contract.TableContract;
 import org.uem.dam.gestor_farmacia.control.MainController;
+import org.uem.dam.gestor_farmacia.model.Article;
 import org.uem.dam.gestor_farmacia.model.Medicine;
+import org.uem.dam.gestor_farmacia.persist.sql_expressions.UpdateItem;
 import org.uem.dam.gestor_farmacia.utils.ContractUtils;
 import org.uem.dam.gestor_farmacia.utils.SQLQueryBuilder;
 import org.uem.dam.gestor_farmacia.utils.WindowActionUtils;
@@ -20,28 +22,29 @@ public class UpdateMedPanelControl extends UpdateItemPanelControl<MedDataPanel> 
 
 	@Override
 	public void onUpdateAction() {
-		Medicine article = dataPanel.getInputItem();
-		int result = persistence.executeUpdate((con, pstmt) -> {
+		Medicine med = dataPanel.getInputItem();
+		Article medArt = med.article();
+		int medResult = persistence.executeUpdate((con, pstmt) -> {
 			String query = SQLQueryBuilder.buildUpdateQuery(
 					TableContract.MEDS.toString(),
 					ContractUtils.getAllCols(MedContract.class),
 					"AID"
-			);
-
+					);
 			pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, article.article().articleId());
-			pstmt.setInt(2, article.medId());
-			pstmt.setInt(3, article.mass());
-			pstmt.setString(4, article.unit());
-			pstmt.setBoolean(5, article.requiresPresc());
-			pstmt.setInt(6, article.article().articleId());
+			pstmt.setInt(1, medArt.articleId());
+			pstmt.setInt(2, med.medId());
+			pstmt.setInt(3, med.mass());
+			pstmt.setString(4, med.unit());
+			pstmt.setBoolean(5, med.requiresPresc());
+			pstmt.setInt(6, medArt.articleId());
 			return pstmt;
 		});
+		int artResult = persistence.executeUpdate(new UpdateItem(medArt));
 		WindowActionUtils.promptInfoDialog(
 				mainFrame,
-				String.format("%s item has been updated sucessfully", result),
+				String.format("%s item and %s med has been updated sucessfully", medResult, artResult),
 				JOptionPane.INFORMATION_MESSAGE
-		);
+				);
 	}
 
 	@Override

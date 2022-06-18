@@ -27,11 +27,9 @@ implements FetchableSubmenu<DBItem>, InteractableView<UpdateItemPanelControl<?>>
 	protected JPanel editPanel;
 
 	public UpdateDataDefaultPanel(boolean nested) {
-		removeBtn.setEnabled(!nested);
-		removeBtn.setVisible(!nested);
 		if (nested) {
 			this.remove(updateBtn);
-			this.add(updateBtn, "cell 0 1 2,alignx center");
+			this.remove(removeBtn);
 		}
 	}
 
