@@ -49,4 +49,8 @@ public class GreetSubmenu extends DefaultInteractableSubmenu<ActionListener> imp
 		return userInfoPanel;
 	}
 
+	public JButton getBtnContinue() {
+		return btnContinue;
+	}
+	
 }
