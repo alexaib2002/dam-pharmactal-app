@@ -12,12 +12,14 @@ public abstract class WindowActionUtils {
 				"Closing window, is that OK?",
 				"Closing",
 				JOptionPane.YES_NO_OPTION,
-				JOptionPane.WARNING_MESSAGE) == JOptionPane.YES_OPTION);
+				JOptionPane.WARNING_MESSAGE
+		) == JOptionPane.YES_OPTION);
 	}
 
 	public static void onExitEvent(Window window) {
 		if (WindowActionUtils.promptWindowExit(window)) {
 			window.dispose();
+			System.exit(0);
 		}
 	}
 
