@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JWindow;
 
@@ -51,7 +52,11 @@ public class DBPersistence {
 			pstmt = expr.executeSQL(con, pstmt);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			WindowActionUtils.promptInfoDialog(
+					new JFrame(),
+					String.format("Error while inserting item on DDBB:\n%s", e.getMessage()),
+					JOptionPane.ERROR_MESSAGE
+			);
 		} finally {
 			closeStatement(pstmt, con);
 		}
