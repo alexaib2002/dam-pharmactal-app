@@ -56,7 +56,7 @@ public class LoginSubmenu extends DefaultInteractableSubmenu<LoginSubmnControl> 
 		add(psswdFld, "cell 1 4,growx");
 
 		loginBtn = new JButton("Login");
-		add(loginBtn, "cell 1 5,growx");
+		add(loginBtn, "cell 0 5 2 1,growx");
 	}
 
 	@Override
