@@ -4,7 +4,11 @@ import java.util.HashMap;
 
 import javax.swing.JLabel;
 
-import org.uem.dam.gestor_farmacia.view.DefaultComponent;
+import org.uem.dam.gestor_farmacia.control.MainController;
+import org.uem.dam.gestor_farmacia.control.subcontrol.UpdateArticlePanelControl;
+import org.uem.dam.gestor_farmacia.control.subcontrol.UpdateMedPanelControl;
+import org.uem.dam.gestor_farmacia.control.subcontrol.UpdateProviderPanelControl;
+import org.uem.dam.gestor_farmacia.view.submenus.DefaultInteractableSubmenu;
 import org.uem.dam.gestor_farmacia.view.submenus.data_view.list_perspective.data_panel.ArticleDataPanel;
 import org.uem.dam.gestor_farmacia.view.submenus.data_view.list_perspective.data_panel.MedDataPanel;
 import org.uem.dam.gestor_farmacia.view.submenus.data_view.list_perspective.data_panel.ProvidersDataPanel;
@@ -12,7 +16,7 @@ import org.uem.dam.gestor_farmacia.view.submenus.data_view.list_perspective.data
 
 import net.miginfocom.swing.MigLayout;
 
-public class ItemInspectorContainer extends DefaultComponent {
+public class ItemInspectorContainer extends DefaultInteractableSubmenu<MainController> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -41,6 +45,14 @@ public class ItemInspectorContainer extends DefaultComponent {
 		panelReference.put("ARTICLES", articleDataPanel);
 		panelReference.put("MEDS", medDataPanel);
 		panelReference.put("PROVIDERS", providersDataPanel);
+	}
+
+	@Override
+	public void updateListeners(MainController mainController) {
+		articleDataPanel.updateListeners(new UpdateArticlePanelControl(mainController, articleDataPanel));
+		medDataPanel.updateListeners(new UpdateMedPanelControl(mainController, medDataPanel));
+		providersDataPanel.updateListeners(new UpdateProviderPanelControl(mainController, providersDataPanel));
+
 	}
 
 	public RefreshableDataPanel<?> getDataPanel(String table) {
@@ -85,4 +97,5 @@ public class ItemInspectorContainer extends DefaultComponent {
 		this.repaint();
 		this.revalidate();
 	}
+
 }

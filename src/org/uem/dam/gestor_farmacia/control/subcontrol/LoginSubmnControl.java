@@ -33,8 +33,8 @@ public class LoginSubmnControl extends DefaultSubcontrol implements ActionListen
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().toLowerCase().equals("login")) {
 			if (validateLogin()) {
-
 				mainFrame.setSubmenuView(mainFrame.getGreetSubmn());
+				mainFrame.getGreetSubmn().getBtnContinue().grabFocus();
 			} else {
 				WindowActionUtils.promptInfoDialog(
 						mainFrame,

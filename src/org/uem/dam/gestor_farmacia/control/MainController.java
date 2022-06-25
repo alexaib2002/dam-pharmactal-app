@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import org.uem.dam.gestor_farmacia.control.subcontrol.DataViewContnListener;
 import org.uem.dam.gestor_farmacia.model.SystemUser;
 import org.uem.dam.gestor_farmacia.persist.DBItemMap;
 import org.uem.dam.gestor_farmacia.persist.DBPersistence;
@@ -23,6 +24,8 @@ public class MainController implements ActionListener {
 	private final MainFrame mainFrame;
 	private final DBPersistence dbPersistence;
 	private final WindowAdapter winAdapter;
+
+	private DataViewContnListener dataViewUpdateManager;
 
 	public MainController(MainFrame mainFrame) {
 		this.mainFrame = mainFrame;
@@ -64,7 +67,6 @@ public class MainController implements ActionListener {
 			mainFrame.setSubmenuView(mainFrame.getGreetSubmn());
 			break;
 		}
-		// FIXME this could be refactored into their own controller
 		case MainFrame.ACTION_NEW_ARTICLE: {
 			mainFrame.popupInsertFrame(MainFrame.POPUP_INSERT_ARTICLE);
 			break;
@@ -109,6 +111,14 @@ public class MainController implements ActionListener {
 
 	public void setSystemUser(SystemUser systemUser) {
 		this.systemUser = systemUser;
+	}
+
+	public void setDataViewUpdateManager(DataViewContnListener dataViewUpdateManager) {
+		this.dataViewUpdateManager = dataViewUpdateManager;
+	}
+
+	public void refreshList() {
+		dataViewUpdateManager.stateChanged(null);
 	}
 
 }

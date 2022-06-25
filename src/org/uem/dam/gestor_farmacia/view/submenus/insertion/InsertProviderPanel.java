@@ -16,7 +16,7 @@ import org.uem.dam.gestor_farmacia.view.submenus.DefaultInteractableSubmenu;
 import net.miginfocom.swing.MigLayout;
 
 public class InsertProviderPanel extends DefaultInteractableSubmenu<InsertProviderControl>
-implements FetchableSubmenu<Provider> {
+		implements FillableSubmenu<Provider> {
 
 	public static final String ACTION_ADD = "Add Provider";
 	public static final String ACTION_CLEAR = "Clean Data";
@@ -101,7 +101,7 @@ implements FetchableSubmenu<Provider> {
 					new JWindow(),
 					"Invalid phone format\nPhone should contain numeric 9 digits",
 					JOptionPane.ERROR_MESSAGE
-					);
+			);
 		}
 		return phone;
 	}

@@ -6,7 +6,6 @@ import java.util.Map.Entry;
 
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-import javax.swing.event.ChangeListener;
 
 import org.uem.dam.gestor_farmacia.contract.TableContract;
 import org.uem.dam.gestor_farmacia.control.MainController;
@@ -58,10 +57,13 @@ public class DataViewSubmenu extends DefaultInteractableSubmenu<MainController> 
 
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@SuppressWarnings({
+			"unchecked",
+			"rawtypes" })
 	@Override
 	public void updateListeners(MainController controller) {
-		ChangeListener updateManager = new DataViewContnListener(controller, this);
+		DataViewContnListener updateManager = new DataViewContnListener(controller, this);
+		controller.setDataViewUpdateManager(updateManager);
 		tabbedPane.addChangeListener(updateManager);
 		// FIXME implement #17 will fix need of firing
 		updateManager.stateChanged(null); // fire first run so dbItemMap is loaded with data
@@ -71,11 +73,18 @@ public class DataViewSubmenu extends DefaultInteractableSubmenu<MainController> 
 				ItemListContainer itmListContainer = (ItemListContainer) pointerEntry.getValue();
 				String tableName = pointerEntry.getKey();
 				itmListContainer.updateListeners(
-						new ItemListContnListener(controller, tableName, controller.getDbItemMap(),
-								itmListContainer.getList(), itemInspectorContainer.getDataPanel(tableName)));
+						new ItemListContnListener(
+								controller,
+								tableName,
+								controller.getDbItemMap(),
+								itmListContainer.getList(),
+								itemInspectorContainer.getDataPanel(tableName)
+						)
+				);
 			}
 		}
 		updateManager.stateChanged(null); // fire another time so listeners can retrieve data
+		itemInspectorContainer.updateListeners(controller);
 	}
 
 	public JTabbedPane getTabbedPane() {

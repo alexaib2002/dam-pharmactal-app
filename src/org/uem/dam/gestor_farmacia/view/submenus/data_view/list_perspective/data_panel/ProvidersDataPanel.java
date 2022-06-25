@@ -6,11 +6,10 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import org.uem.dam.gestor_farmacia.model.Provider;
-import org.uem.dam.gestor_farmacia.view.DefaultComponent;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ProvidersDataPanel extends DefaultComponent implements RefreshableDataPanel<Provider> {
+public class ProvidersDataPanel extends UpdateDataDefaultPanel implements RefreshableDataPanel<Provider> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,36 +18,46 @@ public class ProvidersDataPanel extends DefaultComponent implements RefreshableD
 	private JTextField phoneTxt;
 	private JTextField addrTxt;
 
+	public ProvidersDataPanel() {
+		super(false);
+	}
+
+	public ProvidersDataPanel(boolean nested) {
+		super(nested);
+	}
+
 	@Override
 	public void initComponents() {
+		super.initComponents();
 		setBorder(new TitledBorder(null, "Provider", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		setLayout(new MigLayout("", "[right][grow]", "[][][][]"));
+
+		editPanel.setLayout(new MigLayout("", "[right][grow]", "[][][][]"));
 
 		JLabel pidLbl = new JLabel("Provider ID");
-		this.add(pidLbl, "flowy,cell 0 0,alignx right,aligny center");
+		editPanel.add(pidLbl, "flowy,cell 0 0,alignx right,aligny center");
 
 		pidSpn = new JSpinner();
-		add(pidSpn, "cell 1 0");
+		editPanel.add(pidSpn, "cell 1 0");
 
 		JLabel nameLbl = new JLabel("Name");
-		this.add(nameLbl, "cell 0 1");
+		editPanel.add(nameLbl, "cell 0 1");
 
 		nameTxt = new JTextField();
-		this.add(nameTxt, "cell 1 1,growx");
+		editPanel.add(nameTxt, "cell 1 1,growx");
 		nameTxt.setColumns(10);
 
 		JLabel priceLbl = new JLabel("Phone");
-		add(priceLbl, "cell 0 2,alignx trailing");
+		editPanel.add(priceLbl, "cell 0 2,alignx trailing");
 
 		phoneTxt = new JTextField();
-		add(phoneTxt, "cell 1 2,growx");
+		editPanel.add(phoneTxt, "cell 1 2,growx");
 		phoneTxt.setColumns(10);
 
 		JLabel stockLbl = new JLabel("Address");
-		add(stockLbl, "cell 0 3,alignx trailing");
+		editPanel.add(stockLbl, "cell 0 3,alignx trailing");
 
 		addrTxt = new JTextField();
-		add(addrTxt, "cell 1 3,growx");
+		editPanel.add(addrTxt, "cell 1 3,growx");
 		addrTxt.setColumns(10);
 	}
 
@@ -61,11 +70,18 @@ public class ProvidersDataPanel extends DefaultComponent implements RefreshableD
 	}
 
 	@Override
+	public Provider getInputItem() {
+		return new Provider((int) pidSpn.getValue(), nameTxt.getText(), phoneTxt.getText(), addrTxt.getText());
+	}
+
+	@Override
 	public void setEditsEnabled(boolean enabled) {
 		nameTxt.setEnabled(enabled);
 		pidSpn.setEnabled(enabled);
 		phoneTxt.setEnabled(enabled);
 		addrTxt.setEnabled(enabled);
+		updateBtn.setEnabled(enabled);
+		removeBtn.setEnabled(enabled);
 	}
 
 }

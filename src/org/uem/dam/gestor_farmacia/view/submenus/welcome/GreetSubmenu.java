@@ -23,7 +23,7 @@ public class GreetSubmenu extends DefaultInteractableSubmenu<ActionListener> imp
 
 	@Override
 	public void initComponents() {
-		setLayout(new MigLayout("", "[163px,grow,center]", "[][][grow][183.00,grow][grow]"));
+		setLayout(new MigLayout("", "[163px,grow,center]", "[][][grow][]"));
 
 		JLabel lblWelcome = new JLabel("Pharmactal Data Manager");
 		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -36,7 +36,7 @@ public class GreetSubmenu extends DefaultInteractableSubmenu<ActionListener> imp
 		add(userInfoPanel, "cell 0 2,grow");
 
 		btnContinue = new JButton(ACTION_CONTINUE);
-		add(btnContinue, "cell 0 4,alignx center");
+		add(btnContinue, "cell 0 3,growx,aligny center");
 
 	}
 
@@ -49,4 +49,7 @@ public class GreetSubmenu extends DefaultInteractableSubmenu<ActionListener> imp
 		return userInfoPanel;
 	}
 
+	public JButton getBtnContinue() {
+		return btnContinue;
+	}
 }

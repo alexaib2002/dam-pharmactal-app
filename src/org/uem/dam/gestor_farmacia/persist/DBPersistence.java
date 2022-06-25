@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JWindow;
 
@@ -51,7 +52,11 @@ public class DBPersistence {
 			pstmt = expr.executeSQL(con, pstmt);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
+			WindowActionUtils.promptInfoDialog(
+					new JFrame(),
+					String.format("Error while inserting item on DDBB:\n%s", e.getMessage()),
+					JOptionPane.ERROR_MESSAGE
+			);
 		} finally {
 			closeStatement(pstmt, con);
 		}
@@ -62,29 +67,21 @@ public class DBPersistence {
 		ArrayList<DBItem> result = new ArrayList<>();
 		for (Object[] columnValues : fetchColumns(expr, colCount)) {
 			if (itemClass.equals(Article.class)) {
+				double price = 0d;
 				try {
-					result.add(
-							new Article(
-									(int) columnValues[0],
-									(int) columnValues[1],
-									(String) columnValues[2],
-									(double) columnValues[3],
-									(int) columnValues[4]
-							)
-					);
+					price = (double) columnValues[3];
 				} catch (ClassCastException cce) {
-					if (cce.getMessage().contains("java.lang.Integer cannot be cast to class java.lang.Double")) {
-						result.add(
-								new Article(
-										(int) columnValues[0],
-										(int) columnValues[1],
-										(String) columnValues[2],
-										(double) (Integer) columnValues[3],
-										(int) columnValues[4]
-								)
-						);
-					}
+					price = (int) columnValues[3];
 				}
+				result.add(
+						new Article(
+								(int) columnValues[0],
+								(int) columnValues[1],
+								(String) columnValues[2],
+								price,
+								(int) columnValues[4]
+						)
+				);
 			} else if (itemClass.equals(Medicine.class)) {
 				String[] cols = ContractUtils.getAllCols(ArticleContract.class);
 				Article foreignArticle = null;
@@ -111,27 +108,15 @@ public class DBPersistence {
 					);
 					continue;
 				}
-				try {
-					result.add(
-							new Medicine(
-									foreignArticle,
-									(int) columnValues[1],
-									(int) columnValues[2],
-									(String) columnValues[3],
-									(int) columnValues[4] == 1
-							)
-					);
-				} catch (ClassCastException cce) {
-					result.add(
-							new Medicine(
-									foreignArticle,
-									(int) columnValues[1],
-									(int) (double) columnValues[2],
-									(String) columnValues[3],
-									(int) columnValues[4] == 1
-							)
-					);
-				}
+				result.add(
+						new Medicine(
+								foreignArticle,
+								(int) columnValues[1],
+								(int) columnValues[2],
+								(String) columnValues[3],
+								(int) columnValues[4] == 1
+						)
+				);
 			} else if (itemClass.equals(Provider.class)) {
 				result.add(
 						new Provider(

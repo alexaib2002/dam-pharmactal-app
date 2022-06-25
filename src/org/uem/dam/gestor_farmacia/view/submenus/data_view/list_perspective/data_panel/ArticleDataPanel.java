@@ -6,11 +6,10 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import org.uem.dam.gestor_farmacia.model.Article;
-import org.uem.dam.gestor_farmacia.view.DefaultComponent;
 
 import net.miginfocom.swing.MigLayout;
 
-public class ArticleDataPanel extends DefaultComponent implements RefreshableDataPanel<Article> {
+public class ArticleDataPanel extends UpdateDataDefaultPanel implements RefreshableDataPanel<Article> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -20,45 +19,75 @@ public class ArticleDataPanel extends DefaultComponent implements RefreshableDat
 	private JSpinner priceSpn;
 	private JLabel stockLbl;
 	private JSpinner stockSpn;
+	private JSpinner pidSpn;
+
+	public ArticleDataPanel(boolean nested) {
+		super(nested);
+	}
+
+	public ArticleDataPanel() {
+		super(false);
+	}
 
 	@Override
 	public void initComponents() {
-		setBorder(new TitledBorder(null, "Article", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		setLayout(new MigLayout("", "[right][grow]", "[][][][]"));
+		super.initComponents();
 
+		setBorder(new TitledBorder(null, "Article", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+
+		editPanel.setLayout(new MigLayout("", "[right][grow]", "[][][][]"));
 		JLabel aidLbl = new JLabel("Article ID");
-		this.add(aidLbl, "flowy,cell 0 0,alignx right,aligny center");
+		editPanel.add(aidLbl, "flowy,cell 0 0,alignx right,aligny center");
 
 		aidTxt = new JTextField();
-		this.add(aidTxt, "cell 1 0,growx,aligny top");
+		editPanel.add(aidTxt, "cell 1 0,growx,aligny top");
 		aidTxt.setColumns(10);
 
+		JLabel pidLbl = new JLabel("Provider ID");
+		editPanel.add(pidLbl, "cell 0 1,alignx right");
+		pidSpn = new JSpinner();
+		editPanel.add(pidSpn, "cell 1 1");
+
 		JLabel nameLbl = new JLabel("Name");
-		this.add(nameLbl, "cell 0 1,alignx right");
+		editPanel.add(nameLbl, "cell 0 2,alignx right");
 
 		nameTxt = new JTextField();
-		this.add(nameTxt, "cell 1 1,growx");
+
+		editPanel.add(nameTxt, "cell 1 2,growx");
 		nameTxt.setColumns(10);
 
 		priceLbl = new JLabel("Price");
-		add(priceLbl, "cell 0 2,alignx right");
+		editPanel.add(priceLbl, "cell 0 3,alignx right");
 
 		priceSpn = new JSpinner();
-		add(priceSpn, "cell 1 2");
+		editPanel.add(priceSpn, "cell 1 3");
 
 		stockLbl = new JLabel("Stock");
-		add(stockLbl, "cell 0 3,alignx right");
+		editPanel.add(stockLbl, "cell 0 4,alignx right");
 
 		stockSpn = new JSpinner();
-		add(stockSpn, "cell 1 3");
+		editPanel.add(stockSpn, "cell 1 4");
+
 	}
 
 	@Override
 	public void refreshData(Article article) {
 		aidTxt.setText(Integer.toString(article.articleId()));
+		pidSpn.setValue(article.providerId());
 		nameTxt.setText(article.name());
 		priceSpn.setValue(article.price());
 		stockSpn.setValue(article.stock());
+	}
+
+	@Override
+	public Article getInputItem() {
+		return new Article(
+				Integer.parseInt(aidTxt.getText()),
+				(int) pidSpn.getValue(),
+				nameTxt.getText(),
+				Double.parseDouble(priceSpn.getValue().toString()),
+				(int) stockSpn.getValue()
+				);
 	}
 
 	@Override
@@ -69,5 +98,9 @@ public class ArticleDataPanel extends DefaultComponent implements RefreshableDat
 		priceSpn.setEnabled(enabled);
 		stockLbl.setEnabled(enabled);
 		stockSpn.setEnabled(enabled);
+		pidSpn.setEnabled(enabled);
+		updateBtn.setEnabled(enabled);
+		removeBtn.setEnabled(enabled);
 	}
+
 }
