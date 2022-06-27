@@ -60,9 +60,9 @@ public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableD
 								"g",
 								"mg",
 								"l",
-						"ml" }
-						)
-				);
+								"ml" }
+				)
+		);
 		editPanel.add(unitCmbx, "cell 2 2,growx");
 
 		chckbxNewCheckBox = new JCheckBox("Requires prescription");
@@ -86,17 +86,14 @@ public class MedDataPanel extends UpdateDataDefaultPanel implements RefreshableD
 				(int) massSpn.getValue(),
 				(String) unitCmbx.getSelectedItem(),
 				chckbxNewCheckBox.isSelected()
-				);
+		);
 	}
 
 	@Override
 	public void setEditsEnabled(boolean enabled) {
 		midSpn.setEnabled(enabled);
-		massSpn.setEnabled(enabled);
 		chckbxNewCheckBox.setEnabled(enabled);
-		unitCmbx.setEnabled(enabled);
 		articlePanel.setEditsEnabled(enabled);
-		updateBtn.setEnabled(enabled);
 		removeBtn.setEnabled(enabled);
 	}
 

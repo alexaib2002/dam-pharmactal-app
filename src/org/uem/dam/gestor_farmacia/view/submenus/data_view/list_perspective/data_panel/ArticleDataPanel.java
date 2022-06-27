@@ -87,19 +87,14 @@ public class ArticleDataPanel extends UpdateDataDefaultPanel implements Refresha
 				nameTxt.getText(),
 				Double.parseDouble(priceSpn.getValue().toString()),
 				(int) stockSpn.getValue()
-				);
+		);
 	}
 
 	@Override
 	public void setEditsEnabled(boolean enabled) {
 		aidTxt.setEnabled(enabled);
-		nameTxt.setEnabled(enabled);
-		priceLbl.setEnabled(enabled);
-		priceSpn.setEnabled(enabled);
 		stockLbl.setEnabled(enabled);
-		stockSpn.setEnabled(enabled);
 		pidSpn.setEnabled(enabled);
-		updateBtn.setEnabled(enabled);
 		removeBtn.setEnabled(enabled);
 	}
 

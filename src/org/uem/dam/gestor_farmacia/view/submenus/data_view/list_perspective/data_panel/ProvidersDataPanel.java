@@ -76,11 +76,7 @@ public class ProvidersDataPanel extends UpdateDataDefaultPanel implements Refres
 
 	@Override
 	public void setEditsEnabled(boolean enabled) {
-		nameTxt.setEnabled(enabled);
 		pidSpn.setEnabled(enabled);
-		phoneTxt.setEnabled(enabled);
-		addrTxt.setEnabled(enabled);
-		updateBtn.setEnabled(enabled);
 		removeBtn.setEnabled(enabled);
 	}
 
