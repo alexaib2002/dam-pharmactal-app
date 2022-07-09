@@ -212,5 +212,6 @@ public class InsertArticlePanel extends DefaultInteractableSubmenu<InsertArticle
 		rdbtnNo.setSelected(true);
 		chkbxPresc.setSelected(false);
 		cmbxUnits.setSelectedIndex(0);
+		setVisibleMedElements(false);
 	}
 }
