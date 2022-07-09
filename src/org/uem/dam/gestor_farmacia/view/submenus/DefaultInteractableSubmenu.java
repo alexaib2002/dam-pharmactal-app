@@ -14,10 +14,6 @@ public abstract class DefaultInteractableSubmenu<T extends EventListener> extend
 	public abstract void initComponents();
 
 	@Override
-	public void initAttributes() {
-	}
-
-	@Override
 	public abstract void updateListeners(T listener);
 
 }

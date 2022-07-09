@@ -28,8 +28,6 @@ import net.miginfocom.swing.MigLayout;
 
 public class InsertArticlePanel extends DefaultInteractableSubmenu<InsertArticleControl>
 		implements FillableSubmenu<DBItem> {
-	public InsertArticlePanel() {
-	}
 
 	public static final String ACTION_YES = "Yes";
 	public static final String ACTION_NO = "No";

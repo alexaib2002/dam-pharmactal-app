@@ -25,12 +25,9 @@ public class DataViewSubmenu extends DefaultInteractableSubmenu<MainController> 
 	private ItemInspectorContainer itemInspectorContainer;
 	private JSplitPane splitPane;
 
-	public DataViewSubmenu() {
-		setLayout(new MigLayout("", "[grow,fill]", "[grow,fill]"));
-	}
-
 	@Override
 	public void initComponents() {
+		setLayout(new MigLayout("", "[grow,fill]", "[grow,fill]"));
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setMinimumSize(new Dimension(200, 0));
 

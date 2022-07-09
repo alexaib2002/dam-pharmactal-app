@@ -16,7 +16,6 @@ import org.uem.dam.gestor_farmacia.view.submenus.DefaultInteractableSubmenu;
 
 import net.miginfocom.swing.MigLayout;
 
-// FIXME login should extend class FetchableSubmenu
 public class LoginSubmenu extends DefaultInteractableSubmenu<LoginSubmnControl> {
 
 	private static final long serialVersionUID = 1L;
